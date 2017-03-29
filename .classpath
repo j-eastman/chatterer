@@ -27,5 +27,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/JackEastman/Documents/School/Computer Science/Workspaces/SideProjects/convAI/target/dependency/json-20160810.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JackEastman/Documents/School/Computer Science/Workspaces/SideProjects/convAI/target/dependency/postgresql-9.4.1208.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
