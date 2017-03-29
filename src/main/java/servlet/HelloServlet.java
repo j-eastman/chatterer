@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(
         name = "MyServlet",
-        urlPatterns = {"/post"}
+        urlPatterns = {"/POST"}
     )
 public class HelloServlet extends HttpServlet {
 
