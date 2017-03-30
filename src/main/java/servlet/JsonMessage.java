@@ -23,7 +23,7 @@ public class JsonMessage {
 		if (json == null){
 			return "empty";
 		}
-		//System.out.printf("JSON INFO:size-%d toString:%s toJsonString:%s\n", json.size(),json.toString(),json.toJSONString());
+		System.out.printf("JSON INFO:size-%d toString:%s names:%s\n", json.length(),json.toString(),json.names().toString());
 		String s = "error";
 		try {
 			s = json.getString(value);
