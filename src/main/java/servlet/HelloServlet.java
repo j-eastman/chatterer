@@ -1,6 +1,8 @@
 package servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -9,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 @WebServlet("/test")
 public class HelloServlet extends HttpServlet {
@@ -31,6 +34,13 @@ public class HelloServlet extends HttpServlet {
             throws ServletException, IOException {
         //ServletOutputStream out = resp.getOutputStream();
     	PrintWriter out = resp.getWriter();
+    	BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
+         String json = "";
+         while(br != null){
+             json += br.readLine();
+         }
+        JsonMessage jsonMes = new JsonMessage(json);
+        jsonMes.get("message");
 		out.print("HTTP/1.1 200 \r\n"); // Version & status code
 		out.print("Content-Type: text/plain\r\n"); // The type of data
 		out.print("Connection: close\r\n"); // Will close stream
