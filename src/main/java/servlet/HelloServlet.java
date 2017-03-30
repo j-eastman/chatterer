@@ -36,8 +36,9 @@ public class HelloServlet extends HttpServlet {
     	PrintWriter out = resp.getWriter();
     	BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
          String json = "";
-         while(br != null){
-             json += br.readLine();
+         String line;
+         while ((line = br.readLine()) != null && !line.equals("")) {
+             json += line;
          }
         JsonMessage jsonMes = new JsonMessage(json);
         jsonMes.get("message");
