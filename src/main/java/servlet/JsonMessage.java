@@ -20,10 +20,11 @@ public class JsonMessage {
 	}
 	
 	public String get(String value){
+		//JsonParser parser;
 		if (json == null){
 			return "empty";
 		}
-		System.out.printf("JSON INFO:size-%d toString:%s names:%s\n", json.length(),json.toString(),json.names().toString());
+		System.out.printf("JSON INFO:size-%d toString:%s\n", json.length(),json.toString());
 		String s = "error";
 		try {
 			s = json.getString(value);

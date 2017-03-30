@@ -40,14 +40,16 @@ public class HelloServlet extends HttpServlet {
          while ((line = br.readLine()) != null && !line.equals("")) {
              json += line;
          }
+         
         JsonMessage jsonMes = new JsonMessage(json);
-        jsonMes.get("message");
+        //jsonMes.get("message");
 		out.print("HTTP/1.1 200 \r\n"); // Version & status code
 		out.print("Content-Type: text/plain\r\n"); // The type of data
 		out.print("Connection: close\r\n"); // Will close stream
 		out.print("\r\n"); // End of headers
 		out.println("responded");
         out.println("You posted");
+        out.println("\n\nJSON:         "+ json);
         out.flush();
         out.close();
     }
