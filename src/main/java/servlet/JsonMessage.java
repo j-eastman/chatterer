@@ -10,7 +10,7 @@ public class JsonMessage {
 	JSONObject json;
 	public JsonMessage(String js) throws IOException{
 		  try {
-			    JSONObject jsonObject =  HTTP.toJSONObject(js);
+			    JSONObject jsonObject =  new JSONObject(js);
 			    json = jsonObject;
 			  } catch (JSONException e) {
 			    // crash and burn
@@ -21,6 +21,7 @@ public class JsonMessage {
 	
 	public String get(String value){
 		//JsonParser parser;
+	//	json = new JSONObject(value);
 		if (json == null){
 			return "empty";
 		}
