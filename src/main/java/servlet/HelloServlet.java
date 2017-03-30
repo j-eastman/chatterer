@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet(
-//        name = "MyServlet",
-//        urlPatterns = {"/POST"}
-//    )
+@WebServlet("/test")
 public class HelloServlet extends HttpServlet {
 
     @Override
