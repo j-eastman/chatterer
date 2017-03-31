@@ -33,7 +33,8 @@ public class JsonMessage {
 			s = json.getString(value);
 			System.out.println(s);
 		}catch (JSONException e){
-			e.printStackTrace();
+			return (value + " not found.");
+			
 		}
 		return s;
 	}
