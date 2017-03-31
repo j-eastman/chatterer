@@ -55,7 +55,7 @@ public class FileManager {
 	public void uploadImage(byte[] img, String name) {
 		InputStream inputStream = new ByteArrayInputStream(img);
 
-		System.out.println("Start uploading first file");
+		System.out.println("Start uploading file");
 		boolean done;
 		try {
 			done = ftpClient.storeFile(name, inputStream);
