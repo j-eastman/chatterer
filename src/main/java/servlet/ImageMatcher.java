@@ -111,8 +111,8 @@ public class ImageMatcher {
 	private int firstYellow (BufferedImage img){
 		ArrayList<Color> colors = new ArrayList<Color>();
 		int highestY = img.getHeight();
-		for (int i = 0; i < 50; i++) {
-			for (int j = 0; j < img.getWidth()/2; j++) {
+		for (int i = 1; i < 50; i++) {
+			for (int j = 1; j < img.getWidth()/2; j++) {
 				Color temp = new Color(img.getRGB(img.getWidth()-j, img.getHeight()-i));
 				if (inBounds(temp.getRed(), 210, 260) && inBounds(temp.getGreen(), 120, 220)
 						&& inBounds(temp.getBlue(), 60, 150)) {
