@@ -118,6 +118,7 @@ public class ImageMatcher {
 					if (img.getHeight() -i < highestY){
 						highestY = img.getHeight()-i;
 						System.out.printf("Highest Y: (%d,%d)\n",j,i);
+						System.out.println(img.getHeight()-i);
 					}
 				}
 
