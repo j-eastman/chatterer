@@ -47,7 +47,9 @@ public class KikServlet extends HttpServlet{
 		out.print("Content-Type: text/plain\r\n"); // The type of data
 		out.print("Connection: close\r\n"); // Will close stream
 		out.print("\r\n"); // End of headers
-		out.println(response);
+		out.println("<start>");
+		out.print(response);
+		out.print("<end>");
 		System.out.println("URL: "+ response);
         out.flush();
         out.close();
