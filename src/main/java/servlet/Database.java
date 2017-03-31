@@ -135,7 +135,6 @@ public class Database {
 	public String[] getQuery(String query, int table) {
 		System.out.printf("Searching table:%s for query:%s\n", tables[table], query);
 		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[table], query);
-		String retVal = "";
 		Array result = null;
 		String[] temp = null;
 		try {
@@ -149,7 +148,6 @@ public class Database {
 					temp = (String[]) result.getArray();
 					for (String s : temp) {
 						System.out.println(s);
-						retVal += s;
 					}
 				}
 			}
@@ -172,14 +170,11 @@ public class Database {
 		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[27], "username", username);
 		if (exists("username", username, 27)) {
 			System.out.printf("User:%s found.\n", username);
-			String retVal = "";
-			String prevMsg;
 			String myLast = "";
 			try {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				while (rs.next()) {
-					prevMsg = rs.getString("prevMsg");
 					myLast = rs.getString("myLast");
 
 				}

@@ -14,7 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/kik")
 public class KikServlet extends HttpServlet{
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         ServletOutputStream out = resp.getOutputStream();
@@ -30,16 +34,13 @@ public class KikServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //ServletOutputStream out = resp.getOutputStream();
-    	//Bot bot = new Bot("minime613_bot","6ddab328-8241-4d54-a651-486970c9cf1f");
     	PrintWriter out = resp.getWriter();
     	BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
-         String json = "";
-         String line;
-         while ((line = br.readLine()) != null && !line.equals("")) {
+        String json = "";
+        String line;
+        while ((line = br.readLine()) != null && !line.equals("")) {
              json += line;
-         }
-         
+        } 
         JsonMessage jsonMes = new JsonMessage(json);
         ImageMatcher im = new ImageMatcher();
         String response = im.processImage(jsonMes.get("picUrl"));

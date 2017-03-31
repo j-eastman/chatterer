@@ -22,8 +22,6 @@ public class JsonMessage {
 	}
 	
 	public String get(String value){
-		//JsonParser parser;
-	//	json = new JSONObject(value);
 		if (json == null){
 			return "empty";
 		}

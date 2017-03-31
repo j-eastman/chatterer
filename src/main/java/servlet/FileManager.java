@@ -18,7 +18,6 @@ public class FileManager {
 		String pass = "Bd05030903";
 		ftpClient = new FTPClient();
 		try {
-
 			ftpClient.connect(server, port);
 			ftpClient.login(user, pass);
 			ftpClient.enterLocalPassiveMode();
@@ -27,13 +26,11 @@ public class FileManager {
 			int replyCode = ftpClient.getReplyCode();
 			if (!FTPReply.isPositiveCompletion(replyCode)) {
 				System.out.println("Operation failed. Server reply code: " + replyCode);
-				// return;
 			}
 			boolean success = ftpClient.login(user, pass);
 			showServerReply(ftpClient);
 			if (!success) {
 				System.out.println("Could not login to the server");
-				// return;
 			} else {
 				System.out.println("LOGGED IN SERVER");
 			}
@@ -54,7 +51,6 @@ public class FileManager {
 
 	public void uploadImage(byte[] img, String name) {
 		InputStream inputStream = new ByteArrayInputStream(img);
-
 		System.out.println("Start uploading file");
 		boolean done;
 		try {
@@ -65,7 +61,6 @@ public class FileManager {
 			}
 			inputStream.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
