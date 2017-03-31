@@ -26,6 +26,7 @@ public class ImageMatcher {
 	}
 	public String processImage(String url){
 		BufferedImage img = fetchImg(url);
+		fm.uploadImage(toByteArray(img),generateName());
 		if (isWatermarked(img)){
 			String name = generateName();
 			fm.uploadImage(toByteArray(crop(img)), name);
