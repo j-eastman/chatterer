@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class Database {
 	Connection conn;
-	public String[] tables = new String[27];
+	public String[] tables = new String[28];
 
 	public Database() {
 		try {
