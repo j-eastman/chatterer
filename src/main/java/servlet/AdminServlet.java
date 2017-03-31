@@ -25,6 +25,11 @@ public class AdminServlet extends HttpServlet{
          }
          
         JsonMessage jsonMes = new JsonMessage(json);
+        if (jsonMes.get("command").equals("updateTable")){
+        	Database db = new Database();
+        	System.out.println("Updating tables...");
+        	db.updateTables();
+        }
         System.out.println(json);
 	}
 }
