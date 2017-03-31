@@ -6,7 +6,9 @@ public class MsgHandler {
 		db = new Database();
 	}
 	
-	public String getResponse(String body){
-		return db.get(body);
+	public String getResponse(JsonMessage body){
+		String user = body.get("from");
+		String msg = body.get("body");
+		return db.get(msg,user);
 	}
 }
