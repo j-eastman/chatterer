@@ -9,6 +9,6 @@ public class ChatDriver {
 	
 	private static String getQuery(String input){
 		int index = input.toLowerCase().charAt(0);
-		return db.getQuery(input.toLowerCase(),index);
+		return "null"; //db.getQuery(input.toLowerCase(),index);
 	}
 }
