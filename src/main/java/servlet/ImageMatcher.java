@@ -99,7 +99,7 @@ public class ImageMatcher {
 		}
 		double percDiff = sum/count;
 		System.out.printf("Picture Difference = %.2f\n",percDiff);
-		if (percDiff <= 5){
+		if (percDiff <= 30){
 			return true;
 		} else {
 			return false;
