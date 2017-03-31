@@ -76,7 +76,7 @@ public class Database {
 	private void insert(String entry, int table) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
 		System.out.printf("Inserting %s into table: %s\n", entry,tables[table]);
-		String sql = String.format("INSERT INTO %s(word) VALUES(%s,%s);", tables[table], entry);
+		String sql = String.format("INSERT INTO %s(word) VALUES(%s);", tables[table], entry);
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
