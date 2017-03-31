@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -106,8 +107,28 @@ public class ImageMatcher {
 			return false;
 		}
 	}
+	private int firstYellow (BufferedImage img){
+		ArrayList<Color> colors = new ArrayList<Color>();
+		int highestY = img.getHeight();
+		for (int i = 0; i < 50; i++) {
+			for (int j = 0; j < img.getWidth()/2; j++) {
+				Color temp = new Color(img.getRGB(img.getHeight()-j, img.getWidth()-i));
+				if (inBounds(temp.getRed(), 210, 260) && inBounds(temp.getGreen(), 120, 220)
+						&& inBounds(temp.getBlue(), 60, 150)) {
+					if (img.getHeight() -j < highestY){
+						highestY = img.getHeight()-j;
+					}
+				}
+
+			}
+		}
+		return highestY;
+	}
+	public boolean inBounds(int a, int b, int c) {
+		return (a >= b && a < c);
+	}
 	public BufferedImage crop(BufferedImage img){
-	      BufferedImage dest = img.getSubimage(0, 0, img.getWidth(), img.getHeight()-20);
+	      BufferedImage dest = img.getSubimage(0, 0, img.getWidth(), img.getHeight()-firstYellow(img));
 	      return dest; 
 	}
 	public byte[] toByteArray(BufferedImage img){
