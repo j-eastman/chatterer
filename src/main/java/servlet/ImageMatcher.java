@@ -108,7 +108,7 @@ public class ImageMatcher {
 		}
 	}
 	private int firstYellow (BufferedImage img){
-		int highestY = img.getHeight();
+		int highestY = 1;
 		for (int i = 1; i < 50; i++) {
 			for (int j = 1; j < img.getWidth()/2; j++) {
 				//System.out.printf("i: %d j: %d\n",i,j);
