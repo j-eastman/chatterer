@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,8 +32,8 @@ public class AdminServlet extends HttpServlet{
         	db.updateTables();
         }
         if (jsonMes.get("command").equals("getAll")){
-        	System.out.println("Updating tables...");
-        	db.getAll();
+        	System.out.println("Fetching all rows...");
+        	ArrayList<String> al = db.getAll();
         }
         System.out.println(json);
 	}
