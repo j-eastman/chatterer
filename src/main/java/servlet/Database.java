@@ -99,8 +99,10 @@ public class Database {
 		query = query.toLowerCase();
 		String[] retVal = getQuery(query, getIndex(query));
 		System.out.println("RETVAL: " + retVal);
-		if (retVal.equals("")) {
+		if (retVal == null) {
 			newEntry(query);
+			dbScan(query,user);
+			return "nada";
 		}
 		dbScan(query, user);
 		Random r = new Random();
