@@ -15,6 +15,18 @@ public class Database {
 	Connection conn;
 	public String[] tables = new String[28];
 
+	public void updateTables() {
+		for (int i = 0; i < 26; i++){
+			String sql = String.format("ALTER TABLE %s ADD COLUMN frequency int;", tables[i]);
+			try {
+				Statement stmt = conn.createStatement();
+				stmt.executeUpdate(sql);
+				stmt.close();
+			} catch (SQLException e) {
+				System.out.println(e.getErrorCode());
+			}
+		}
+	}
 	public Database() {
 		try {
 			conn = getConnection();
@@ -54,12 +66,10 @@ public class Database {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-			;
 		} catch (SQLException e) {
 			System.out.println(e.getErrorCode());
 		}
 	}
-
 	public void insert(String entry, int table, String[] responses) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
 		System.out.printf("Inserting %s with responses: '%s' into table: %s\n", entry, Arrays.toString(responses),
