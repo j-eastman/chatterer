@@ -17,6 +17,9 @@ public class JsonMessage {
 			  }
 		//System.out.println("JSON: " + input);
 	}
+	public JsonMessage(){
+		
+	}
 	
 	public String get(String value){
 		//JsonParser parser;
@@ -34,6 +37,9 @@ public class JsonMessage {
 		}
 		return s;
 	}
+	//public String put(String key,String value){
+		
+	//}
 }
 // Work with the data using methods like...
 // int someInt = jsonObject.getInt("intParamName");

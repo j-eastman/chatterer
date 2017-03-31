@@ -15,6 +15,8 @@ import org.apache.catalina.webresources.StandardRoot;
 import org.apache.tomcat.util.scan.Constants;
 import org.apache.tomcat.util.scan.StandardJarScanFilter;
 
+import servlet.Bot;
+
 public class Main {
 
     private static File getRootFolder() {
@@ -84,5 +86,6 @@ public class Main {
 
         tomcat.start();
         tomcat.getServer().await();
+        
     }
 }

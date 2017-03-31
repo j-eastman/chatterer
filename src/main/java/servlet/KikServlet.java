@@ -31,6 +31,7 @@ public class KikServlet extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         //ServletOutputStream out = resp.getOutputStream();
+    	//Bot bot = new Bot("minime613_bot","6ddab328-8241-4d54-a651-486970c9cf1f");
     	PrintWriter out = resp.getWriter();
     	BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
          String json = "";
@@ -40,14 +41,14 @@ public class KikServlet extends HttpServlet{
          }
          
         JsonMessage jsonMes = new JsonMessage(json);
-        jsonMes.get("message");
+        ImageMatcher im = new ImageMatcher();
+        String response = im.processImage(jsonMes.get("picUrl"));
 		out.print("HTTP/1.1 200 \r\n"); // Version & status code
 		out.print("Content-Type: text/plain\r\n"); // The type of data
 		out.print("Connection: close\r\n"); // Will close stream
 		out.print("\r\n"); // End of headers
-		out.println("responded");
-        out.println("You posted");
-        out.println("\n\nJSON:         "+ json);
+		out.println(response);
+		System.out.println("URL: "+ response);
         out.flush();
         out.close();
     }
