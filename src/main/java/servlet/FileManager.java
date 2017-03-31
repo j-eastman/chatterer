@@ -21,7 +21,7 @@ public class FileManager {
 
 			ftpClient.connect(server, port);
 			ftpClient.login(user, pass);
-			// ftpClient.enterLocalPassiveMode();
+			ftpClient.enterLocalPassiveMode();
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 			showServerReply(ftpClient);
 			int replyCode = ftpClient.getReplyCode();
