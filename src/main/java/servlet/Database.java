@@ -62,6 +62,9 @@ public class Database {
 			System.out.println(e.getErrorCode());
 		}
 	}
+	public String get(String query){
+		return getQuery(query,0);
+	}
 	public String getQuery(String query,int table){
 		String sql = String.format("SELECT responses FROM %s WHERE word LIKE '%%%s%%';",tables[table],query);
 		String retVal = "";
