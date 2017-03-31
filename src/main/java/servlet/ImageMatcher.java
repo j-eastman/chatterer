@@ -115,7 +115,7 @@ public class ImageMatcher {
 				Color temp = new Color(img.getRGB(img.getWidth()-j, img.getHeight()-i));
 				if (inBounds(temp.getRed(), 210, 260) && inBounds(temp.getGreen(), 120, 220)
 						&& inBounds(temp.getBlue(), 60, 150)) {
-					if (img.getHeight() -i < highestY){
+					if (i < highestY){
 						highestY = i;
 					//	System.out.printf("Highest Y: (%d,%d)\n",j,i);
 					//	System.out.println(img.getHeight()-i);
