@@ -11,4 +11,7 @@ public class MsgHandler {
 		String msg = body.get("body");
 		return db.get(msg,user);
 	}
+	public void postMsg(JsonMessage msg){
+		
+	}
 }

@@ -110,8 +110,10 @@ public class Database {
 	}
 
 	public void newEntry(String entry) {
-		System.out.printf("Inserted new entry '%s' into table: %s\n", entry,tables[getIndex(entry)]);
-		insert(entry, getIndex(entry));
+		if (!exists("word",entry,getIndex(entry))){
+			System.out.printf("Inserted new entry '%s' into table: %s\n", entry,tables[getIndex(entry)]);
+			insert(entry, getIndex(entry));
+		}
 	}
 
 	public boolean exists(String column, String query, int table) {
