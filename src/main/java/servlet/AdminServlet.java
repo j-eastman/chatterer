@@ -34,6 +34,9 @@ public class AdminServlet extends HttpServlet{
         if (jsonMes.get("command").equals("getAll")){
         	System.out.println("Fetching all rows...");
         	ArrayList<String> al = db.getAll();
+        	for (String s:al){
+        		System.out.println(s);
+        	}
         }
         System.out.println(json);
 	}
