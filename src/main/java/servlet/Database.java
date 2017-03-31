@@ -47,7 +47,8 @@ public class Database {
 
 	public void updateEntry(String entry, int table, String[] newVal) {
 		// UPDATE table SET responses = 'newVal' WHERE word = entry;
-		System.out.printf("Updating entry %s with responses: '%s' into table: %s\n", entry,Arrays.toString(newVal),tables[table]);
+		System.out.printf("Updating entry %s with responses: '%s' into table: %s\n", entry, Arrays.toString(newVal),
+				tables[table]);
 		String sql = String.format("UPDATE %s SET responses = %s WHERE word='%s';", tables[table], form(newVal), entry);
 		try {
 			Statement stmt = conn.createStatement();
@@ -61,7 +62,8 @@ public class Database {
 
 	public void insert(String entry, int table, String[] responses) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
-		System.out.printf("Inserting %s with responses: '%s' into table: %s\n", entry,Arrays.toString(responses),tables[table]);
+		System.out.printf("Inserting %s with responses: '%s' into table: %s\n", entry, Arrays.toString(responses),
+				tables[table]);
 		String sql = String.format("INSERT INTO %s(word,responses) VALUES(%s,%s);", tables[table], entry,
 				form(responses));
 		try {
@@ -75,7 +77,7 @@ public class Database {
 
 	private void insert(String entry, int table) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
-		System.out.printf("Inserting %s into table: %s\n", entry,tables[table]);
+		System.out.printf("Inserting %s into table: %s\n", entry, tables[table]);
 		String sql = String.format("INSERT INTO %s(word) VALUES(%s);", tables[table], entry);
 		try {
 			Statement stmt = conn.createStatement();
@@ -101,7 +103,7 @@ public class Database {
 		System.out.println("RETVAL: " + retVal);
 		if (retVal == null) {
 			newEntry(query);
-			dbScan(query,user);
+			dbScan(query, user);
 			return "nada";
 		}
 		dbScan(query, user);
@@ -110,14 +112,12 @@ public class Database {
 	}
 
 	public void newEntry(String entry) {
-		if (!exists("word",entry,getIndex(entry))){
-			System.out.printf("Inserted new entry '%s' into table: %s\n", entry,tables[getIndex(entry)]);
-			insert(entry, getIndex(entry));
-		}
+		System.out.printf("Inserted new entry '%s' into table: %s\n", entry, tables[getIndex(entry)]);
+		insert(entry, getIndex(entry));
 	}
 
 	public boolean exists(String column, String query, int table) {
-		System.out.printf("Checking if %s '%s' exists in table: %s\n", column,query,tables[table]);
+		System.out.printf("Checking if %s '%s' exists in table: %s\n", column, query, tables[table]);
 		String sql = String.format("SELECT EXISTS (FROM %s WHERE %s='%s';", tables[table], column, query);
 		Statement stmt;
 		try {
@@ -141,12 +141,16 @@ public class Database {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				result = rs.getArray("responses");
-				temp = (String[]) result.getArray();
-				for (String s : temp) {
-					System.out.println(s);
-					retVal += s;
+			if (!rs.next()) {
+				newEntry(query);
+			} else {
+				while (rs.next()) {
+					result = rs.getArray("responses");
+					temp = (String[]) result.getArray();
+					for (String s : temp) {
+						System.out.println(s);
+						retVal += s;
+					}
 				}
 			}
 			stmt.close();
@@ -167,7 +171,7 @@ public class Database {
 		System.out.println("Scanning userdata for user:" + username);
 		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[27], "username", username);
 		if (exists("username", username, 27)) {
-			System.out.printf("User:%s found.\n",username);
+			System.out.printf("User:%s found.\n", username);
 			String retVal = "";
 			String prevMsg;
 			String myLast = "";

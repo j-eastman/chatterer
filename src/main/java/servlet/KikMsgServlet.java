@@ -39,7 +39,6 @@ public class KikMsgServlet extends HttpServlet{
          }
          
         JsonMessage jsonMes = new JsonMessage(json);
-       // ImageMatcher im = new ImageMatcher();
         MsgHandler mh = new MsgHandler();
         mh.postMsg(jsonMes);
         //String response = mh.getResponse(jsonMes);
