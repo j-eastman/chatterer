@@ -124,6 +124,7 @@ public class ImageMatcher {
 
 			}
 		}
+		System.out.println(highestY);
 		return highestY;
 	}
 	public boolean inBounds(int a, int b, int c) {
