@@ -50,7 +50,7 @@ public class KikMsgServlet extends HttpServlet{
 		out.print("<start>");
 		out.print("LEARNING MODE");
 		out.print("<end>");
-		System.out.println("URL: "+ response);
+		//System.out.println("URL: "+ response);
         out.flush();
         out.close();
     }
