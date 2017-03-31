@@ -41,13 +41,14 @@ public class KikMsgServlet extends HttpServlet{
         JsonMessage jsonMes = new JsonMessage(json);
        // ImageMatcher im = new ImageMatcher();
         MsgHandler mh = new MsgHandler();
-        String response = mh.getResponse(jsonMes);
+        mh.postMsg(jsonMes);
+        //String response = mh.getResponse(jsonMes);
 		out.print("HTTP/1.1 200 \r\n"); // Version & status code
 		out.print("Content-Type: text/plain\r\n"); // The type of data
 		out.print("Connection: close\r\n"); // Will close stream
 		out.print("\r\n"); // End of headers
 		out.print("<start>");
-		out.print(response);
+		out.print("LEARNING MODE");
 		out.print("<end>");
 		System.out.println("URL: "+ response);
         out.flush();

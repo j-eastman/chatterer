@@ -117,7 +117,7 @@ public class Database {
 	}
 
 	public boolean exists(String column, String query, int table) {
-		System.out.printf("Checking if %s '%s' exists in table: %s\n", query,column,tables[table]);
+		System.out.printf("Checking if %s '%s' exists in table: %s\n", column,query,tables[table]);
 		String sql = String.format("SELECT EXISTS (FROM %s WHERE %s='%s';", tables[table], column, query);
 		Statement stmt;
 		try {
