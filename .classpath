@@ -29,5 +29,9 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/JackEastman/Documents/School/Computer Science/Workspaces/SideProjects/convAI/target/dependency/json-20160810.jar"/>
 	<classpathentry kind="lib" path="C:/Users/JackEastman/Documents/School/Computer Science/Workspaces/SideProjects/convAI/target/dependency/postgresql-9.4.1208.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JackEastman/Documents/School/Computer Science/Workspaces/SideProjects/convAIWeb/convaiNew/target/dependency/commons-net-3.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JackEastman/Documents/School/Computer Science/Workspaces/SideProjects/convAIWeb/convaiNew/target/dependency/apache-httpcomponents-httpclient.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JackEastman/Documents/School/Computer Science/Workspaces/SideProjects/convAIWeb/convaiNew/target/dependency/httpclient-4.5.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JackEastman/Documents/School/Computer Science/Workspaces/SideProjects/convAIWeb/convaiNew/target/dependency/gson-2.3.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

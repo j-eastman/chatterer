@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 
-import org.json.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
