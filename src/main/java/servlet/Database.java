@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -140,6 +141,26 @@ public class Database {
 		}
 
 		return false;
+	}
+	
+	public ArrayList<String> getAll(){
+		ArrayList<String> retVal = new ArrayList<String>();
+		for (int i = 0; i < 26;i++){
+			String sql = String.format("SELECT * FROM %s;", tables[i]);
+			try {
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				while(rs.next()){
+					String s = rs.getString("row");
+					System.out.println("ROW: "+s);
+					retVal.add(s);
+				}
+				stmt.close();
+			} catch (SQLException e) {
+				System.out.println(e.getErrorCode());
+			}
+		}
+		return retVal;
 	}
 
 	public String[] getQuery(String query, int table) {

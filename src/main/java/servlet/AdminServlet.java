@@ -16,6 +16,7 @@ public class AdminServlet extends HttpServlet{
 	@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+		Database db = new Database();
     	//PrintWriter out = resp.getWriter();
     	BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
          String json = "";
@@ -26,9 +27,12 @@ public class AdminServlet extends HttpServlet{
          
         JsonMessage jsonMes = new JsonMessage(json);
         if (jsonMes.get("command").equals("updateTable")){
-        	Database db = new Database();
         	System.out.println("Updating tables...");
         	db.updateTables();
+        }
+        if (jsonMes.get("command").equals("getAll")){
+        	System.out.println("Updating tables...");
+        	db.getAll();
         }
         System.out.println(json);
 	}
