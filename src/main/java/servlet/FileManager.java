@@ -61,7 +61,7 @@ public class FileManager {
 			done = ftpClient.storeFile(name, inputStream);
 
 			if (done) {
-				System.out.println("The first file is uploaded successfully.");
+				System.out.println("The file is uploaded successfully.");
 			}
 			inputStream.close();
 		} catch (IOException e) {
