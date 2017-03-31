@@ -151,7 +151,7 @@ public class Database {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				while(rs.next()){
-					String s = rs.getString("row");
+					String s = rs.getCursorName();
 					System.out.println("ROW: "+s);
 					retVal.add(s);
 				}
