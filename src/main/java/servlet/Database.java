@@ -62,8 +62,19 @@ public class Database {
 			System.out.println(e.getErrorCode());
 		}
 	}
+	private int getIndex(String s){
+		s = s.toLowerCase();
+		if (s.charAt(0)-97 <0 || s.charAt(0)-97>26){
+			return 26;
+		} else {
+			return s.charAt(0)-97;
+		}
+	}
 	public String get(String query){
-		return getQuery(query,0);
+		query = query.toLowerCase();
+		String retVal = getQuery(query,getIndex(query));
+		System.out.println("RETVAL: " + retVal);
+		return retVal;
 	}
 	public String getQuery(String query,int table){
 		String sql = String.format("SELECT responses FROM %s WHERE word LIKE '%%%s%%';",tables[table],query);
