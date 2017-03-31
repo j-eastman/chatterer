@@ -79,7 +79,8 @@ public class ImageMatcher {
 		int endY = img.getHeight() - startY;
 		System.out.printf("x: %d, y: %d\n", startX,startY);
 		BufferedImage sub = img.getSubimage(startX,startY, endX, endY);
-		return getMatch(sub,src);
+		return true;
+		//return getMatch(sub,src);
 	}
 	//138x20
 	public boolean getMatch(BufferedImage image1, BufferedImage image2) {
