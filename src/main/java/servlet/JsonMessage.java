@@ -9,7 +9,7 @@ public class JsonMessage {
 	JSONObject json;
 	String message;
 	String username;
-	/*public JsonMessage(String js) throws IOException{
+	public JsonMessage(String js) throws IOException{
 		  try {
 			  System.out.println("JSON: " + js);
 			    JSONObject jsonObject =  new JSONObject(js);
@@ -19,9 +19,9 @@ public class JsonMessage {
 			    throw new IOException("Error parsing JSON request string");
 			  }
 		//System.out.println("JSON: " + input);
-	}*/
+	}
 	
-	public JsonMessage(String s){
+	/*public JsonMessage(String s){
 		String[] temp = s.split("<brk>");
 		int count = 0;
 		for (String str:temp){
@@ -33,9 +33,9 @@ public class JsonMessage {
 		this.message = temp2.substring(0, temp2.length()-1);
 		System.out.println("MSG:"  +message);
 		System.out.println("USER: " + username);
-	}
+	}*/
 	
-	public String get(String value){
+	/*public String get(String value){
 		if (value.equalsIgnoreCase("username")){
 			return username;
 		}
@@ -43,8 +43,8 @@ public class JsonMessage {
 			return message;
 		}
 		return null;
-	}
-	/*public String get(String value){
+	}*/
+	public String get(String value){
 		if (json == null){
 			return "empty";
 		}
@@ -57,7 +57,7 @@ public class JsonMessage {
 			
 		}
 		return s;
-	}*/
+	}
 	//public String put(String key,String value){
 		
 	//}
