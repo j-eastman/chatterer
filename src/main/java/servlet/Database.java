@@ -147,6 +147,7 @@ public class Database {
 		ArrayList<String> retVal = new ArrayList<String>();
 		for (int i = 0; i < 26;i++){
 			String sql = String.format("SELECT * FROM %s;", tables[i]);
+			System.out.println("QUERY: " + sql);
 			try {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
