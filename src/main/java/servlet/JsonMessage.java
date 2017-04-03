@@ -23,6 +23,9 @@ public class JsonMessage {
 	
 	public JsonMessage(String s){
 		String[] temp = s.split("brk");
+		for (String str:temp){
+			System.out.println("STRING:" +str);
+		}
 		this.message = temp[1].split(":")[1];
 		this.username = temp[2].split(":")[1];
 	}
