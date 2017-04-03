@@ -9,6 +9,7 @@ public class JsonMessage {
 	JSONObject json;
 	public JsonMessage(String js) throws IOException{
 		  try {
+			  System.out.println("JSON: " + js);
 			    JSONObject jsonObject =  new JSONObject(js);
 			    json = jsonObject.getJSONObject("message");
 			  } catch (JSONException e) {
