@@ -17,7 +17,7 @@ public class Database {
 	public String[] tables = new String[28];
 
 	public void updateTables() {
-		for (int i = 0; i < 26; i++){
+		for (int i = 0; i < 26; i++) {
 			String sql = String.format("ALTER TABLE %s ADD COLUMN frequency int;", tables[i]);
 			try {
 				Statement stmt = conn.createStatement();
@@ -28,6 +28,7 @@ public class Database {
 			}
 		}
 	}
+
 	public Database() {
 		try {
 			conn = getConnection();
@@ -71,6 +72,7 @@ public class Database {
 			System.out.println(e.getErrorCode());
 		}
 	}
+
 	public void insert(String entry, int table, String[] responses) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
 		System.out.printf("Inserting %s with responses: '%s' into table: %s\n", entry, Arrays.toString(responses),
@@ -123,16 +125,16 @@ public class Database {
 	}
 
 	public void newEntry(String entry) {
-		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[getIndex(entry)],entry);
+		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[getIndex(entry)], entry);
 		System.out.println("QUERY: " + sql);
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			if (!rs.next()){
+			if (!rs.next()) {
 				System.out.printf("%s not found. Entering it into table: %s\n", entry, tables[getIndex(entry)]);
 				insert(entry, getIndex(entry));
 			} else {
-				System.out.printf("%s found. Updating frequency.\n",entry);
+				System.out.printf("%s found. Updating frequency.\n", entry);
 				stmt.close();
 				updateFrequency(entry);
 			}
@@ -141,18 +143,23 @@ public class Database {
 			System.out.println(e.getErrorCode());
 		}
 	}
-	private void updateFrequency(String entry){
+
+	private void updateFrequency(String entry) {
 		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[getIndex(entry)], entry);
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			int count = rs.getInt("frequency");
-			System.out.printf("%s frequency: %d. Adding one...\n",entry,count);
-			stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';", tables[getIndex(entry)], count++, entry));
-		}catch(SQLException e){
+			while (rs.next()) {
+				int count = rs.getInt("frequency");
+				System.out.printf("%s frequency: %d. Adding one...\n", entry, count);
+				stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';",
+						tables[getIndex(entry)], count++, entry));
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public boolean exists(String column, String query, int table) {
 		System.out.printf("Checking if %s '%s' exists in table: %s\n", column, query, tables[table]);
 		String sql = String.format("SELECT EXISTS (FROM %s WHERE %s='%s';", tables[table], column, query);
@@ -168,18 +175,18 @@ public class Database {
 
 		return false;
 	}
-	
-	public ArrayList<String> getAll(){
+
+	public ArrayList<String> getAll() {
 		ArrayList<String> retVal = new ArrayList<String>();
-		for (int i = 0; i < 26;i++){
+		for (int i = 0; i < 26; i++) {
 			String sql = String.format("SELECT * FROM %s;", tables[i]);
 			System.out.println("QUERY: " + sql);
 			try {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
-				while(rs.next()){
-					//String s = rs.getString(rs.getRow());
-					System.out.println("ROW: "+rs.getCursorName());
+				while (rs.next()) {
+					// String s = rs.getString(rs.getRow());
+					System.out.println("ROW: " + rs.getCursorName());
 					retVal.add(rs.getCursorName());
 				}
 				stmt.close();
@@ -204,11 +211,11 @@ public class Database {
 				while (rs.next()) {
 					int count = rs.getInt("frequency");
 					result = rs.getArray("responses");
-					if (result!=  null){
-					temp = (String[]) result.getArray();
-					for (String s : temp) {
-						System.out.println(s);
-					}
+					if (result != null) {
+						temp = (String[]) result.getArray();
+						for (String s : temp) {
+							System.out.println(s);
+						}
 					}
 
 				}
