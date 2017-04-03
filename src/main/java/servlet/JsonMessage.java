@@ -22,7 +22,7 @@ public class JsonMessage {
 	}*/
 	
 	public JsonMessage(String s){
-		String[] temp = s.split("brk");
+		String[] temp = s.split("<brk>");
 		for (String str:temp){
 			System.out.println("STRING:" +str);
 		}
