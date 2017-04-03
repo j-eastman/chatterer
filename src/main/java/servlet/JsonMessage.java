@@ -29,7 +29,6 @@ public class JsonMessage {
 		String s = "error";
 		try {
 			s = json.getString(value);
-			System.out.println(s);
 		}catch (JSONException e){
 			return (value + " not found.");
 			
