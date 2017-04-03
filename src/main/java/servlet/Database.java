@@ -104,10 +104,14 @@ public class Database {
 
 	private int getIndex(String s) {
 		s = s.toLowerCase();
-		if (s.charAt(0) - 97 < 0 || s.charAt(0) - 97 > 26) {
-			return 26;
+		if (s.equals("")) {
+			if (s.charAt(0) - 97 < 0 || s.charAt(0) - 97 > 26) {
+				return 26;
+			} else {
+				return s.charAt(0) - 97;
+			}
 		} else {
-			return s.charAt(0) - 97;
+			return 26;
 		}
 	}
 
@@ -117,10 +121,10 @@ public class Database {
 		System.out.println("RETVAL: " + retVal);
 		if (retVal == null) {
 			newEntry(query);
-			//dbScan(query, user);
+			// dbScan(query, user);
 			return "nada";
 		}
-		//dbScan(query, user);
+		// dbScan(query, user);
 		Random r = new Random();
 		return retVal[r.nextInt(retVal.length)];
 	}
@@ -158,8 +162,8 @@ public class Database {
 			System.out.printf("%s frequency: %d. Adding one...\n", entry, count);
 			stmt.close();
 			stmt = conn.createStatement();
-			stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';",
-					tables[getIndex(entry)], count+1, entry));
+			stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';", tables[getIndex(entry)],
+					count + 1, entry));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -234,10 +238,11 @@ public class Database {
 		return Arrays.toString(arr).replaceAll("[", "{").replaceAll("]", "}");
 
 	}
-	public void updateUserData(String myLast, String username){
+
+	public void updateUserData(String myLast, String username) {
 		String sql = String.format("UPDATE %s SET mylast = '%s' WHERE username='%s';", tables[27], myLast, username);
 		try {
-			System.out.printf("Updating mylast for user %s to %s\n",username,myLast);
+			System.out.printf("Updating mylast for user %s to %s\n", username, myLast);
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -245,43 +250,44 @@ public class Database {
 			System.out.println(e.getErrorCode());
 		}
 	}
-	public void dbScan(String msg, String username,String myResponse) {
+
+	public void dbScan(String msg, String username, String myResponse) {
 		// username prevMsg myLast
 		System.out.println("Scanning userdata for user:" + username);
 		String sql = String.format("SELECT * FROM %s WHERE username='%s';", tables[27], username);
-	//	System.out.println("QUERY: " + sql);
+		// System.out.println("QUERY: " + sql);
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			if (!rs.next()) {
 				stmt.close();
-				System.out.printf("User %s not found. Inserting into table.\n",username);
+				System.out.printf("User %s not found. Inserting into table.\n", username);
 				String sql2 = String.format("INSERT INTO %s(username,mylast) VALUES('%s','%s');", tables[27], username,
 						myResponse);
 				stmt = conn.createStatement();
 				stmt.executeUpdate(sql2);
 			} else {
-				System.out.printf("User %s found. Updating responses.",username);
+				System.out.printf("User %s found. Updating responses.", username);
 				String myLast = "";
-				while(rs.next()){
+				while (rs.next()) {
 					myLast = rs.getString("mylast");
 				}
 				stmt.close();
 				stmt = conn.createStatement();
-				String[] resp = getQuery(myLast,getIndex(myLast));
+				String[] resp = getQuery(myLast, getIndex(myLast));
 				String[] responses;
-				if (resp == null){
+				if (resp == null) {
 					responses = new String[1];
 					responses[0] = myLast;
 				} else {
-					responses = new String[resp.length+1];
-					for (int i = 0; i < resp.length;i++){
+					responses = new String[resp.length + 1];
+					for (int i = 0; i < resp.length; i++) {
 						responses[i] = resp[i];
 					}
-					responses[resp.length+1] = myLast;
+					responses[resp.length + 1] = myLast;
 				}
 				stmt.close();
-				updateEntry(myLast,getIndex(myLast),responses);
+				updateEntry(myLast, getIndex(myLast), responses);
 			}
 			stmt.close();
 		} catch (SQLException e) {
