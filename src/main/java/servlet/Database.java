@@ -134,14 +134,25 @@ public class Database {
 			} else {
 				System.out.printf("%s found. Updating frequency.\n",entry);
 				stmt.close();
-				getQuery(entry, getIndex(entry));
+				updateFrequency(entry);
 			}
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getErrorCode());
 		}
 	}
-
+	private void updateFrequency(String entry){
+		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[getIndex(entry)], entry);
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			int count = rs.getInt("frequency");
+			System.out.printf("%s frequency: %d. Adding one...\n",entry,count);
+			stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';", tables[getIndex(entry)], count++, entry));
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
 	public boolean exists(String column, String query, int table) {
 		System.out.printf("Checking if %s '%s' exists in table: %s\n", column, query, tables[table]);
 		String sql = String.format("SELECT EXISTS (FROM %s WHERE %s='%s';", tables[table], column, query);
@@ -199,7 +210,7 @@ public class Database {
 						System.out.println(s);
 					}
 					}
-					stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';", tables[table], count++, query));
+
 				}
 			}
 			stmt.close();
