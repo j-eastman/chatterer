@@ -32,10 +32,10 @@ public class AdminServlet extends HttpServlet{
          }
          
         JsonMessage jsonMes = new JsonMessage(json);
-     /*   if (jsonMes.get("command").equals("updateTable")){
+        if (jsonMes.get("command").equals("updateTable")){
         	System.out.println("Updating tables...");
         	db.updateTables();
-        }*/
+        }
         System.out.println("Command: " + jsonMes.get("command"));
         if (jsonMes.get("command").equalsIgnoreCase("getAll")){
         	System.out.println("Fetching all rows...");

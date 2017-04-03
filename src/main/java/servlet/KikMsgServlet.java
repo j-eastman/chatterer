@@ -44,8 +44,6 @@ public class KikMsgServlet extends HttpServlet {
 		if (!json.contains("type")) {
 			//json = json.substring(1, json.length() - 1);
 			JsonMessage jsonMes = new JsonMessage(json);
-
-			System.out.println(jsonMes.get("body") + jsonMes.get("username"));
 			MsgHandler mh = new MsgHandler();
 			mh.postMsg(jsonMes);
 			// String response = mh.getResponse(jsonMes);
@@ -55,7 +53,6 @@ public class KikMsgServlet extends HttpServlet {
 			out.print("\r\n"); // End of headers
 			out.print("<start>");
 			out.print(mh.getRandomReply(jsonMes));
-
 			out.print("<end>");
 			// System.out.println("URL: "+ response);
 			out.flush();

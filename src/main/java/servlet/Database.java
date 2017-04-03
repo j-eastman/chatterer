@@ -17,8 +17,8 @@ public class Database {
 	public String[] tables = new String[28];
 
 	public void updateTables() {
-		for (int i = 0; i < 26; i++) {
-			String sql = String.format("ALTER TABLE %s ADD COLUMN frequency int;", tables[i]);
+		for (int i = 0; i < 27; i++) {
+			String sql = String.format("ALTER TABLE %s ADD COLUMN resStr text;", tables[i]);
 			try {
 				Statement stmt = conn.createStatement();
 				stmt.executeUpdate(sql);
