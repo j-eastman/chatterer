@@ -21,12 +21,12 @@ public class MsgHandler {
 		return retVal;
 	}
 	public String getResponse(JsonMessage body){
-		String user = body.get("from");
+		String user = body.get("username");
 		String msg = body.get("body");
 		return db.get(msg,user);
 	}
 	public String getRandomReply(JsonMessage body) {
-		String from = body.get("from");
+		String from = body.get("username");
 		String msg = body.get("body");
 		String myResp;
 		ArrayList<String> all = new ArrayList<String>();
