@@ -133,6 +133,7 @@ public class Database {
 				insert(entry, getIndex(entry));
 			} else {
 				System.out.printf("%s found. Updating frequency.\n",entry);
+				stmt.close();
 				getQuery(entry, getIndex(entry));
 			}
 			stmt.close();
