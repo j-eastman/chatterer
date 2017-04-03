@@ -26,10 +26,10 @@ public class JsonMessage {
 		for (String str:temp){
 			System.out.println("STRING:" +str);
 		}
-		this.message = temp[1].split(":")[1];
+		this.username = temp[1].split(":")[1];
 		String temp2 = temp[2].split(":")[1];
-		this.username = temp2.substring(0, temp2.length()-1);
-		System.out.println("USER:"  +username);
+		this.message = temp2.substring(0, temp2.length()-1);
+		System.out.println("MSG:"  +message);
 	}
 	
 	public String get(String value){
