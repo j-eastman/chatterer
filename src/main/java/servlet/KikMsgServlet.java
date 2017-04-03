@@ -42,6 +42,7 @@ public class KikMsgServlet extends HttpServlet{
              json += line;
              System.out.println(json);
          }
+         if (!json.contains("type")){
         json = json.substring(1, json.length()-1);
         JsonMessage jsonMes = new JsonMessage(json);
 
@@ -60,5 +61,6 @@ public class KikMsgServlet extends HttpServlet{
 		//System.out.println("URL: "+ response);
         out.flush();
         out.close();
+         }
     }
 }
