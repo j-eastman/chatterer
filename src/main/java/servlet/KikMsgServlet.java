@@ -40,6 +40,7 @@ public class KikMsgServlet extends HttpServlet{
          String line;
          while ((line = br.readLine()) != null && !line.equals("")) {
              json += line;
+             System.out.println(json);
          }
          
         JsonMessage jsonMes = new JsonMessage(json);
