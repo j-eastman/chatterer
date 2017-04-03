@@ -186,13 +186,10 @@ public class Database {
 		ArrayList<String> retVal = new ArrayList<String>();
 		for (int i = 0; i < 26; i++) {
 			String sql = String.format("SELECT * FROM %s;", tables[i]);
-			System.out.println("QUERY: " + sql);
 			try {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				while (rs.next()) {
-					// String s = rs.getString(rs.getRow());
-					//System.out.println("ROW: " + rs.getString("word"));
 					retVal.add(rs.getString("word"));
 				}
 				stmt.close();
@@ -253,7 +250,7 @@ public class Database {
 		// username prevMsg myLast
 		System.out.println("Scanning userdata for user:" + username);
 		String sql = String.format("SELECT * FROM %s WHERE username='%s';", tables[27], username);
-		System.out.println("QUERY: " + sql);
+	//	System.out.println("QUERY: " + sql);
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);

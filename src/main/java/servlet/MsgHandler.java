@@ -33,7 +33,7 @@ public class MsgHandler {
 		all = db.getAll();
 		Random r = new Random();
 		myResp = all.get(r.nextInt(all.size()));
-		
+		db.updateUserData(myResp,from);
 		return formatString(myResp);
 	}
 	public void storeResults(String from, String myResp){
