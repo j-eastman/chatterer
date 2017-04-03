@@ -275,6 +275,7 @@ public class Database {
 				}
 				stmt.close();
 				stmt = conn.createStatement();
+				System.out.println("myLast: " + myLast);
 				String[] resp = getQuery(myLast, getIndex(myLast));
 				String[] responses;
 				if (resp == null) {
