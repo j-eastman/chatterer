@@ -151,6 +151,7 @@ public class Database {
 			try {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
+				System.out.println(rs.toString());
 				while(rs.next()){
 					String s = rs.getString("word");
 					System.out.println("ROW: "+s);
