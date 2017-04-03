@@ -22,7 +22,7 @@ public class MsgHandler {
 	}
 	public String getResponse(JsonMessage body){
 		String user = body.get("username");
-		String msg = body.get("body");
+		String msg = body.get("message");
 		return db.get(msg,user);
 	}
 	public String getRandomReply(JsonMessage body) {
@@ -43,8 +43,8 @@ public class MsgHandler {
 		db.dbScan(msg, username, myResp);
 	}
 	public void postMsg(JsonMessage msg){
-		String s = msg.get("body").toLowerCase();
+		String s = msg.get("message").toLowerCase();
 		
-		db.newEntry(msg.get("body").toLowerCase());
+		db.newEntry(msg.get("message").toLowerCase());
 	}
 }

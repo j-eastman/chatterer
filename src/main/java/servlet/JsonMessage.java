@@ -23,8 +23,10 @@ public class JsonMessage {
 	
 	public JsonMessage(String s){
 		String[] temp = s.split("<brk>");
+		int count = 0;
 		for (String str:temp){
-			System.out.println("STRING:" +str);
+			System.out.println("COUNT: " + count +"|STRING:" +str);
+			count++;
 		}
 		this.username = temp[1].split(":")[1];
 		String temp2 = temp[2].split(":")[1];
