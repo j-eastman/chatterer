@@ -261,7 +261,7 @@ public class Database {
 				stmt = conn.createStatement();
 				stmt.executeUpdate(sql2);
 			} else {
-				System.out.printf("User %s found. Updating responses.");
+				System.out.printf("User %s found. Updating responses.",username);
 				String myLast = "";
 				while(rs.next()){
 					myLast = rs.getString("mylast");
