@@ -207,7 +207,7 @@ public class Database {
 	public String[] getQuery(String query, int table) {
 		System.out.printf("Searching table:%s for query:%s\n", tables[table], query);
 		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[table], query);
-		Array result = null;
+		String result = null;
 		String[] temp = null;
 		try {
 			Statement stmt = conn.createStatement();
@@ -217,9 +217,9 @@ public class Database {
 			} else {
 				while (rs.next()) {
 					int count = rs.getInt("frequency");
-					result = rs.getArray("responses");
+					result = rs.getString("resstr");
 					if (result != null) {
-						temp = (String[]) result.getArray();
+						temp = (String[]) respParse(result);
 						for (String s : temp) {
 							System.out.println(s);
 						}
@@ -236,8 +236,15 @@ public class Database {
 	}
 
 	private String form(String[] arr) {
-		return Arrays.toString(arr).replaceAll("[", "{").replaceAll("]", "}");
-
+		String retVal = "";
+		for (String s:arr){
+			retVal+=s+"<brk>";
+		}
+		
+		return retVal;
+	}
+	private String[] respParse(String s){
+		return s.split("<brk>");
 	}
 
 	public void updateUserData(String myLast, String username) {
