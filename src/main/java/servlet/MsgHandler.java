@@ -12,6 +12,6 @@ public class MsgHandler {
 		return db.get(msg,user);
 	}
 	public void postMsg(JsonMessage msg){
-		db.newEntry(msg.get("body"));
+		db.newEntry(msg.get("body").toLowerCase());
 	}
 }
