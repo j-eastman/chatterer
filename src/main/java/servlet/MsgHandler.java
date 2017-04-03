@@ -33,11 +33,13 @@ public class MsgHandler {
 		all = db.getAll();
 		Random r = new Random();
 		myResp = all.get(r.nextInt(all.size()));
+		db.dbScan(msg,from,myResp);
 		db.updateUserData(myResp,from);
 		return formatString(myResp);
 	}
-	public void storeResults(String from, String myResp){
+	public void storeResults(String msg,String username, String myResp){
 		
+		db.dbScan(msg, username, myResp);
 	}
 	public void postMsg(JsonMessage msg){
 		String s = msg.get("body").toLowerCase();

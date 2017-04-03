@@ -127,7 +127,6 @@ public class Database {
 
 	public void newEntry(String entry) {
 		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[getIndex(entry)], entry);
-		System.out.println("QUERY: " + sql);
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
