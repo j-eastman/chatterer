@@ -151,6 +151,7 @@ public class Database {
 			ResultSet rs = stmt.executeQuery(sql);
 			int count = 0;
 			while (rs.next()) {
+				System.out.println("Getting frequency.");
 				count = rs.getInt("frequency");
 
 			}
@@ -158,7 +159,7 @@ public class Database {
 			stmt.close();
 			stmt = conn.createStatement();
 			stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';",
-					tables[getIndex(entry)], count++, entry));
+					tables[getIndex(entry)], count+1, entry));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
