@@ -16,6 +16,7 @@ public class MsgHandler {
 	}
 	public String getRandomReply() {
 		ArrayList<String> all = new ArrayList<String>();
+		all = db.getAll();
 		Random r = new Random();
 		return all.get(r.nextInt(all.size()));
 	}
