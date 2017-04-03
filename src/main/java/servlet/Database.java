@@ -192,9 +192,11 @@ public class Database {
 				while (rs.next()) {
 					int count = rs.getInt("frequency");
 					result = rs.getArray("responses");
+					if (result!=  null){
 					temp = (String[]) result.getArray();
 					for (String s : temp) {
 						System.out.println(s);
+					}
 					}
 					stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';", tables[table], count++, query));
 				}
