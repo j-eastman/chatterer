@@ -275,21 +275,24 @@ public class Database {
 				}
 				stmt.close();
 				stmt = conn.createStatement();
-				System.out.println("myLast: " + myLast);
-				String[] resp = getQuery(myLast, getIndex(myLast));
-				String[] responses;
-				if (resp == null) {
-					responses = new String[1];
-					responses[0] = myLast;
-				} else {
-					responses = new String[resp.length + 1];
-					for (int i = 0; i < resp.length; i++) {
-						responses[i] = resp[i];
+				if (myLast.equals("")) {
+					System.out.println("myLast: " + myLast);
+					String[] resp = getQuery(myLast, getIndex(myLast));
+					String[] responses;
+					if (resp == null) {
+						responses = new String[1];
+						responses[0] = myLast;
+					} else {
+						responses = new String[resp.length + 1];
+						for (int i = 0; i < resp.length; i++) {
+							responses[i] = resp[i];
+						}
+						responses[resp.length + 1] = myLast;
 					}
-					responses[resp.length + 1] = myLast;
+					stmt.close();
+					updateEntry(myLast, getIndex(myLast), responses);
 				}
-				stmt.close();
-				updateEntry(myLast, getIndex(myLast), responses);
+				
 			}
 			stmt.close();
 		} catch (SQLException e) {
