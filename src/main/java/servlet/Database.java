@@ -116,10 +116,10 @@ public class Database {
 		System.out.println("RETVAL: " + retVal);
 		if (retVal == null) {
 			newEntry(query);
-			dbScan(query, user);
+			//dbScan(query, user);
 			return "nada";
 		}
-		dbScan(query, user);
+		//dbScan(query, user);
 		Random r = new Random();
 		return retVal[r.nextInt(retVal.length)];
 	}
@@ -237,32 +237,58 @@ public class Database {
 		return Arrays.toString(arr).replaceAll("[", "{").replaceAll("]", "}");
 
 	}
-
-	public void dbScan(String msg, String username) {
+	public void updateUserData(String myLast, String username){
+		String sql = String.format("UPDATE %s SET mylast = '%s' WHERE username='%s';", tables[27], myLast, username);
+		try {
+			System.out.printf("Updating mylast for user %s to %s\n",username,myLast);
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getErrorCode());
+		}
+	}
+	public void dbScan(String msg, String username,String myResponse) {
 		// username prevMsg myLast
 		System.out.println("Scanning userdata for user:" + username);
-		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[27], "username", username);
-		if (exists("username", username, 27)) {
-			System.out.printf("User:%s found.\n", username);
-			String myLast = "";
-			try {
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql);
-				while (rs.next()) {
-					myLast = rs.getString("myLast");
-
+		String sql = String.format("SELECT * FROM %s WHERE username='%s';", tables[27], username);
+		System.out.println("QUERY: " + sql);
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if (!rs.next()) {
+				stmt.close();
+				System.out.printf("User %s not found. Inserting into table.\n",username);
+				String sql2 = String.format("INSERT INTO %s(username,mylast) VALUES('%s','%s');", tables[27], username,
+						myResponse);
+				stmt = conn.createStatement();
+				stmt.executeUpdate(sql2);
+			} else {
+				System.out.printf("User %s found. Updating responses.");
+				String myLast = "";
+				while(rs.next()){
+					myLast = rs.getString("mylast");
 				}
-				String[] resp = getQuery(myLast, getIndex(myLast));
-				String[] newResp = new String[resp.length + 1];
-				for (int i = 0; i < resp.length; i++) {
-					newResp[i] = resp[i];
+				stmt.close();
+				stmt = conn.createStatement();
+				String[] resp = getQuery(myLast,getIndex(myLast));
+				String[] responses;
+				if (resp == null){
+					responses = new String[1];
+					responses[0] = myLast;
+				} else {
+					responses = new String[resp.length+1];
+					for (int i = 0; i < resp.length;i++){
+						responses[i] = resp[i];
+					}
+					responses[resp.length+1] = myLast;
 				}
-				newResp[resp.length + 1] = msg;
-				updateEntry(myLast, getIndex(myLast), newResp);
-
-			} catch (SQLException e) {
-				e.printStackTrace();
+				stmt.close();
+				updateEntry(myLast,getIndex(myLast),responses);
 			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getErrorCode());
 		}
 
 	}
