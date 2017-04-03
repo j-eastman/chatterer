@@ -103,6 +103,7 @@ public class Database {
 	}
 
 	private int getIndex(String s) {
+		System.out.println("getIndex: " + s);
 		s = s.toLowerCase();
 		if (s.equals("")) {
 			if (s.charAt(0) - 97 < 0 || s.charAt(0) - 97 > 26) {
