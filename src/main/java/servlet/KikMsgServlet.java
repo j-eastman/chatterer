@@ -42,8 +42,9 @@ public class KikMsgServlet extends HttpServlet{
              json += line;
              System.out.println(json);
          }
-         
+        json = json.substring(1, json.length()-1);
         JsonMessage jsonMes = new JsonMessage(json);
+
         System.out.println(jsonMes.get("body") + jsonMes.get("username"));
         MsgHandler mh = new MsgHandler();
         mh.postMsg(jsonMes);
