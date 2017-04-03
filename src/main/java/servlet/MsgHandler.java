@@ -1,5 +1,8 @@
 package servlet;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class MsgHandler {
 	Database db;
 	public MsgHandler(){
@@ -11,7 +14,11 @@ public class MsgHandler {
 		String msg = body.get("body");
 		return db.get(msg,user);
 	}
-	public String getRandomEn
+	public String getRandomReply() {
+		ArrayList<String> all = new ArrayList<String>();
+		Random r = new Random();
+		return all.get(r.nextInt(all.size()));
+	}
 	public void postMsg(JsonMessage msg){
 		String s = msg.get("body").toLowerCase();
 		
