@@ -191,8 +191,8 @@ public class Database {
 				ResultSet rs = stmt.executeQuery(sql);
 				while (rs.next()) {
 					// String s = rs.getString(rs.getRow());
-					System.out.println("ROW: " + rs.getCursorName());
-					retVal.add(rs.getCursorName());
+					System.out.println("ROW: " + rs.getString("word"));
+					retVal.add(rs.getString("word"));
 				}
 				stmt.close();
 			} catch (SQLException e) {

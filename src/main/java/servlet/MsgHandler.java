@@ -11,6 +11,7 @@ public class MsgHandler {
 		String msg = body.get("body");
 		return db.get(msg,user);
 	}
+	public String getRandomEn
 	public void postMsg(JsonMessage msg){
 		String s = msg.get("body").toLowerCase();
 		
