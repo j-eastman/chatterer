@@ -152,7 +152,7 @@ public class Database {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				while(rs.next()){
-					String s = rs.getCursorName();
+					String s = rs.getString("word");
 					System.out.println("ROW: "+s);
 					retVal.add(s);
 				}

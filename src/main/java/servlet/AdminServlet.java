@@ -37,7 +37,7 @@ public class AdminServlet extends HttpServlet{
         	db.updateTables();
         }*/
         System.out.println("Command: " + jsonMes.get("command"));
-        if (jsonMes.get("command").equals("getAll")){
+        if (jsonMes.get("command").equalsIgnoreCase("getAll")){
         	System.out.println("Fetching all rows...");
         	
         	ArrayList<String> al = db.getAll();
