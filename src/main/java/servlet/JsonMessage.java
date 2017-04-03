@@ -7,7 +7,9 @@ import org.json.JSONObject;
 
 public class JsonMessage {
 	JSONObject json;
-	public JsonMessage(String js) throws IOException{
+	String message;
+	String username;
+	/*public JsonMessage(String js) throws IOException{
 		  try {
 			  System.out.println("JSON: " + js);
 			    JSONObject jsonObject =  new JSONObject(js);
@@ -17,12 +19,24 @@ public class JsonMessage {
 			    throw new IOException("Error parsing JSON request string");
 			  }
 		//System.out.println("JSON: " + input);
-	}
-	public JsonMessage(){
-		
+	}*/
+	
+	public JsonMessage(String s){
+		String[] temp = s.split("brk");
+		this.message = temp[1].split(":")[1];
+		this.username = temp[2].split(":")[1];
 	}
 	
 	public String get(String value){
+		if (value.equalsIgnoreCase("username")){
+			return username;
+		}
+		if (value.equalsIgnoreCase("message")){
+			return message;
+		}
+		return null;
+	}
+	/*public String get(String value){
 		if (json == null){
 			return "empty";
 		}
@@ -35,7 +49,7 @@ public class JsonMessage {
 			
 		}
 		return s;
-	}
+	}*/
 	//public String put(String key,String value){
 		
 	//}
