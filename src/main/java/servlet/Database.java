@@ -151,6 +151,7 @@ public class Database {
 			try {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
+				System.out.println("NEXT: " + rs.next());
 				while(rs.next()){
 					String s = rs.getString(rs.getRow());
 					System.out.println("ROW: "+s);
