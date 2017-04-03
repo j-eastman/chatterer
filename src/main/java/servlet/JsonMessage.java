@@ -32,6 +32,7 @@ public class JsonMessage {
 		String temp2 = temp[2].split(":")[1];
 		this.message = temp2.substring(0, temp2.length()-1);
 		System.out.println("MSG:"  +message);
+		System.out.println("USER: " + username);
 	}
 	
 	public String get(String value){
