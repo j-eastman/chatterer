@@ -149,12 +149,16 @@ public class Database {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			int count = 0;
 			while (rs.next()) {
-				int count = rs.getInt("frequency");
-				System.out.printf("%s frequency: %d. Adding one...\n", entry, count);
-				stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';",
-						tables[getIndex(entry)], count++, entry));
+				count = rs.getInt("frequency");
+
 			}
+			System.out.printf("%s frequency: %d. Adding one...\n", entry, count);
+			stmt.close();
+			stmt = conn.createStatement();
+			stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';",
+					tables[getIndex(entry)], count++, entry));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
