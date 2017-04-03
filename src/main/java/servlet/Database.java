@@ -268,14 +268,14 @@ public class Database {
 				stmt = conn.createStatement();
 				stmt.executeUpdate(sql2);
 			} else {
-				System.out.printf("User %s found. Updating responses.", username);
+				System.out.printf("User %s found. Updating responses.\n", username);
 				String myLast = "";
 				while (rs.next()) {
 					myLast = rs.getString("mylast");
 				}
 				stmt.close();
 				stmt = conn.createStatement();
-				if (myLast.equals("")) {
+				if (!myLast.equals("")) {
 					System.out.println("myLast: " + myLast);
 					String[] resp = getQuery(myLast, getIndex(myLast));
 					String[] responses;
