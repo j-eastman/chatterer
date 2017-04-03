@@ -10,7 +10,7 @@ public class JsonMessage {
 	public JsonMessage(String js) throws IOException{
 		  try {
 			    JSONObject jsonObject =  new JSONObject(js);
-			    json = jsonObject;
+			    json = jsonObject.getJSONObject("message");
 			  } catch (JSONException e) {
 			    // crash and burn
 			    throw new IOException("Error parsing JSON request string");
