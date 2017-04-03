@@ -12,8 +12,8 @@ public class JsonMessage {
 	public JsonMessage(String js) throws IOException{
 		  try {
 			  System.out.println("JSON: " + js);
-			    JSONObject jsonObject =  new JSONObject(js);
-			    json = jsonObject.getJSONObject("message");
+			  JSONObject jsonObject =  new JSONObject(js);
+			  json = jsonObject;
 			  } catch (JSONException e) {
 			    // crash and burn
 			    throw new IOException("Error parsing JSON request string");
