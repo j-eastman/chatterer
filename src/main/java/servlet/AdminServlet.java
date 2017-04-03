@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/admin") 
 public class AdminServlet extends HttpServlet{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -27,12 +32,14 @@ public class AdminServlet extends HttpServlet{
          }
          
         JsonMessage jsonMes = new JsonMessage(json);
-        if (jsonMes.get("command").equals("updateTable")){
+     /*   if (jsonMes.get("command").equals("updateTable")){
         	System.out.println("Updating tables...");
         	db.updateTables();
-        }
+        }*/
+        System.out.println("Command: " + jsonMes.get("command"));
         if (jsonMes.get("command").equals("getAll")){
         	System.out.println("Fetching all rows...");
+        	
         	ArrayList<String> al = db.getAll();
         	for (String s:al){
         		System.out.println(s);
