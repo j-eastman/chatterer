@@ -123,8 +123,22 @@ public class Database {
 	}
 
 	public void newEntry(String entry) {
-		System.out.printf("Inserted new entry '%s' into table: %s\n", entry, tables[getIndex(entry)]);
-		insert(entry, getIndex(entry));
+		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[getIndex(entry)],entry);
+		System.out.println("QUERY: " + sql);
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if (!rs.next()){
+				System.out.printf("%s not found. Entering it into table: %s\n", entry, tables[getIndex(entry)]);
+				insert(entry, getIndex(entry));
+			} else {
+				System.out.printf("%s found. Updating frequency.\n",entry);
+				getQuery(entry, getIndex(entry));
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getErrorCode());
+		}
 	}
 
 	public boolean exists(String column, String query, int table) {
@@ -176,11 +190,13 @@ public class Database {
 				newEntry(query);
 			} else {
 				while (rs.next()) {
+					int count = rs.getInt("frequency");
 					result = rs.getArray("responses");
 					temp = (String[]) result.getArray();
 					for (String s : temp) {
 						System.out.println(s);
 					}
+					stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';", tables[table], count++, query));
 				}
 			}
 			stmt.close();
