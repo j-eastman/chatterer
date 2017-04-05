@@ -287,7 +287,7 @@ public class Database {
 			//	stmt = conn.createStatement();
 				if (!myLast.equals("")) {
 					System.out.println("myLast: " + myLast);
-					String[] resp = getQuery(myLast, getIndex(myLast));
+					String[] resp = getQuery(myLast, 27);
 					String[] responses;
 					if (resp == null) {
 						responses = new String[1];
