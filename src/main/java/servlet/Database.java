@@ -283,9 +283,10 @@ public class Database {
 				String myLast = "";
 				while (rs.next()) {
 					myLast = rs.getString("mylast");
+					System.out.println("myLast: " + myLast);
 				}
 				stmt.close();
-				stmt = conn.createStatement();
+			//	stmt = conn.createStatement();
 				if (!myLast.equals("")) {
 					System.out.println("myLast: " + myLast);
 					String[] resp = getQuery(myLast, getIndex(myLast));
@@ -302,6 +303,8 @@ public class Database {
 					}
 					stmt.close();
 					updateEntry(myLast, getIndex(myLast), responses);
+				} else{
+					updateResStr(msg,myLast);
 				}
 				
 			}
