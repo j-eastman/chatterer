@@ -56,22 +56,6 @@ public class Database {
 
 		return DriverManager.getConnection(dbUrl, username, password);
 	}
-	public String[] getStuff() {
-		URI dbUri;
-		String[] retVal = {"null"};
-		try {
-			dbUri = new URI(System.getenv("DATABASE_URL"));
-			String username = dbUri.getUserInfo().split(":")[0];
-			String password = dbUri.getUserInfo().split(":")[1];
-			
-			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-			return new String[] {username, password, dbUrl};
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return retVal;
-	}
 
 	public void updateEntry(String entry, int table, String[] newVal) {
 		// UPDATE table SET responses = 'newVal' WHERE word = entry;
@@ -352,7 +336,19 @@ public class Database {
 		return retVal;
 	}
 	public void updateResStr(String entry, String newResp){
-		
+		//String sql = String.format("UPDATE %s SET responses = %s WHERE word='%s';", tables[table], form(newVal), entry);
+		System.out.printf("Updating entry %s with %s\n",entry,newResp);
+		String sql = String.format("UPDATE %s SET resstr = '%s' WHERE word='%s';", tables[getIndex(entry)],newResp,entry);
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+		} catch (SQLException e){
+			close();
+			e.printStackTrace();
+			
+		}
 	}
 	public void close(){
 		try {
