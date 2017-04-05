@@ -101,7 +101,6 @@ public class Database {
 	}
 
 	private int getIndex(String s) {
-		System.out.println("getIndex: " + s);
 		s = s.toLowerCase();
 		if (!s.equals("")) {
 			if (s.charAt(0) - 97 < 0 || s.charAt(0) - 97 > 26) {
@@ -155,7 +154,6 @@ public class Database {
 			ResultSet rs = stmt.executeQuery(sql);
 			int count = 0;
 			while (rs.next()) {
-				System.out.println("Getting frequency.");
 				count = rs.getInt("frequency");
 
 			}
@@ -282,7 +280,7 @@ public class Database {
 				System.out.printf("User %s found. Updating responses.\n", username);
 				String myLast = "";
 				while (rs.next()) {
-					myLast = rs.getString("mylast");
+					myLast = rs.getString("myLast");
 					System.out.println("myLast: " + myLast);
 				}
 				stmt.close();
