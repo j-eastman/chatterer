@@ -297,7 +297,7 @@ public class Database {
 					String respStr = getResStr(myLast);
 					respStr += "<brk>"+msg;
 					stmt.close();
-					updateEntry(myLast, getIndex(myLast), responses);
+					updateEntry(myLast, getIndex(myLast), respStr);
 				} else{
 					updateResStr(msg,myLast);
 				}
