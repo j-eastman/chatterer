@@ -37,7 +37,6 @@ public class MsgHandler {
 		System.out.println("From:" + from);
 		db.dbScan(msg,from,myResp);
 		db.updateUserData(myResp,from);
-		db.close();
 		return formatString(myResp);
 	}
 	public void storeResults(String msg,String username, String myResp){
@@ -48,5 +47,8 @@ public class MsgHandler {
 		String s = msg.get("body").toLowerCase();
 		
 		db.newEntry(msg.get("body").toLowerCase());
+	}
+	public void close() {
+		db.close();
 	}
 }
