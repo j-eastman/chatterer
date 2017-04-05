@@ -268,8 +268,8 @@ public class Database {
 		// System.out.println("QUERY: " + sql);
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			if (!rs.next()) {
+			String myLast = getMyLast(username);
+			if (myLast.equals("<none>")) {
 				stmt.close();
 				System.out.printf("User %s not found. Inserting into table.\n", username);
 				String sql2 = String.format("INSERT INTO %s(username,mylast) VALUES('%s','%s');", tables[27], username,
@@ -278,16 +278,10 @@ public class Database {
 				stmt.executeUpdate(sql2);
 			} else {
 				System.out.printf("User %s found. Updating responses.\n", username);
-				String myLast = "";
-				while (rs.next()) {
-					myLast = rs.getString("myLast");
-					System.out.println("myLast: " + myLast);
-				}
 				stmt.close();
-			//	stmt = conn.createStatement();
 				if (!myLast.equals("")) {
 					System.out.println("myLast: " + myLast);
-					String[] resp = getQuery(myLast, 27);
+					String[] resp = respParse(getResStr(myLast));
 					String[] responses;
 					if (resp == null) {
 						responses = new String[1];
@@ -312,6 +306,21 @@ public class Database {
 			System.out.println(e.getErrorCode());
 		}
 
+	}
+	public String getMyLast(String username){
+		String sql = String.format("SELECT * FROM userdata WHERE username='%s';", username);
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()){
+				return rs.getString("mylast");
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+			close();
+		}
+		return "<none>";
 	}
 	public String getResStr(String entry){
 		System.out.printf("Getting resstr for: %s\n",entry);
