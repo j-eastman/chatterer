@@ -71,6 +71,19 @@ public class Database {
 			System.out.println(e.getErrorCode());
 		}
 	}
+	public void updateEntry(String entry, int table,String newVal) {
+		// UPDATE table SET responses = 'newVal' WHERE word = entry;
+		//System.out.println(form(newVal));
+		System.out.printf("Updating entry %s with responses: '%s' into table: %s\n", entry, newVal,tables[table]);
+		String sql = String.format("UPDATE %s SET responses = %s WHERE word='%s';", tables[table], newVal, entry);
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getErrorCode());
+		}
+	}
 
 	public void insert(String entry, int table, String[] responses) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
@@ -281,18 +294,8 @@ public class Database {
 				stmt.close();
 				if (!myLast.equals("")) {
 					System.out.println("myLast: " + myLast);
-					String[] resp = respParse(getResStr(myLast));
-					String[] responses;
-					if (resp == null) {
-						responses = new String[1];
-						responses[0] = myLast;
-					} else {
-						responses = new String[resp.length + 1];
-						for (int i = 0; i < resp.length; i++) {
-							responses[i] = resp[i];
-						}
-						responses[resp.length + 1] = myLast;
-					}
+					String respStr = getResStr(myLast);
+					respStr += "<brk>"+msg;
 					stmt.close();
 					updateEntry(myLast, getIndex(myLast), responses);
 				} else{
