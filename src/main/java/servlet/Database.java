@@ -83,9 +83,8 @@ public class Database {
 	}
 	public void updateEntry(String entry, int table,String newVal) {
 		// UPDATE table SET responses = 'newVal' WHERE word = entry;
-		//System.out.println(form(newVal));
 		System.out.printf("Updating entry %s with resstr: '%s' into table: %s\n", entry, newVal,tables[table]);
-		String sql = String.format("UPDATE %s SET resstr = '%s' WHERE word='%s';", tables[table], newVal, entry);
+		String sql = String.format("UPDATE %s SET resstr = '%s' WHERE word = '%s';", tables[table], newVal, entry);
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
@@ -190,22 +189,6 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-
-	/*public boolean exists(String column, String query, int table) {
-		System.out.printf("Checking if %s '%s' exists in table: %s\n", column, query, tables[table]);
-		String sql = String.format("SELECT EXISTS (FROM %s WHERE %s='%s';", tables[table], column, query);
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			return rs.next();
-		} catch (SQLException e) {
-			close();
-			e.printStackTrace();
-		}
-
-		return false;
-	}*/
 
 	public ArrayList<String> getAll() {
 		ArrayList<String> retVal = new ArrayList<String>();
@@ -380,19 +363,4 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	
-	/*private String getSQL(String entry, int type){
-		//QUERY_ALL, QUERY_KEY, UPDATE, INSERT, INSERT_CUS
-		String query_all = String.format("SELECT * FROM %s WHERE word='%s';",tables[getIndex(entry)],entry);
-		//String insert = String.format("INSERT INTO %s( , args)
-		if (type == QUERY_ALL){
-			return query_all;
-		}
-		if (type == QUERY_KEY){
-			
-		}
-	}
-	private String getSQL(String entry,String fieldChange, String value, int type){
-		String update = "UPDATE "
-	}*/
 }
