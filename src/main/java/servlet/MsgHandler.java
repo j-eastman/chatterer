@@ -36,6 +36,7 @@ public class MsgHandler {
 		System.out.println("From:" + from);
 		db.dbScan(msg,from,myResp);
 		db.updateUserData(myResp,from);
+		db.close();
 		return formatString(myResp);
 	}
 	public void storeResults(String msg,String username, String myResp){

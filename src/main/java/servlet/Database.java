@@ -15,7 +15,6 @@ import java.util.Random;
 public class Database {
 	Connection conn;
 	public String[] tables = new String[28];
-
 	public void updateTables() {
 		for (int i = 0; i < 27; i++) {
 			String sql = String.format("ALTER TABLE %s ADD COLUMN resStr text;", tables[i]);
@@ -34,10 +33,8 @@ public class Database {
 			conn = getConnection();
 			System.out.println("Connected to database successfully");
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		for (int i = 0; i < 26; i++) {
@@ -146,6 +143,7 @@ public class Database {
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getErrorCode());
+			close();
 		}
 	}
 
@@ -166,6 +164,7 @@ public class Database {
 			stmt.executeUpdate(String.format("UPDATE %s SET frequency = %d WHERE word='%s';", tables[getIndex(entry)],
 					count + 1, entry));
 		} catch (SQLException e) {
+			close();
 			e.printStackTrace();
 		}
 	}
@@ -179,7 +178,7 @@ public class Database {
 			ResultSet rs = stmt.executeQuery(sql);
 			return rs.next();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			close();
 			e.printStackTrace();
 		}
 
@@ -198,6 +197,7 @@ public class Database {
 				}
 				stmt.close();
 			} catch (SQLException e) {
+				close();
 				System.out.println(e.getErrorCode());
 			}
 		}
@@ -229,6 +229,7 @@ public class Database {
 			}
 			stmt.close();
 		} catch (SQLException e) {
+			close();
 			System.out.println(e.getErrorCode());
 			e.printStackTrace();
 		}
@@ -249,12 +250,14 @@ public class Database {
 
 	public void updateUserData(String myLast, String username) {
 		String sql = String.format("UPDATE %s SET mylast = '%s' WHERE username='%s';", tables[27], myLast, username);
+		Statement stmt;
 		try {
 			System.out.printf("Updating mylast for user %s to %s\n", username, myLast);
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
 		} catch (SQLException e) {
+			close();
 			System.out.println(e.getErrorCode());
 		}
 	}
@@ -303,9 +306,16 @@ public class Database {
 			}
 			stmt.close();
 		} catch (SQLException e) {
+			close();
 			System.out.println(e.getErrorCode());
 		}
 
 	}
-
+	public void close(){
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
