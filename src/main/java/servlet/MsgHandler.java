@@ -30,6 +30,7 @@ public class MsgHandler {
 		String msg = body.get("body");
 		String myResp;
 		ArrayList<String> all = new ArrayList<String>();
+		db.reconnect();
 		all = db.getAll();
 		Random r = new Random();
 		System.out.println("All Size: " + all.size());

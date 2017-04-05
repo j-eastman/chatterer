@@ -47,6 +47,16 @@ public class Database {
 		tables[27] = "userdata";
 	}
 
+	public void reconnect() {
+		try {
+			conn = getConnection();
+			System.out.println("Connected to database successfully");
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	private Connection getConnection() throws URISyntaxException, SQLException {
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
