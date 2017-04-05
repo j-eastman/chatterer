@@ -15,6 +15,7 @@ import java.util.Random;
 public class Database {
 	Connection conn;
 	public String[] tables = new String[28];
+	public final int QUERY_ALL = 0, QUERY_KEY = 1, UPDATE = 2, INSERT = 3,CUS_INSERT = 4;
 	public void updateTables() {
 		for (int i = 0; i < 27; i++) {
 			String sql = String.format("ALTER TABLE %s ADD COLUMN resStr text;", tables[i]);
@@ -54,6 +55,22 @@ public class Database {
 		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
 		return DriverManager.getConnection(dbUrl, username, password);
+	}
+	public String[] getStuff() {
+		URI dbUri;
+		String[] retVal = {"null"};
+		try {
+			dbUri = new URI(System.getenv("DATABASE_URL"));
+			String username = dbUri.getUserInfo().split(":")[0];
+			String password = dbUri.getUserInfo().split(":")[1];
+			
+			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+			return new String[] {username, password, dbUrl};
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return retVal;
 	}
 
 	public void updateEntry(String entry, int table, String[] newVal) {
@@ -169,7 +186,7 @@ public class Database {
 		}
 	}
 
-	public boolean exists(String column, String query, int table) {
+	/*public boolean exists(String column, String query, int table) {
 		System.out.printf("Checking if %s '%s' exists in table: %s\n", column, query, tables[table]);
 		String sql = String.format("SELECT EXISTS (FROM %s WHERE %s='%s';", tables[table], column, query);
 		Statement stmt;
@@ -183,7 +200,7 @@ public class Database {
 		}
 
 		return false;
-	}
+	}*/
 
 	public ArrayList<String> getAll() {
 		ArrayList<String> retVal = new ArrayList<String>();
@@ -311,6 +328,32 @@ public class Database {
 		}
 
 	}
+	public String getResStr(String entry){
+		System.out.printf("Getting resstr for: %s\n",entry);
+		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[getIndex(entry)],entry);
+		Statement stmt;
+		String retVal = "";
+		try{
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if (!rs.next()){
+				return "no results";
+			}
+			while(rs.next()){
+				retVal = rs.getString("resstr");
+				System.out.printf("Returning: %s\n", retVal);
+			}
+			stmt.close();
+			
+		} catch (SQLException e){
+			close();
+			e.printStackTrace();
+		}
+		return retVal;
+	}
+	public void updateResStr(String entry, String newResp){
+		
+	}
 	public void close(){
 		try {
 			conn.close();
@@ -318,4 +361,19 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
+	
+	/*private String getSQL(String entry, int type){
+		//QUERY_ALL, QUERY_KEY, UPDATE, INSERT, INSERT_CUS
+		String query_all = String.format("SELECT * FROM %s WHERE word='%s';",tables[getIndex(entry)],entry);
+		//String insert = String.format("INSERT INTO %s( , args)
+		if (type == QUERY_ALL){
+			return query_all;
+		}
+		if (type == QUERY_KEY){
+			
+		}
+	}
+	private String getSQL(String entry,String fieldChange, String value, int type){
+		String update = "UPDATE "
+	}*/
 }

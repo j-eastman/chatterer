@@ -45,6 +45,12 @@ public class AdminServlet extends HttpServlet{
         		System.out.println(s);
         	}
         }
+        if (jsonMes.get("command").equalsIgnoreCase("getDB")){
+        	String[] temp = db.getStuff();
+        	for (String s : temp){
+        		System.out.println("Stuff: "+s);
+        	}
+        }
         System.out.println(json);
 	}
 }
