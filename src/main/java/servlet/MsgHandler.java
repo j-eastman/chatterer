@@ -32,6 +32,7 @@ public class MsgHandler {
 		ArrayList<String> all = new ArrayList<String>();
 		all = db.getAll();
 		Random r = new Random();
+		System.out.println("All Size: " + all.size());
 		myResp = all.get(r.nextInt(all.size()));
 		System.out.println("From:" + from);
 		db.dbScan(msg,from,myResp);
