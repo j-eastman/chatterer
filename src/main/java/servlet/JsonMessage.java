@@ -11,7 +11,6 @@ public class JsonMessage {
 	String username;
 	public JsonMessage(String js) throws IOException{
 		  try {
-			  System.out.println("JSON: " + js);
 			  JSONObject jsonObject =  new JSONObject(js);
 			  json = jsonObject;
 			  } catch (JSONException e) {
@@ -48,7 +47,6 @@ public class JsonMessage {
 		if (json == null){
 			return "empty";
 		}
-		System.out.printf("JSON INFO:size-%d toString:%s\n", json.length(),json.toString());
 		String s = "error";
 		try {
 			s = json.getString(value);

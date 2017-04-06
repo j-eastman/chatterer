@@ -69,7 +69,6 @@ public class Database {
 
 	public void updateEntry(String entry, int table, String[] newVal) {
 		// UPDATE table SET responses = 'newVal' WHERE word = entry;
-		System.out.println(form(newVal));
 		System.out.printf("Updating entry %s with responses: '%s' into table: %s\n", entry, Arrays.toString(newVal),
 				tables[table]);
 		String sql = String.format("UPDATE %s SET responses = %s WHERE word='%s';", tables[table], form(newVal), entry);
