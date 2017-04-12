@@ -39,7 +39,7 @@ a#download {
 	background-position: center;
 }/* Box styles */
 #myBox {
-	text-align: center;
+	text-align: left;
 	overflow:auto;
 	width:85%;
 	height:450px;
