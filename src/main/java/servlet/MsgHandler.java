@@ -27,7 +27,7 @@ public class MsgHandler {
 	}
 	public String getRandomReply(JsonMessage body) {
 		String from = body.get("username");
-		String msg = body.get("body");
+		String msg = body.get("message");
 		String myResp;
 		ArrayList<String> all = new ArrayList<String>();
 		db.reconnect();
