@@ -41,17 +41,17 @@ JSONTest = function() {
 <body>
 	<h2>Chat Box</h2>
 <ul class="chatBox">
-	<li class="chatRow" id="row" name="row0"><div class="chatRow" id="message"></div></li>
-	<li class="chatRow" id="row" name="row1"><br>. </li>
-	<li class="chatRow" id="row" name="row2"><br> </li>
-	<li class="chatRow" id="row" name="row3"><br> </li>
-	<li class="chatRow" id="row" name="row4"><br> </li>
-	<li class="chatRow" id="row" name="row5"><br> </li>
-	<li class="chatRow" id="row" name="row6"><br> </li>
-	<li class="chatRow" id="row" name="row7"><br> </li>
-	<li class="chatRow" id="row" name="row8"><br> </li>
-	<li class="chatRow" id="row" name="row9"><br> </li>
-	<li class="chatRow" id="row" name="row10"><br> </li>
+	<li class="chatRow" id="row" name="row0">.<br></li>
+	<li class="chatRow" id="row" name="row1">.<br</li>
+	<li class="chatRow" id="row" name="row2">.<br></li>
+	<li class="chatRow" id="row" name="row3">.<br></li>
+	<li class="chatRow" id="row" name="row4">.<br></li>
+	<li class="chatRow" id="row" name="row5">.<br></li>
+	<li class="chatRow" id="row" name="row6">.<br></li>
+	<li class="chatRow" id="row" name="row7">.<br></li>
+	<li class="chatRow" id="row" name="row8">.<br></li>
+	<li class="chatRow" id="row" name="row9">.<br></li>
+	<li class="chatRow" id="row" name="row10">.<br></li>
 </ul>
 <textarea id="myBox" class="form-control" rows="8" placeholder="Chatterer's Response"></textarea>
 <form id="submit" action="javascript:JSONTest()">
@@ -71,7 +71,7 @@ JSONTest = function() {
 				document.getElementById(rowList[count]).value=document.getElementById(rowList[count-1]).value;
 			}
 			if (count == 0){
-				document.getElementById(rowList[0]).value="\nYou: " + document.getElementById("responseBox").value;
+				document.getElementById(rowList[0]).value="You: " + document.getElementById("responseBox").value+"\n";
 			}
 		}
     e.preventDefault();
@@ -88,7 +88,7 @@ JSONTest = function() {
 				document.getElementById(rowList[count]).value=document.getElementById(rowList[count-1]).value;
 			}
 			if (count == 0){
-					document.getElementById(rowList[0]).value="\nChatterer:" + response;
+					document.getElementById(rowList[0]).value="Chatterer:" + response+"\n";
 			}
 		}
 		document.getElementById('responseBox').value='';
