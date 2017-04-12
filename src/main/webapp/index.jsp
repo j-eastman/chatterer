@@ -13,7 +13,7 @@ JSONTest = function() {
     $.ajax({
         url: "/web",
         type: "POST",
-        data: myJson,
+        data: JSON.stringify(myJson),
         dataType: "json",
 		contentType: "application/json; charset=utf-8",
         traditional: true,
