@@ -68,13 +68,13 @@ JSONTest = function() {
 	  	for (count = MAX_ROWS; count >= 0;count--){
 			if (count > 0){
 				var temp = document.getElementsByName(rowList[count-1]).value;
-				$('.'+rowList[count]).val(temp);
+				$('#'+rowList[count]).val(temp);
 				document.getElementsByName(rowList[count]).value=temp;
 			}
 			if (count == 0){
 				var temp = "You: " + document.getElementById("responseBox").value+"\n";
 				document.getElementsByName(rowList[0]).value=temp;
-				$('.row10').val(temp);
+				$('#row10').val(temp);
 			}
 		}
     e.preventDefault();
@@ -90,12 +90,12 @@ JSONTest = function() {
 			if (count > 0){
 				var temp = document.getElementsByName(rowList[count-1]).value;
 				document.getElementsByName(rowList[count]).value=temp;
-				$('.'+rowList[count]).val(temp);
+				$('#'+rowList[count]).val(temp);
 			}
 			if (count == 0){
 				var temp="Chatterer: " + response+"\n";
 				document.getElementsByName(rowList[0]).value="Chatterer:" + response+"\n";
-				$('.row10').val(temp);
+				$('#row10').val(temp);
 			}
 		}
 		document.getElementById('responseBox').value='';
