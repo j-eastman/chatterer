@@ -53,6 +53,7 @@
 <h1>Chatterer</h1>
 </body>
 <script>
+console.log("HERE");
 $(document).ready(function(){
   $('.link').on('click', function(e) {
     e.preventDefault();
