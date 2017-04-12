@@ -16,6 +16,7 @@ JSONTest = function() {
         data: JSON.stringify(myJson),
         dataType: "json",
         success: function (result) {
+			console.log("RESULT: " + result);
             switch (result) {
                 case true:
 					console.log("HERE: " + result);
