@@ -28,6 +28,7 @@ JSONTest = function() {
         },
         error: function (xhr, ajaxOptions, thrownError) {
         alert(xhr.status);
+		console.log("RESPONSE TEXT: " + xhr.resoponseText);
         alert(thrownError);
 		console.log(xhr + "\n\n");
 		console.log(ajaxOptions);
