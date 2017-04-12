@@ -50,7 +50,7 @@ JSONTest = function() {
 	var userMessage = "";
 	$(document).ready(function(){
   	$('.link').on('click', function(e) {
-		document.getElementById("myBox").scrollTop = document.getElementById("myBox").scrollHeight;
+		document.getElementById("myBox").scrollBot = document.getElementById("myBox").scrollHeight;
 		var thing1 =document.getElementById("myBox").value;
 		$('.form-control').val(thing1+"\nYou: "+ document.getElementById("responseBox").value);
     	e.preventDefault();
