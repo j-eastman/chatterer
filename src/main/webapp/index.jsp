@@ -38,6 +38,7 @@ JSONTest = function() {
 <div id="bannerimage"></div>
 <body>
 <textarea id="myBox" class="form-control" rows="8" placeholder="server response"></textarea>
+<textarea class="form-control" rows="8" placeholder="server response"></textarea>
 <form id="submit" action="javascript:JSONTest()">
   <input id="responseBox" type="text" name="response" style="width:100%;margin-top:20px;" placeholder="Enter text here...">
   <input type="submit" class="link" value="Submit" style="margin-left:45%;margin-top:10px">
