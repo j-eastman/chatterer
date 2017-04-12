@@ -22,7 +22,7 @@ public class MsgHandler {
 	}
 	public String getResponse(JsonMessage body){
 		String user = body.get("username");
-		String msg = body.get("body");
+		String msg = body.get("message");
 		return db.get(msg,user);
 	}
 	public String getRandomReply(JsonMessage body) {
