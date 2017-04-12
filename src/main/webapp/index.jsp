@@ -42,7 +42,7 @@ JSONTest = function() {
 	<h2>Chat Box</h2>
 <ul class="chatBox">
 	<li class="chatRow" id="row" name="row0"><div class="chatRow" id="message"></div></li>
-	<li class="chatRow" id="row" name="row1"><br> </li>
+	<li class="chatRow" id="row" name="row1"><br>. </li>
 	<li class="chatRow" id="row" name="row2"><br> </li>
 	<li class="chatRow" id="row" name="row3"><br> </li>
 	<li class="chatRow" id="row" name="row4"><br> </li>
@@ -71,7 +71,7 @@ JSONTest = function() {
 				document.getElementById(rowList[count]).value=document.getElementById(rowList[count-1]).value;
 			}
 			if (count == 0){
-				document.getElementById(rowList[0]).value="You: " + document.getElementById("responseBox").value;
+				document.getElementById(rowList[0]).value="\nYou: " + document.getElementById("responseBox").value;
 			}
 		}
     e.preventDefault();
@@ -88,7 +88,7 @@ JSONTest = function() {
 				document.getElementById(rowList[count]).value=document.getElementById(rowList[count-1]).value;
 			}
 			if (count == 0){
-					document.getElementById(rowList[0]).value="Chatterer:" + response;
+					document.getElementById(rowList[0]).value="\nChatterer:" + response;
 			}
 		}
 		document.getElementById('responseBox').value='';
