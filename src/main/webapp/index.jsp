@@ -65,6 +65,8 @@ JSONTest = function() {
 	var userMessage = "";
 	$(document).ready(function(){
   $('.link').on('click', function(e) {
+	  var thing1 =document.getElementById("myBox").value;
+	  $('.form-control').val(thing1+"\nYou: "+ document.getElementById("responseBox").value);
 	  	for (count = MAX_ROWS; count >= 0;count--){
 			if (count > 0){
 				var temp = document.getElementsByName(rowList[count-1]).value;
@@ -84,7 +86,8 @@ JSONTest = function() {
       data: document.getElementById("responseBox").value,
       success: function(response) {
         console.log(response);
-        $('.form-control').val(response);
+		  var thing =document.getElementById("myBox").value;
+        $('.form-control').val(thing+"\nChatterer: "+ response);
 		
 		for (count = MAX_ROWS; count >= 0;count--){
 			if (count > 0){
