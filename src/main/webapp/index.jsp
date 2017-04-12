@@ -28,10 +28,10 @@ JSONTest = function() {
         },
         error: function (xhr, ajaxOptions, thrownError) {
         alert(xhr.status);
-		console.log("RESPONSE TEXT: " + xhr.resoponseText);
+		alert("RESPONSE TEXT: " + xhr.resoponseText);
         alert(thrownError);
-		console.log(xhr + "\n\n");
-		console.log(ajaxOptions);
+		alert(xhr + "\n\n");
+		alert(ajaxOptions);
         }
     });
 };
@@ -45,4 +45,21 @@ JSONTest = function() {
   <input type="submit" class="link" value="Submit" style="margin-left:45%;margin-top:10px">
 </form>
 </body>
+<script>
+	$(document).ready(function(){
+  $('#submit').on('click', function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "/web",
+      data: $("#json-data").serialize(),
+      success: function(response) {
+        console.log(response);
+        $('.form-control').val(response);
+      }
+    });
+    return false;
+  });
+})
+	</script>
 </html>
