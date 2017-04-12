@@ -39,17 +39,18 @@ JSONTest = function() {
 </script>
 <body>
 <h2>Chat Box</h2>
-<textarea id="myBox" class="form-control" rows="8" placeholder="Chatterer's Response"></textarea>
+<textarea readonly id="myBox" class="form-control" rows="8" placeholder="Chatterer's Response"></textarea>
 <form id="submit" action="javascript:JSONTest()">
   <input class="responseBox" id="responseBox" type="text" name="response" style="width:100%;margin-top:20px;" placeholder="Enter text here...">
   <input type="submit" class="link" value="Submit" style="margin-left:45%;margin-top:10px">
 </form>
 </body>
 <script>
-	document.getElementById("myBox").scrollTop = document.getElementById("myBox").scrollHeight;
+	
 	var userMessage = "";
 	$(document).ready(function(){
   	$('.link').on('click', function(e) {
+		document.getElementById("myBox").scrollTop = document.getElementById("myBox").scrollHeight;
 		var thing1 =document.getElementById("myBox").value;
 		$('.form-control').val(thing1+"\nYou: "+ document.getElementById("responseBox").value);
     	e.preventDefault();
