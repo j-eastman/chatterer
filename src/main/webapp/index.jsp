@@ -12,7 +12,7 @@ JSONTest = function() {
     $.ajax({
         url: "/web",
         type: "POST",
-        data: { "username": "desktopUser", "message": message },
+        data: { "username": "desktopUser", "body": message },
         dataType: "json",
         success: function (result) {
             switch (result) {

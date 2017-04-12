@@ -43,7 +43,7 @@ public class DesktopServlet extends HttpServlet {
 		}
 		if (!json.contains("type")) {
 			//json = json.substring(1, json.length() - 1);
-			JsonMessage jsonMes = new JsonMessage(json, "desktopUser");
+			JsonMessage jsonMes = new JsonMessage(json);
 			MsgHandler mh = new MsgHandler();
 			mh.postMsg(jsonMes);
 			System.out.println("WebJSON: " + jsonMes.toString());

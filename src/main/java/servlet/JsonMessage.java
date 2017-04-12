@@ -33,6 +33,9 @@ public class JsonMessage {
 			  }
 		//System.out.println("JSON: " + input);
 	}
+	public String toString() {
+		return json.toString();
+	}
 	
 	/*public JsonMessage(String s){
 		String[] temp = s.split("<brk>");
