@@ -50,6 +50,10 @@ public class DesktopServlet extends HttpServlet {
 			// String response = mh.getResponse(jsonMes);
 			String reply = mh.getRandomReply(jsonMes);
 			System.out.println("My Response: " + reply);
+			out.print("HTTP/1.1 200 \r\n"); // Version & status code
+			out.print("Content-Type: text/plain\r\n"); // The type of data
+			out.print("Connection: close\r\n"); // Will close stream
+			out.print("\r\n"); // End of headers
 			out.print(reply);
 			// System.out.println("URL: "+ response);
 			out.flush();
