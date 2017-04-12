@@ -11,6 +11,7 @@ public class JsonMessage {
 	String username;
 	public JsonMessage(String js) throws IOException{
 		  try {
+			  System.out.println("JSLINE: " + js);
 			  JSONObject jsonObject =  new JSONObject(js);
 			  json = jsonObject;
 			  } catch (JSONException e) {
