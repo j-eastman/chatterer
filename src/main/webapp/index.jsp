@@ -56,7 +56,7 @@ JSONTest = function() {
       success: function(response) {
         console.log(response);
         $('.form-control').val(response);
-		$(".responseBox")[0].reset();
+		document.getElementById('responseBox').value='';
       }
     });
     return false;
