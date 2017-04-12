@@ -88,6 +88,7 @@ JSONTest = function() {
 			if (count > 0){
 				var temp = document.getElementById(rowList[count-1]).value;
 				console.log("TEMP:"+temp);
+				console.log(rowList[count]);
 				document.getElementById(rowList[count]).value=temp;
 			}
 			if (count == 0){
