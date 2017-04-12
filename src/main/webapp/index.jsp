@@ -68,32 +68,32 @@ JSONTest = function() {
 	  	for (count = MAX_ROWS; count >= 0;count--){
 			if (count > 0){
 				console.log(rowList[count-1]);
-				var temp = document.getElementByName(rowList[count-1]).value;
+				var temp = document.getElementsByName(rowList[count-1]).value;
 				console.log("TEMP2: " + temp);
-				document.getElementByName(rowList[count]).value=temp;
+				document.getElementsByName(rowList[count]).value=temp;
 			}
 			if (count == 0){
-				document.getElementByName(rowList[0]).value="You: " + document.getElementById("responseBox").value+"\n";
+				document.getElementsByName(rowList[0]).value="You: " + document.getElementById("responseBox").value+"\n";
 			}
 		}
     e.preventDefault();
     $.ajax({
       type: "POST",
       url: "/web",
-      data: document.getElementById("responseBox").value,
+      data: document.getElementsById("responseBox").value,
       success: function(response) {
         console.log(response);
         $('.form-control').val(response);
 		
 		for (count = MAX_ROWS; count >= 0;count--){
 			if (count > 0){
-				var temp = document.getElementByName(rowList[count-1]).value;
+				var temp = document.getElementsByName(rowList[count-1]).value;
 				console.log("TEMP:"+temp);
 				console.log(rowList[count]);
-				document.getElementByName(rowList[count]).value=temp;
+				document.getElementsByName(rowList[count]).value=temp;
 			}
 			if (count == 0){
-					document.getElementByName(rowList[0]).value="Chatterer:" + response+"\n";
+					document.getElementsByName(rowList[0]).value="Chatterer:" + response+"\n";
 			}
 		}
 		document.getElementById('responseBox').value='';
