@@ -47,11 +47,10 @@ a#download {
 	background-color:#8214A6;	
 	margin-left:10%;
 	margin-right:auto;
-	overflow:auto;
 	font: 24px/36px sans-serif;
 }
 .chatBox{
-	text-align:auto;
+	text-align:left;
 	width:60%;
 	margin-left:auto;
 	margin-right:auto;
