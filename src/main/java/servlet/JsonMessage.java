@@ -20,6 +20,19 @@ public class JsonMessage {
 			  }
 		//System.out.println("JSON: " + input);
 	}
+	public JsonMessage(String message, String username) throws IOException{
+		  try {
+			  System.out.println("JSMSG: " + message + "| JSUSER: "+username);
+			  JSONObject jsonObject =  new JSONObject();
+			  jsonObject.put("username", username);
+			  jsonObject.put("message", message);
+			  json = jsonObject;
+			  } catch (JSONException e) {
+			    // crash and burn
+			    throw new IOException("Error parsing JSON request string");
+			  }
+		//System.out.println("JSON: " + input);
+	}
 	
 	/*public JsonMessage(String s){
 		String[] temp = s.split("<brk>");
