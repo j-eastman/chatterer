@@ -15,8 +15,6 @@ JSONTest = function() {
         type: "POST",
         data: JSON.stringify(myJson),
         dataType: "json",
-		contentType: "application/json; charset=utf-8",
-        traditional: true,
         success: function (result) {
             switch (result) {
                 case true:
