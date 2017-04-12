@@ -25,7 +25,7 @@ public class JsonMessage {
 			  System.out.println("JSMSG: " + message + "| JSUSER: "+username);
 			  JSONObject jsonObject =  new JSONObject();
 			  jsonObject.put("username", username);
-			  jsonObject.put("message", message);
+			  jsonObject.put("body", message);
 			  json = jsonObject;
 			  } catch (JSONException e) {
 			    // crash and burn
