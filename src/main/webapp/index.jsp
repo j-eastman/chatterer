@@ -9,11 +9,14 @@ JSONTest = function() {
 
     var resultDiv = $("#resultDivContainer");
 	var message = document.getElementById("responseBox").value;
+	var myJson = { "username": "desktopUser", "body": message};
     $.ajax({
         url: "/web",
         type: "POST",
-        data: { "username": "desktopUser", "body": message },
+        data: myJson,
         dataType: "json",
+		contentType: "application/json; charset=utf-8",
+        traditional: true,
         success: function (result) {
             switch (result) {
                 case true:
