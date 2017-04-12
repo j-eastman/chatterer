@@ -44,7 +44,7 @@
 		ScrollInterval    = setInterval('scrollDiv()', ScrollRate);
 	}
 </script>
-<form action="/action_page.php">
+<form action="/web" method="post">
   <input type="text" name="response" style="width:100%;margin-top:20px;" placeholder="Enter text here...">
   <input type="submit" value="Submit" style="margin-left:45%;margin-top:10px">
 </form>
