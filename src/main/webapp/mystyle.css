@@ -65,7 +65,7 @@ font: 24px/36px sans-serif;
 	font: 24px/36px sans-serif;
 	color:white;
 }
-#row{
+.chatRow{
 	border: 1px solid #fff;
 	border-radius: 10px;
 	text-align:center;

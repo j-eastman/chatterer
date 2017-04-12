@@ -40,17 +40,17 @@ JSONTest = function() {
 <body>
 <h2>Chat Box</h2>
 <ul class="chatBox">
-	<li class="chatRow" id="row" name="row0">.<br></li>
-	<li class="chatRow" id="row" name="row1">.<br</li>
-	<li class="chatRow" id="row" name="row2">.<br></li>
-	<li class="chatRow" id="row" name="row3">.<br></li>
-	<li class="chatRow" id="row" name="row4">.<br></li>
-	<li class="chatRow" id="row" name="row5">.<br></li>
-	<li class="chatRow" id="row" name="row6">.<br></li>
-	<li class="chatRow" id="row" name="row7">.<br></li>
-	<li class="chatRow" id="row" name="row8">.<br></li>
-	<li class="chatRow" id="row" name="row9">.<br></li>
-	<li class="chatRow" id="row" name="row10">.<br></li>
+	<li class="chatRow" id="row0" name="row0">.<br></li>
+	<li class="chatRow" id="row1" name="row1">.<br</li>
+	<li class="chatRow" id="row2" name="row2">.<br></li>
+	<li class="chatRow" id="row3" name="row3">.<br></li>
+	<li class="chatRow" id="row4" name="row4">.<br></li>
+	<li class="chatRow" id="row5" name="row5">.<br></li>
+	<li class="chatRow" id="row6" name="row6">.<br></li>
+	<li class="chatRow" id="row7" name="row7">.<br></li>
+	<li class="chatRow" id="row8" name="row8">.<br></li>
+	<li class="chatRow" id="row9" name="row9">.<br></li>
+	<li class="chatRow" id="row10" name="row10">.<br></li>
 </ul>
 <textarea id="myBox" class="form-control" rows="8" placeholder="Chatterer's Response"></textarea>
 <form id="submit" action="javascript:JSONTest()">
@@ -67,13 +67,14 @@ JSONTest = function() {
   $('.link').on('click', function(e) {
 	  	for (count = MAX_ROWS; count >= 0;count--){
 			if (count > 0){
-				console.log(rowList[count-1]);
 				var temp = document.getElementsByName(rowList[count-1]).value;
-				console.log("TEMP2: " + temp);
+				$('.'+rowList[count]).val(temp);
 				document.getElementsByName(rowList[count]).value=temp;
 			}
 			if (count == 0){
-				document.getElementsByName(rowList[0]).value="You: " + document.getElementById("responseBox").value+"\n";
+				var temp = "You: " + document.getElementById("responseBox").value+"\n";
+				document.getElementsByName(rowList[0]).value=temp;
+				$('.row10').val(temp);
 			}
 		}
     e.preventDefault();
@@ -88,12 +89,13 @@ JSONTest = function() {
 		for (count = MAX_ROWS; count >= 0;count--){
 			if (count > 0){
 				var temp = document.getElementsByName(rowList[count-1]).value;
-				console.log("TEMP:"+temp);
-				console.log(rowList[count]);
 				document.getElementsByName(rowList[count]).value=temp;
+				$('.'+rowList[count]).val(temp);
 			}
 			if (count == 0){
-					document.getElementsByName(rowList[0]).value="Chatterer:" + response+"\n";
+				var temp="Chatterer: " + response+"\n";
+				document.getElementsByName(rowList[0]).value="Chatterer:" + response+"\n";
+				$('.row10').val(temp);
 			}
 		}
 		document.getElementById('responseBox').value='';
