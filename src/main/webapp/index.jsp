@@ -47,7 +47,7 @@ JSONTest = function() {
 </body>
 <script>
 	$(document).ready(function(){
-  $('#submit').on('click', function(e) {
+  $('.link').on('click', function(e) {
     e.preventDefault();
     $.ajax({
       type: "POST",
