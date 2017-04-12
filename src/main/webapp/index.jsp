@@ -67,6 +67,7 @@ JSONTest = function() {
   $('.link').on('click', function(e) {
 	  	for (count = MAX_ROWS; count >= 0;count--){
 			if (count > 0){
+				console.log(rowList[count-1]);
 				var temp = document.getElementById(rowList[count-1]).value;
 				console.log("TEMP2: " + temp);
 				document.getElementById(rowList[count]).value=temp;
