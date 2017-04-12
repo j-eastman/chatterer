@@ -80,7 +80,7 @@ JSONTest = function() {
     $.ajax({
       type: "POST",
       url: "/web",
-      data: document.getElementsById("responseBox").value,
+      data: document.getElementById("responseBox").value,
       success: function(response) {
         console.log(response);
         $('.form-control').val(response);
