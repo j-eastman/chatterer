@@ -37,9 +37,8 @@ JSONTest = function() {
 };
 
 </script>
-<div id="bannerimage"></div>
 <body>
-	<h2>Chat Box</h2>
+<h2>Chat Box</h2>
 <ul class="chatBox">
 	<li class="chatRow" id="row" name="row0">.<br></li>
 	<li class="chatRow" id="row" name="row1">.<br</li>
@@ -68,7 +67,9 @@ JSONTest = function() {
   $('.link').on('click', function(e) {
 	  	for (count = MAX_ROWS; count >= 0;count--){
 			if (count > 0){
-				document.getElementById(rowList[count]).value=document.getElementById(rowList[count-1]).value;
+				var temp = document.getElementById(rowList[count-1]).value;
+				console.log("TEMP2: " + temp);
+				document.getElementById(rowList[count]).value=temp;
 			}
 			if (count == 0){
 				document.getElementById(rowList[0]).value="You: " + document.getElementById("responseBox").value+"\n";
@@ -85,7 +86,9 @@ JSONTest = function() {
 		
 		for (count = MAX_ROWS; count >= 0;count--){
 			if (count > 0){
-				document.getElementById(rowList[count]).value=document.getElementById(rowList[count-1]).value;
+				var temp = document.getElementById(rowList[count-1]).value;
+				console.log("TEMP:"+temp);
+				document.getElementById(rowList[count]).value=temp;
 			}
 			if (count == 0){
 					document.getElementById(rowList[0]).value="Chatterer:" + response+"\n";
