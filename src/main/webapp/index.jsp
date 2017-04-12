@@ -40,17 +40,17 @@ JSONTest = function() {
 <body>
 <h2>Chat Box</h2>
 <ul class="chatBox">
-	<li class="chatRow" id="row0" name="row0">.<br></li>
-	<li class="chatRow" id="row1" name="row1">.<br</li>
-	<li class="chatRow" id="row2" name="row2">.<br></li>
-	<li class="chatRow" id="row3" name="row3">.<br></li>
-	<li class="chatRow" id="row4" name="row4">.<br></li>
-	<li class="chatRow" id="row5" name="row5">.<br></li>
-	<li class="chatRow" id="row6" name="row6">.<br></li>
-	<li class="chatRow" id="row7" name="row7">.<br></li>
-	<li class="chatRow" id="row8" name="row8">.<br></li>
-	<li class="chatRow" id="row9" name="row9">.<br></li>
-	<li class="chatRow" id="row10" name="row10">.<br></li>
+	<li class="chatRow" id="row0" name="row"><textarea class="textResp" name="row0"> </textarea></li>
+	<li class="chatRow" id="row1" name="row"><textarea class="textResp" name="row1"> </textarea></li>
+	<li class="chatRow" id="row2" name="row"><textarea class="textResp" name="row2"> </textarea></li>
+	<li class="chatRow" id="row3" name="row"><textarea class="textResp" name="row3"> </textarea></li>
+	<li class="chatRow" id="row4" name="row"><textarea class="textResp" name="row4"> </textarea></li>
+	<li class="chatRow" id="row5" name="row"><textarea class="textResp" name="row5"> </textarea></li>
+	<li class="chatRow" id="row6" name="row"><textarea class="textResp" name="row6"> </textarea></li>
+	<li class="chatRow" id="row7" name="row"><textarea class="textResp" name="row7"> </textarea></li>
+	<li class="chatRow" id="row8" name="row"><textarea class="textResp" name="row8"> </textarea></li>
+	<li class="chatRow" id="row9" name="row"><textarea class="textResp" name="row9"> </textarea></li>
+	<li class="chatRow" id="row10" name="row"><textarea class="textResp" name="row10"> </textarea></li>
 </ul>
 <textarea id="myBox" class="form-control" rows="8" placeholder="Chatterer's Response"></textarea>
 <form id="submit" action="javascript:JSONTest()">
