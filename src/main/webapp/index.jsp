@@ -45,16 +45,28 @@
 		ScrollInterval    = setInterval('scrollDiv()', ScrollRate);
 	}
 </script>
-<p id="resp">here</p>
+<textarea class="form-control" rows="8" placeholder="server response"></textarea>
 <form id="submit" action="/web" method="post" target="responseFrame">
-  <input type="text" name="response" style="width:100%;margin-top:20px;" placeholder="Enter text here...">
-  <input type="submit" value="Submit" style="margin-left:45%;margin-top:10px">
+  <input id="responseBox" type="text" name="response" style="width:100%;margin-top:20px;" placeholder="Enter text here...">
+  <input type="submit" class="link" value="Submit" style="margin-left:45%;margin-top:10px">
 </form>
 <h1>Chatterer</h1>
 </body>
 <script>
-	var myIFrame = document.getElementById("responseFrame");
-	var content = myIFrame.contentWindow.document.body.innerHTML;
-	document.getElementById("resp").innerHTML = content;
+$(document).ready(function(){
+  $('.link').on('click', function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "https://guarded-garden-56903.herokuapp.com/web",
+      data: {"username":"desktopUser", "message":document.getElementById("responseBox").value},
+      success: function(response) {
+        console.log(response);
+        $('.form-control').val(response);
+      }
+    });
+    return false;
+  });
+})
 </script>
 </html>
