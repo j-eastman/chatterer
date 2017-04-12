@@ -46,7 +46,7 @@
 	}
 </script>
 <textarea class="form-control" rows="8" placeholder="server response"></textarea>
-<form id="submit" action="/web" method="post" target="responseFrame">
+<form id="submit">
   <input id="responseBox" type="text" name="response" style="width:100%;margin-top:20px;" placeholder="Enter text here...">
   <input type="submit" class="link" value="Submit" style="margin-left:45%;margin-top:10px">
 </form>
@@ -61,7 +61,7 @@ $(document).ready(function(){
       url: "https://guarded-garden-56903.herokuapp.com/web",
       data: {"username":"desktopUser", "message":document.getElementById("responseBox").value},
       success: function(response) {
-        console.log(response);
+        console.log("HERE: " + response);
         $('.form-control').val(response);
       }
     });
