@@ -6,6 +6,7 @@
 <body>
 	<div id="myBox"> 
 	</div>
+<iframe id="responseFrame">response</iframe>	
 <script language="javascript">
 	ScrollRate = 100;
 
@@ -44,11 +45,16 @@
 		ScrollInterval    = setInterval('scrollDiv()', ScrollRate);
 	}
 </script>
-<form action="/web" method="post">
+<p id="resp">here</p>
+<form id="submit" action="/web" method="post" target="responseFrame">
   <input type="text" name="response" style="width:100%;margin-top:20px;" placeholder="Enter text here...">
   <input type="submit" value="Submit" style="margin-left:45%;margin-top:10px">
 </form>
-
 <h1>Chatterer</h1>
 </body>
+<script>
+	var myIFrame = document.getElementById("responseFrame");
+	var content = myIFrame.contentWindow.document.body.innerHTML;
+	document.getElementById("resp").innerHTML = content;
+</script>
 </html>
