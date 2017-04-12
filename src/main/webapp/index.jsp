@@ -58,7 +58,7 @@ $(document).ready(function(){
     e.preventDefault();
     $.ajax({
       type: "POST",
-      url: "https://guarded-garden-56903.herokuapp.com/web",
+      url: "/web",
       data: {"username":"desktopUser", "message":document.getElementById("responseBox").value},
       success: function(response) {
         console.log("HERE: " + response);
