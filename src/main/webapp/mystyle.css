@@ -10,18 +10,9 @@ h2 {
     margin-left: 20px;
 	text-align: center; 
 }
-ul
-{
-list-style-type:none;
-padding:0;
-margin:0;
-}
-ul:empty::after{
-  content: attr(data-empty-message);
-}
 form { 
-margin: 0 auto; 
-width:80%;
+	margin: 0 auto; 
+	width:80%;
 }
 textarea{
 	color:#FFFFFF;
@@ -41,22 +32,23 @@ a#download {
 	overflow: auto;
 }
 #bannerimage {
-  width: 100%;
-  background-image: url(http://blanket1aprons.x10host.com/source/Banner.png);
-  height: 345px;
-  background-color: purple;
-  background-position: center;
+  	width: 100%;
+  	background-image: url(http://blanket1aprons.x10host.com/source/Banner.png);
+  	height: 345px;
+  	background-color: purple;
+	background-position: center;
 }/* Box styles */
 #myBox {
-text-align: center;
-overflow:auto;
-width:85%;
-height:450px;
-border:solid;
-background-color:#8214A6;	
-margin-left:10%;
-margin-right:auto;
-font: 24px/36px sans-serif;
+	text-align: center;
+	overflow:auto;
+	width:85%;
+	height:450px;
+	border:solid;
+	background-color:#8214A6;	
+	margin-left:10%;
+	margin-right:auto;
+	overflow:auto;
+	font: 24px/36px sans-serif;
 }
 .chatBox{
 	text-align:auto;
