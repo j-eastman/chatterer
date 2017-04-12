@@ -34,9 +34,8 @@ JSONTest = function(username, message) {
 </script>
 <div id="bannerimage"></div>
 <body>
-	<div id="myBox"> 
+	<div id="myBox" class="form-control"> 
 	</div>
-<iframe id="responseFrame">response</iframe>	
 <script language="javascript">
 	ScrollRate = 100;
 
@@ -80,24 +79,5 @@ JSONTest = function(username, message) {
   <input id="responseBox" type="text" name="response" style="width:100%;margin-top:20px;" placeholder="Enter text here...">
   <input type="submit" class="link" value="Submit" style="margin-left:45%;margin-top:10px">
 </form>
-<h1>Chatterer</h1>
 </body>
-<script>
-console.log("HERE");
-$(document).ready(function(){
-  $('.link').on('click', function(e) {
-    e.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: "/web",
-      data: {"username":"desktopUser", "message":document.getElementById("responseBox").value},
-      success: function(response) {
-        console.log("HERE: " + response);
-        $('.form-control').val(response);
-      }
-    });
-    return false;
-  });
-})
-</script>
 </html>
