@@ -42,6 +42,8 @@ JSONTest = function() {
 </body>
 <script>
 	var userMessage = "";
+	var textarea = document.getElementById('myBox');
+	textarea.scrollTop = textarea.scrollHeight;
 	$(document).ready(function(){
   	$('.link').on('click', function(e) {
 		document.getElementById("myBox").scrollBot = document.getElementById("myBox").scrollHeight;
