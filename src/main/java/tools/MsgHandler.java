@@ -8,7 +8,6 @@ import launch.Main;
 public class MsgHandler {
 	Database db = Main.db;
 	public MsgHandler(){
-		db = new Database();
 	}
 	public String formatString(String s){
 		String punctuation = ".!?";
