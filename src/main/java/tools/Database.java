@@ -364,10 +364,5 @@ public class Database {
 		}
 	}
 	public void close(){
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 }
