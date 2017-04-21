@@ -7,7 +7,7 @@
 
 JSONTest = function() {
 	var textarea = document.getElementById('myBox');
-	textarea.scrollTop = textarea.scrollHeight;
+
     var resultDiv = $("#resultDivContainer");
 	var message = document.getElementById("responseBox").value;
 	var myJson = { "username": "desktopUser", "body": message};
@@ -29,6 +29,7 @@ JSONTest = function() {
         alert(xhr.status);
         }
     });
+		textarea.scrollTop = textarea.scrollHeight;
 };
 
 </script>
@@ -43,7 +44,7 @@ JSONTest = function() {
 <script>
 	var userMessage = "";
 	var textarea = document.getElementById('myBox');
-	textarea.scrollTop = textarea.scrollHeight;
+
 	$(document).ready(function(){
   	$('.link').on('click', function(e) {
 		document.getElementById("myBox").scrollBot = document.getElementById("myBox").scrollHeight;
@@ -64,5 +65,6 @@ JSONTest = function() {
     return false;
   });
 })
+	textarea.scrollTop = textarea.scrollHeight;
 	</script>
 </html>
