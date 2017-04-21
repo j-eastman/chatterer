@@ -287,6 +287,7 @@ public class Database {
 				if (!myLast.equals("")) {
 					System.out.println("myLast: " + myLast);
 					String respStr = getResStr(myLast);
+					System.out.println("respStr: " + respStr);
 					respStr += "<brk>"+msg;
 					stmt.close();
 					updateEntry(myLast, getIndex(myLast), respStr);
@@ -328,7 +329,6 @@ public class Database {
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()){	
 				retVal = rs.getString("resstr");
-				System.out.println("HERE: " +rs.getString(0));
 				System.out.printf("Returning: %s\n", retVal);
 				count++;
 			}
