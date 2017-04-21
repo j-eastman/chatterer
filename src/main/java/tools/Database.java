@@ -51,14 +51,14 @@ public class Database {
 	}
 
 	public void reconnect() {
-		try {
+		/*try {
 			conn = getConnection();
 			System.out.println("Connected to database successfully");
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	private Connection getConnection() throws URISyntaxException, SQLException {
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
