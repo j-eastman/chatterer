@@ -2,6 +2,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="mystyle.css">
 </head>
+
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -33,6 +34,9 @@ JSONTest = function() {
 };
 
 </script>
+<header class="banner" role="banner">
+  <img src="mybannerimage.gif" alt="Banner Image"/>
+</header>
 <body>
 <h2>Chat Box</h2>
 <textarea readonly id="myBox" class="form-control" rows="8" placeholder="Chatterer's Response"></textarea>

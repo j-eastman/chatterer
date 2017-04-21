@@ -31,7 +31,7 @@ a#download {
     border-radius: 10px;
 	overflow: auto;
 }
-#bannerimage {
+.bannerimage {
   	width: 100%;
   	background-image: url(http://blanket1aprons.x10host.com/source/Banner.png);
   	height: 345px;
