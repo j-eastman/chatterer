@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JsonMessage {
-	JSONObject json;
+	public JSONObject json;
 	String message;
 	String username;
 	public JsonMessage(String js) throws IOException{
