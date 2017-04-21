@@ -20,13 +20,13 @@ public class AdminServlet extends HttpServlet{
 	/**
 	 * 
 	 */
-	Database db = Main.db;
+	
 	private static final long serialVersionUID = 1L;
 
 	@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
+		Database db = Main.db;
     	//PrintWriter out = resp.getWriter();
     	BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
          String json = "";
