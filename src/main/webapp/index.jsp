@@ -6,7 +6,6 @@
 <script type="text/javascript">
 
 JSONTest = function() {
-
     var resultDiv = $("#resultDivContainer");
 	var message = document.getElementById("responseBox").value;
 	var myJson = { "username": "desktopUser", "body": message};
@@ -16,10 +15,8 @@ JSONTest = function() {
         data: JSON.stringify(myJson),
         dataType: "json",
         success: function (result) {
-			console.log("RESULT: " + result);
             switch (result) {
                 case true:
-					console.log("HERE: " + result);
         			$('.form-control').val(result);
                     break;
                 default:
@@ -28,10 +25,6 @@ JSONTest = function() {
         },
         error: function (xhr, ajaxOptions, thrownError) {
         alert(xhr.status);
-		alert("RESPONSE TEXT: " + xhr.resoponseText);
-        alert(thrownError);
-		alert(xhr + "\n\n");
-		alert(ajaxOptions);
         }
     });
 };
@@ -41,12 +34,11 @@ JSONTest = function() {
 <h2>Chat Box</h2>
 <textarea readonly id="myBox" class="form-control" rows="8" placeholder="Chatterer's Response"></textarea>
 <form id="submit" action="javascript:JSONTest()">
-  <input class="responseBox" id="responseBox" type="text" name="response" style="width:100%;margin-top:20px;" placeholder="Enter text here...">
+  <input class="responseBox" id="responseBox" type="text" name="response" style="width:100%;height:25px;margin-top:20px;" placeholder="Enter text here...">
   <input type="submit" class="link" value="Submit" style="margin-left:45%;margin-top:10px">
 </form>
 </body>
 <script>
-	
 	var userMessage = "";
 	$(document).ready(function(){
   	$('.link').on('click', function(e) {

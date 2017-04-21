@@ -15,7 +15,7 @@ import org.apache.catalina.webresources.StandardRoot;
 import org.apache.tomcat.util.scan.Constants;
 import org.apache.tomcat.util.scan.StandardJarScanFilter;
 
-import servlet.Bot;
+import tools.Bot;
 
 public class Main {
 

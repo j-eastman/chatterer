@@ -1,4 +1,4 @@
-package servlet;
+package tools;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

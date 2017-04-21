@@ -3,7 +3,6 @@ package servlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -11,6 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import tools.Database;
+import tools.JsonMessage;
 
 @WebServlet("/admin") 
 public class AdminServlet extends HttpServlet{
@@ -44,6 +46,10 @@ public class AdminServlet extends HttpServlet{
         	for (String s:al){
         		System.out.println(s);
         	}
+        }
+        if (jsonMes.get("command").equalsIgnoreCase("getResStr")){
+        	System.out.println("Getting resstr for " + jsonMes.get("word"));
+        	System.out.println("ResStr: " + db.getResStr(jsonMes.get("word")));
         }
         System.out.println(json);
 	}

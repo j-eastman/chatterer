@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tools.JsonMessage;
+import tools.MsgHandler;
+
 @WebServlet("/web")
 public class DesktopServlet extends HttpServlet {
 	/**
