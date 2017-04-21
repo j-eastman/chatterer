@@ -319,20 +319,22 @@ public class Database {
 	}
 	public String getResStr(String entry){
 		System.out.printf("Getting resstr for: %s\n",entry);
-		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[getIndex(entry)],entry);
+		String sql = String.format("SELECT resstr FROM %s WHERE word='%s';", tables[getIndex(entry)],entry);
 		Statement stmt;
 		String retVal = "";
+		int count = 0;
 		try{
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			if (!rs.next()){
-				System.out.println("ERROR: No results!");
-				return "no results";
-			}
-			while(rs.next()){
-				System.out.printf("Returning: %s\n", retVal);
+			while(rs.next()){	
 				retVal = rs.getString("resstr");
-				
+				System.out.println("HERE: " +rs.getString(0));
+				System.out.printf("Returning: %s\n", retVal);
+				count++;
+			}
+			if (count == 0){
+				System.out.println("ERROR: NO RESULTS");
+				return "null";
 			}
 			stmt.close();
 			
