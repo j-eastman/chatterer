@@ -326,15 +326,18 @@ public class Database {
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			if (!rs.next()){
+				System.out.println("ERROR: No results!");
 				return "no results";
 			}
 			while(rs.next()){
-				retVal = rs.getString("resstr");
 				System.out.printf("Returning: %s\n", retVal);
+				retVal = rs.getString("resstr");
+				
 			}
 			stmt.close();
 			
 		} catch (SQLException e){
+			System.out.println("ERROR");
 			close();
 			e.printStackTrace();
 		}
