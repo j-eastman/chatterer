@@ -6,6 +6,8 @@
 <script type="text/javascript">
 
 JSONTest = function() {
+	var textarea = document.getElementById('myBox');
+	textarea.scrollTop = textarea.scrollHeight;
     var resultDiv = $("#resultDivContainer");
 	var message = document.getElementById("responseBox").value;
 	var myJson = { "username": "desktopUser", "body": message};
