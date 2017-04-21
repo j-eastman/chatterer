@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import launch.Main;
 import tools.Database;
 import tools.JsonMessage;
 
@@ -19,12 +20,13 @@ public class AdminServlet extends HttpServlet{
 	/**
 	 * 
 	 */
+	Database db = Main.db;
 	private static final long serialVersionUID = 1L;
 
 	@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-		Database db = new Database();
+
     	//PrintWriter out = resp.getWriter();
     	BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
          String json = "";

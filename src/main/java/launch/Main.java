@@ -16,9 +16,10 @@ import org.apache.tomcat.util.scan.Constants;
 import org.apache.tomcat.util.scan.StandardJarScanFilter;
 
 import tools.Bot;
+import tools.Database;
 
 public class Main {
-
+	public static Database db;
     private static File getRootFolder() {
         try {
             File root;
@@ -37,7 +38,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-
+    	
         File root = getRootFolder();
         System.setProperty("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE", "true");
         Tomcat tomcat = new Tomcat();
@@ -83,7 +84,7 @@ public class Main {
         }
         resources.addPreResources(resourceSet);
         ctx.setResources(resources);
-
+        db = new Database();
         tomcat.start();
         tomcat.getServer().await();
         

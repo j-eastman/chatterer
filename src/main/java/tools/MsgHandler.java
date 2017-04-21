@@ -3,8 +3,10 @@ package tools;
 import java.util.ArrayList;
 import java.util.Random;
 
+import launch.Main;
+
 public class MsgHandler {
-	Database db;
+	Database db = Main.db;
 	public MsgHandler(){
 		db = new Database();
 	}
@@ -31,7 +33,7 @@ public class MsgHandler {
 		String myResp;
 		ArrayList<String> all = new ArrayList<String>();
 		db.reconnect();
-		all = db.getAll();
+		all = db.all;
 		Random r = new Random();
 		System.out.println("All Size: " + all.size());
 		myResp = all.get(r.nextInt(all.size()));

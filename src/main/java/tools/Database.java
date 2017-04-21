@@ -15,6 +15,7 @@ import java.util.Random;
 public class Database {
 	Connection conn;
 	public String[] tables = new String[28];
+	public ArrayList<String> all;
 	public final int QUERY_ALL = 0, QUERY_KEY = 1, UPDATE = 2, INSERT = 3,CUS_INSERT = 4;
 	public void updateTables() {
 		for (int i = 0; i < 27; i++) {
@@ -45,6 +46,8 @@ public class Database {
 		}
 		tables[26] = "other_table";
 		tables[27] = "userdata";
+		all = getAll();
+		System.out.println("Number of database entries: " + all.size());
 	}
 
 	public void reconnect() {
