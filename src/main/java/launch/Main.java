@@ -19,7 +19,7 @@ import tools.Bot;
 import tools.Database;
 
 public class Main {
-	public static Database db;
+	public static Database db = new Database();
     private static File getRootFolder() {
         try {
             File root;
@@ -84,7 +84,6 @@ public class Main {
         }
         resources.addPreResources(resourceSet);
         ctx.setResources(resources);
-        db = new Database();
         tomcat.start();
         tomcat.getServer().await();
         
