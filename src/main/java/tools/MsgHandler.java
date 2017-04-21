@@ -39,6 +39,18 @@ public class MsgHandler {
 			System.out.println("Returning responses.");
 			String[] resps = respStr.split("<brk>");
 			myResp = resps[r.nextInt(resps.length)];
+			int count = 0;
+			while(myResp.equalsIgnoreCase("null")){
+				myResp = resps[r.nextInt(resps.length)];
+				count++;
+				if(count == 10){
+					System.out.println("No response found, random response.");
+					ArrayList<String> all = new ArrayList<String>();
+					all = db.all;
+					System.out.println("All Size: " + all.size());
+					myResp = all.get(r.nextInt(all.size())); 
+				}
+			}
 		}
 		db.reconnect();
 		System.out.println("From:" + from);
@@ -69,9 +81,6 @@ public class MsgHandler {
 		String s = msg.get("body").toLowerCase();
 		
 		db.newEntry(msg.get("body").toLowerCase());
-	}
-	public String[] splitStr(String s){
-		return s.split("<brk>");
 	}
 	public void close(){}
 }
