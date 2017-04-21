@@ -23,9 +23,27 @@ public class MsgHandler {
 		return retVal;
 	}
 	public String getResponse(JsonMessage body){
-		String user = body.get("username");
+		String from = body.get("username");
 		String msg = body.get("body");
-		return db.get(msg,user);
+		String myResp;
+		Random r = new Random();
+		String respStr = db.getResStr(msg);
+		if (respStr.equals("<brk>") || respStr.equals("") || respStr.equals("null")){
+			System.out.println("No response found, random response.");
+			ArrayList<String> all = new ArrayList<String>();
+			all = db.all;
+			System.out.println("All Size: " + all.size());
+			myResp = all.get(r.nextInt(all.size())); 
+		} else{ 
+			System.out.println("Returning responses.");
+			String[] resps = respStr.split("<brk>");
+			myResp = resps[r.nextInt(resps.length)];
+		}
+		db.reconnect();
+		System.out.println("From:" + from);
+		db.dbScan(msg,from,myResp);
+		db.updateUserData(myResp,from);
+		return formatString(myResp);
 	}
 	public String getRandomReply(JsonMessage body) {
 		String from = body.get("username");
@@ -51,7 +69,8 @@ public class MsgHandler {
 		
 		db.newEntry(msg.get("body").toLowerCase());
 	}
-	public void close() {
-		db.close();
+	public String[] splitStr(String s){
+		return s.split("<brk>");
 	}
+	public void close(){}
 }

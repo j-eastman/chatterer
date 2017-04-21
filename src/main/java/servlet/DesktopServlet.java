@@ -50,7 +50,7 @@ public class DesktopServlet extends HttpServlet {
 			mh.postMsg(jsonMes);
 			System.out.println("WebJSON: " + jsonMes.toString());
 			// String response = mh.getResponse(jsonMes);
-			String reply = mh.getRandomReply(jsonMes);
+			String reply = mh.getResponse(jsonMes);
 			System.out.println("My Response: " + reply);
 			out.print(reply);
 			// System.out.println("URL: "+ response);
