@@ -337,7 +337,7 @@ public class Database {
 			}
 			if (count == 0){
 				System.out.println("ERROR: NO RESULTS");
-				return "null";
+				return "";
 			}
 			stmt.close();
 			
