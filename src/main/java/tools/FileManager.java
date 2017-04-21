@@ -12,6 +12,7 @@ public class FileManager {
 	FTPClient ftpClient;
 
 	public FileManager() {
+		close();
 		String server = "xo7.x10hosting.com";
 		int port = 21;
 		String user = "jeastman@blanket1aprons.x10host.com";
@@ -37,6 +38,7 @@ public class FileManager {
 		} catch (IOException ex) {
 			System.out.println("Error: " + ex.getMessage());
 			ex.printStackTrace();
+			close();
 		}
 	}
 
@@ -64,5 +66,13 @@ public class FileManager {
 			e.printStackTrace();
 		}
 
+	}
+	void close(){
+		try {
+			ftpClient.disconnect();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
