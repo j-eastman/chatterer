@@ -13,16 +13,17 @@ public class MsgHandler {
 	public String formatString(String s){
 		String punctuation = ".!?";
 		String c = "";
+		String retVal = "";
 		if (s.length() > 0){
 			c = Character.toString(s.charAt(0));
+			c = c.toUpperCase();
+			retVal+=c + s.substring(1);
+			c = Character.toString(s.charAt(s.length()-1));
+			if (!punctuation.contains(c)){
+				retVal += ".";
+			}
 		}
-		c = c.toUpperCase();
-		String retVal = "";
-		retVal+=c + s.substring(1);
-		c = Character.toString(s.charAt(s.length()-1));
-		if (!punctuation.contains(c)){
-			retVal += ".";
-		}
+
 		return retVal;
 	}
 	public String getResponse(JsonMessage body){
