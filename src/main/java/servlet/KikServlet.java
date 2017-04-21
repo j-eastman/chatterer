@@ -46,9 +46,7 @@ public class KikServlet extends HttpServlet{
         } 
         JsonMessage jsonMes = new JsonMessage(json);
         ImageMatcher im = new ImageMatcher();
-        System.out.println("toString: " + jsonMes.toString());
-        System.out.println("HERE: " +jsonMes.json.getJSONObject("message").getString("picUrl"));
-        String response = im.processImage(jsonMes.json.getJSONObject("message").getString("picUrl"),jsonMes.get("username"));
+        String response = im.processImage(jsonMes.get("message"));
 		out.print("HTTP/1.1 200 \r\n"); // Version & status code
 		out.print("Content-Type: text/plain\r\n"); // The type of data
 		out.print("Connection: close\r\n"); // Will close stream

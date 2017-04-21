@@ -17,7 +17,7 @@ public class ImageMatcher {
 	public ImageMatcher(){
 		fm = new FileManager();
 	}
-	public String processImage(String url,String username){
+	public String processImage(String url){
 		BufferedImage img = fetchImg(url);
 		fm.uploadImage(toByteArray(img),generateName());
 		String name = generateName();
