@@ -46,6 +46,7 @@ public class KikServlet extends HttpServlet{
         } 
         JsonMessage jsonMes = new JsonMessage(json);
         ImageMatcher im = new ImageMatcher();
+        System.out.println("toString: " + jsonMes.toString());
         String response = im.processImage(jsonMes.get("picUrl"));
 		out.print("HTTP/1.1 200 \r\n"); // Version & status code
 		out.print("Content-Type: text/plain\r\n"); // The type of data
