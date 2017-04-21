@@ -35,7 +35,7 @@ JSONTest = function() {
 
 </script>
 <header class="banner" role="banner">
-  <img src="mybannerimage.gif" alt="Banner Image"/>
+  <img src="http://blanket1aprons.x10host.com/source/Banner.png" alt="Banner Image"/>
 </header>
 <body>
 <h2>Chat Box</h2>
