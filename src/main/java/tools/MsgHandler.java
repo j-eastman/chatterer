@@ -33,7 +33,7 @@ public class MsgHandler {
 		Random r = new Random();
 		String respStr = db.getResStr(msg);
 		System.out.println("RespStr: " + respStr);
-		if (respStr.equals("<brk>") || respStr.equals("") || respStr.equals("null")){
+		if (respStr == null || respStr.equals("<brk>") || respStr.equals("") || respStr.equals("null")){
 			System.out.println("No response found, random response.");
 			ArrayList<String> all = new ArrayList<String>();
 			all = db.all;
