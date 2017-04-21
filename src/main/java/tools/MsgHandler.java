@@ -12,7 +12,10 @@ public class MsgHandler {
 	}
 	public String formatString(String s){
 		String punctuation = ".!?";
-		String c = Character.toString(s.charAt(0));
+		String c = "";
+		if (s.length() > 0){
+			c = Character.toString(s.charAt(0));
+		}
 		c = c.toUpperCase();
 		String retVal = "";
 		retVal+=c + s.substring(1);
@@ -25,6 +28,7 @@ public class MsgHandler {
 	public String getResponse(JsonMessage body){
 		String from = body.get("username");
 		String msg = body.get("body");
+		msg = msg.replaceAll("'", "");
 		String myResp;
 		Random r = new Random();
 		String respStr = db.getResStr(msg);

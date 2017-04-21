@@ -7,7 +7,9 @@ public class StringTools {
 	static Word are = new Word("are", " r ");
 	static Word youre = new Word("you're", "youre");
 	static Word couldve = new Word("could've","couldve");
-	static Word[] words = {you,are,youre,couldve};
+	static Word whats = new Word("what's", "whats");
+	static Word howre = new Word("how're", "howre");
+	static Word[] words = {you,are,youre,couldve,whats};
 	
 	static String[] punct = {"!",".","?"};
 	static String punctExtended = "{}[];:',+=-_)(*&^%$#@|\"\\";
@@ -84,6 +86,9 @@ class Word{
 		replacements.add(replacement);
 	}
 	public boolean hasMatch(String key){
+		if (word.equalsIgnoreCase(key)){
+			return true;
+		}
 		for (String s: replacements){
 			if (s.equalsIgnoreCase(key)){
 				return true;
