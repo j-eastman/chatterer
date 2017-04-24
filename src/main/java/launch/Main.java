@@ -92,7 +92,7 @@ public class Main {
         tomcat.start();
         
         System.out.println("\n\n\nhere\n\n\n");
-    	bot = KikApi.buildBot("chatterer_bot", "9bed7a78-84a7-404f-81dd-28b20f93264b", (short)8080, new ChattererKik());
+    	bot = KikApi.buildBot("chatterer_bot", "9bed7a78-84a7-404f-81dd-28b20f93264b", (short)9080, new ChattererKik());
 		bot.setSettings(new Settings(false, false, false, false)); // manuallySendReadReceipts, receiveReadReceipts, receiveDeliveryReceipts, receiveIsTyping
 		bot.init(false); // Should the init block?
 		tomcat.getServer().await();
