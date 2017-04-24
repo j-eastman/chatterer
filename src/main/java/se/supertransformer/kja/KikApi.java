@@ -196,8 +196,8 @@ public class KikApi
 	public void init(boolean shouldBlock) throws Exception
 	{		
 		JsonObject requestObject = new JsonObject();
-	//	requestObject.addProperty("webhook", "http://"+Utils.getPublicIP()+":"+listenPort+"/"+username);
-		requestObject.addProperty("webhook", "https://guarded-garden-56903.herokuapp.com");
+		requestObject.addProperty("webhook", "http://"+Utils.getPublicIP()+":"+listenPort+"/"+username);
+	//	requestObject.addProperty("webhook", "https://guarded-garden-56903.herokuapp.com");
 		JsonObject object = new JsonObject();
 		object.addProperty("manuallySendReadReceipts", settings.manuallySendReadReceipts());
 		object.addProperty("receiveReadReceipts", settings.receiveReadReceipts());
