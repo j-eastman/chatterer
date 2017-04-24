@@ -83,6 +83,8 @@ public class Main {
         resources.addPreResources(resourceSet);
         ctx.setResources(resources);
         tomcat.start();
+        System.out.println("\n\n\n\n\n\n");
+        System.out.println("DATABASE URL: " + System.getenv("DATABASE_URL"));
 		tomcat.getServer().await();
     }
 
