@@ -44,7 +44,7 @@ public class KikApi
 	public static final String USER_ENDPOINT = SITE + "user/";
 	
 	private String username, apiKey;
-	private short listenPort = 8080;
+	private short listenPort = 9080;
 	private KikBot botInstance;
 	private ThreadWebhookListener listenerThread;
 	
