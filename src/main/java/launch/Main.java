@@ -14,17 +14,10 @@ import org.apache.catalina.webresources.EmptyResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
 import org.apache.tomcat.util.scan.Constants;
 import org.apache.tomcat.util.scan.StandardJarScanFilter;
-
-import com.chatterer.kikbot.ChattererKik;
-
-import se.supertransformer.kja.*;
-import se.supertransformer.kja.testing.TestBot;
-import tools.Bot;
 import tools.Database;
 
 public class Main {
 	public static Database db = new Database();
-	public static KikApi bot;
     private static File getRootFolder() {
         try {
             File root;
@@ -90,11 +83,6 @@ public class Main {
         resources.addPreResources(resourceSet);
         ctx.setResources(resources);
         tomcat.start();
-        
-        System.out.println("\n\n\nhere\n\n\n");
-    	bot = KikApi.buildBot("chatterer_bot", "9bed7a78-84a7-404f-81dd-28b20f93264b", (short)9080, new ChattererKik());
-		bot.setSettings(new Settings(false, false, false, false)); // manuallySendReadReceipts, receiveReadReceipts, receiveDeliveryReceipts, receiveIsTyping
-		bot.init(false); // Should the init block?
 		tomcat.getServer().await();
     }
 
