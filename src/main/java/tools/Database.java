@@ -364,10 +364,6 @@ public class Database {
 			
 		}
 	}
-	public void addBoolTable() {
-		for (int i = 0; i < )
-		String sql;
-	}
 	public void close(){
 	}
 }
