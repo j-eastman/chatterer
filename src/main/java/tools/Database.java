@@ -19,7 +19,8 @@ public class Database {
 	public final int QUERY_ALL = 0, QUERY_KEY = 1, UPDATE = 2, INSERT = 3,CUS_INSERT = 4;
 	public void updateTables() {
 		for (int i = 0; i < 27; i++) {
-			String sql = String.format("ALTER TABLE %s ADD COLUMN resStr text;", tables[i]);
+			//resStr
+			String sql = String.format("ALTER TABLE %s ADD COLUMN isBad bool;", tables[i]);
 			try {
 				Statement stmt = conn.createStatement();
 				stmt.executeUpdate(sql);
@@ -362,6 +363,10 @@ public class Database {
 			e.printStackTrace();
 			
 		}
+	}
+	public void addBoolTable() {
+		for (int i = 0; i < )
+		String sql;
 	}
 	public void close(){
 	}
