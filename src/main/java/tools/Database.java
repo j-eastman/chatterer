@@ -19,7 +19,7 @@ public class Database {
 	public final int QUERY_ALL = 0, QUERY_KEY = 1, UPDATE = 2, INSERT = 3,CUS_INSERT = 4;
 	public void updateTables() {
 		for (int i = 0; i < 27; i++) {
-			//resStr
+			//resStr 
 			String sql = String.format("ALTER TABLE %s SET isBad = FALSE;", tables[i]);
 			try {
 				Statement stmt = conn.createStatement();
