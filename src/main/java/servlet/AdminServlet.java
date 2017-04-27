@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import launch.Main;
 import tools.Database;
 import tools.JsonMessage;
@@ -34,9 +36,10 @@ public class AdminServlet extends HttpServlet{
          while ((line = br.readLine()) != null && !line.equals("")) {
              json += line;
          }
-         
+         JSONObject jsonObject =  new JSONObject(json);
+         System.out.println("\n\nJSONLine: " + json + "\n\n\n");
         JsonMessage jsonMes = new JsonMessage(json);
-        if (jsonMes.get("command").equals("updateTable")){
+        if (jsonObject.getString("command").equals("updateTable")){
         	System.out.println("Updating tables...");
         	db.updateTables();
         }
