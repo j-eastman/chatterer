@@ -20,7 +20,7 @@ public class Database {
 	public void updateTables() {
 		for (int i = 0; i < 27; i++) {
 			//resStr 
-			String sql = String.format("UPDATE TABLE %s SET isBad = FALSE;", tables[i]);
+			String sql = String.format("UPDATE %s SET isBad = FALSE;", tables[i]);
 			try {
 				Statement stmt = conn.createStatement();
 				stmt.executeUpdate(sql);
