@@ -16,10 +16,11 @@ public class Database {
 	Connection conn;
 	public String[] tables = new String[28];
 	public ArrayList<String> all;
-	public final int QUERY_ALL = 0, QUERY_KEY = 1, UPDATE = 2, INSERT = 3,CUS_INSERT = 4;
+	public final int QUERY_ALL = 0, QUERY_KEY = 1, UPDATE = 2, INSERT = 3, CUS_INSERT = 4;
+
 	public void updateTables() {
 		for (int i = 0; i < 27; i++) {
-			//resStr 
+			// resStr
 			String sql = String.format("UPDATE %s SET isBad = FALSE;", tables[i]);
 			try {
 				Statement stmt = conn.createStatement();
@@ -52,18 +53,17 @@ public class Database {
 	}
 
 	public void reconnect() {
-		/*try {
-			conn = getConnection();
-			System.out.println("Connected to database successfully");
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}*/
+		/*
+		 * try { conn = getConnection();
+		 * System.out.println("Connected to database successfully"); } catch
+		 * (URISyntaxException e) { e.printStackTrace(); } catch (SQLException
+		 * e) { e.printStackTrace(); }
+		 */
 	}
+
 	private Connection getConnection() throws URISyntaxException, SQLException {
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
-		
+
 		String username = dbUri.getUserInfo().split(":")[0];
 		String password = dbUri.getUserInfo().split(":")[1];
 		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
@@ -84,9 +84,10 @@ public class Database {
 			System.out.println(e.getErrorCode());
 		}
 	}
-	public void updateEntry(String entry, int table,String newVal) {
+
+	public void updateEntry(String entry, int table, String newVal) {
 		// UPDATE table SET responses = 'newVal' WHERE word = entry;
-		System.out.printf("Updating entry %s with resstr: '%s' into table: %s\n", entry, newVal,tables[table]);
+		System.out.printf("Updating entry %s with resstr: '%s' into table: %s\n", entry, newVal, tables[table]);
 		String sql = String.format("UPDATE %s SET resstr = '%s' WHERE word = '%s';", tables[table], newVal, entry);
 		try {
 			Statement stmt = conn.createStatement();
@@ -246,13 +247,14 @@ public class Database {
 
 	private String form(String[] arr) {
 		String retVal = "";
-		for (String s:arr){
-			retVal+=s+"<brk>";
+		for (String s : arr) {
+			retVal += s + "<brk>";
 		}
-		
+
 		return retVal;
 	}
-	private String[] respParse(String s){
+
+	private String[] respParse(String s) {
 		return s.split("<brk>");
 	}
 
@@ -292,13 +294,13 @@ public class Database {
 					System.out.println("myLast: " + myLast);
 					String respStr = getResStr(myLast);
 					System.out.println("respStr: " + respStr);
-					respStr += "<brk>"+msg;
+					respStr += "<brk>" + msg;
 					stmt.close();
 					updateEntry(myLast, getIndex(myLast), respStr);
-				} else{
-					updateResStr(msg,myLast);
+				} else {
+					updateResStr(msg, myLast);
 				}
-				
+
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -307,63 +309,102 @@ public class Database {
 		}
 
 	}
-	public String getMyLast(String username){
+
+	public String getMyLast(String username) {
 		String sql = String.format("SELECT * FROM userdata WHERE username='%s';", username);
 		Statement stmt;
 		try {
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()){
+			while (rs.next()) {
 				return rs.getString("mylast");
 			}
-		} catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 			close();
 		}
 		return "<none>";
 	}
-	public String getResStr(String entry){
-		System.out.printf("Getting resstr for: %s\n",entry);
-		String sql = String.format("SELECT resstr FROM %s WHERE word='%s';", tables[getIndex(entry)],entry);
+
+	public String getResStr(String entry) {
+		System.out.printf("Getting resstr for: %s\n", entry);
+		String sql = String.format("SELECT resstr FROM %s WHERE word='%s';", tables[getIndex(entry)], entry);
 		Statement stmt;
 		String retVal = "";
 		int count = 0;
-		try{
+		try {
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next()){	
+			while (rs.next()) {
 				retVal = rs.getString("resstr");
 				System.out.printf("Returning: %s\n", retVal);
 				count++;
 			}
-			if (count == 0){
+			if (count == 0) {
 				System.out.println("ERROR: NO RESULTS");
 				return "";
 			}
 			stmt.close();
-			
-		} catch (SQLException e){
+
+		} catch (SQLException e) {
 			System.out.println("ERROR");
 			close();
 			e.printStackTrace();
 		}
 		return retVal;
 	}
-	public void updateResStr(String entry, String newResp){
-		//String sql = String.format("UPDATE %s SET responses = %s WHERE word='%s';", tables[table], form(newVal), entry);
-		System.out.printf("Updating entry %s with %s\n",entry,newResp);
-		String sql = String.format("UPDATE %s SET resstr = '%s' WHERE word='%s';", tables[getIndex(entry)],newResp,entry);
+
+	public void updateResStr(String entry, String newResp) {
+		// String sql = String.format("UPDATE %s SET responses = %s WHERE
+		// word='%s';", tables[table], form(newVal), entry);
+		System.out.printf("Updating entry %s with %s\n", entry, newResp);
+		String sql = String.format("UPDATE %s SET resstr = '%s' WHERE word='%s';", tables[getIndex(entry)], newResp,
+				entry);
 		Statement stmt;
 		try {
 			stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-		} catch (SQLException e){
+		} catch (SQLException e) {
 			close();
 			e.printStackTrace();
-			
+
 		}
 	}
-	public void close(){
+	public void updateHighscores(String name, double score,int level){
+		System.out.printf("Adding %s with score=%.2f and level=%d to highscores table...\n", name,score,level);
+		String sql = String.format("INSERT INTO highscores(name,score,level) VALUES('%s',%.2f,%d);", name, score,level);
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public ArrayList<String> getHighscores() {
+		System.out.println("Getting highscores...");
+		String sql = "SELECT * FROM highscores ORDER BY score DESC;";
+		ArrayList<String> retVal = new ArrayList<String>();
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			int count = 1;
+			while (rs.next()) {
+				String name = rs.getString("name");
+				double score = rs.getDouble("score");
+				int level = rs.getInt("level");
+				retVal.add(String.format("%d)%s: Score: %.2f|Level: %d", count,name,score,level));
+			}
+		} catch (SQLException e) {
+			close();
+			e.printStackTrace();
+		}
+		return retVal;
+	}
+
+	public void close() {
 	}
 }
