@@ -38,9 +38,10 @@ public class HighScoreServlet extends HttpServlet{
 		String name = jsonMes.getString("name");
 		double score = jsonMes.getDouble("score");
 		int level = jsonMes.getInt("level");
+		String stuff = jsonMes.getString("stuff");
 		String reply = "";
 		if (jsonMes.getInt("command") == 1){
-			db.updateHighscores(name, score, level);
+			db.updateHighscores(name, score, level,stuff);
 			reply = "Message recieved.";
 		} else {
 			db.updateHighscores(name, score, level);
