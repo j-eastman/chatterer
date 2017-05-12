@@ -44,7 +44,7 @@ public class HighScoreServlet extends HttpServlet{
 			db.updateHighscores(name, score, level,stuff);
 			reply = "Message recieved.";
 		} else {
-			db.updateHighscores(name, score, level);
+			db.updateHighscores(name, score, level,stuff);
 			ArrayList<String> scores = db.getHighscores();
 			for (String s:scores){
 				reply+=s+"\n";
