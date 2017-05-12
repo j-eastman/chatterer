@@ -397,6 +397,7 @@ public class Database {
 				double score = rs.getDouble("score");
 				int level = rs.getInt("level");
 				retVal.add(String.format("%d)%s: Score: %.2f|Level: %d", count,name,score,level));
+				count++;
 			}
 		} catch (SQLException e) {
 			close();
