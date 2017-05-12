@@ -373,7 +373,7 @@ public class Database {
 	}
 	public void updateHighscores(String name, double score,int level,String stuff){
 		System.out.printf("Adding %s with score=%.2f and level=%d to highscores table...\n", name,score,level);
-		String sql = String.format("INSERT INTO highscores(name,score,level,stuff) VALUES('%s',%.2f,%d,%s);", name, score,level,stuff);
+		String sql = String.format("INSERT INTO highscores(name,score,level,stuff) VALUES('%s',%.2f,%d,'%s');", name, score,level,stuff);
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
