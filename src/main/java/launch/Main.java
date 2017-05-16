@@ -19,7 +19,7 @@ import tools.FileManager;
 
 public class Main {
 	public static Database db = new Database();
-	public static FileManager fm = new FileManager();
+	public static FileManager fm;
     private static File getRootFolder() {
         try {
             File root;
@@ -38,7 +38,6 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-
         File root = getRootFolder();
         System.setProperty("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE", "true");
         Tomcat tomcat = new Tomcat();
@@ -82,6 +81,7 @@ public class Main {
         } else {
             resourceSet = new EmptyResourceSet(resources);
         }
+        fm = new FileManager();
         resources.addPreResources(resourceSet);
         ctx.setResources(resources);
         tomcat.start();

@@ -21,9 +21,9 @@ public class ImageMatcher {
 	}
 	public String processImage(String url){
 		BufferedImage img = fetchImg(url);
-		fm.uploadImage(toByteArray(img),generateName());
 		String name = generateName();
-		fm.uploadImage(toByteArray(crop(img)), name);
+		fm.uploadImage(toByteArray(img),name);
+		//fm.uploadImage(toByteArray(crop(img)), name);
 		return "http://blanket1aprons.x10host.com/"+name;
 	}
 	private String generateName(){
