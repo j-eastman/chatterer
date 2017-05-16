@@ -47,9 +47,9 @@ public class HighScoreServlet extends HttpServlet{
 			db.updateHighscores(name, score, level,stuff);
 			ArrayList<JSONObject> scores = db.getHighscores();
 			JSONObject res = new JSONObject();
-			String arr[] = new String[scores.size()];
+			JSONObject arr[] = new JSONObject[scores.size()];
 			for (int i = 0; i < arr.length;i++){
-				arr[i] = scores.get(i).toString();
+				arr[i] = scores.get(i);
 			}
 			res.append("scores", arr);
 			reply = res.toString();
