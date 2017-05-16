@@ -11,7 +11,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class ImageMatcher {
-	public BufferedImage src = fetchImg("http://blanket1aprons.x10host.com/src.png");
+	public BufferedImage src = fetchImg("http://blanket1aprons.x10host.com/source/src.png");
 	FileManager fm;
 	
 	public ImageMatcher(){
