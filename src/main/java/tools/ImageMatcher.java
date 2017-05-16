@@ -10,12 +10,14 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import launch.Main;
+
 public class ImageMatcher {
 	public BufferedImage src = fetchImg("http://blanket1aprons.x10host.com/source/src.png");
 	FileManager fm;
 	
 	public ImageMatcher(){
-		fm = new FileManager();
+		fm = Main.fm;
 	}
 	public String processImage(String url){
 		BufferedImage img = fetchImg(url);

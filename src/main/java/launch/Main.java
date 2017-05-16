@@ -15,9 +15,11 @@ import org.apache.catalina.webresources.StandardRoot;
 import org.apache.tomcat.util.scan.Constants;
 import org.apache.tomcat.util.scan.StandardJarScanFilter;
 import tools.Database;
+import tools.FileManager;
 
 public class Main {
 	public static Database db = new Database();
+	public static FileManager fm = new FileManager();
     private static File getRootFolder() {
         try {
             File root;
