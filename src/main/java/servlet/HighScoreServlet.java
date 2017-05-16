@@ -45,10 +45,14 @@ public class HighScoreServlet extends HttpServlet{
 			reply = "Message recieved.";
 		} else {
 			db.updateHighscores(name, score, level,stuff);
-			ArrayList<String> scores = db.getHighscores();
-			for (String s:scores){
-				reply+=s+"\n";
+			ArrayList<JSONObject> scores = db.getHighscores();
+			JSONObject res = new JSONObject();
+			String arr[] = new String[scores.size()];
+			for (int i = 0; i < arr.length;i++){
+				arr[i] = scores.get(i).toString();
 			}
+			res.append("scores", arr);
+			reply = res.toString();
 		}
 		out.print(reply);
 		out.flush();

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import org.json.JSONObject;
+
 public class Database {
 	Connection conn;
 	public String[] tables = new String[28];
@@ -383,10 +385,10 @@ public class Database {
 		}
 		
 	}
-	public ArrayList<String> getHighscores() {
+	public ArrayList<JSONObject> getHighscores() {
 		System.out.println("Getting highscores...");
 		String sql = "SELECT * FROM highscores ORDER BY score DESC;";
-		ArrayList<String> retVal = new ArrayList<String>();
+		ArrayList<JSONObject> retVal = new ArrayList<JSONObject>();
 		Statement stmt;
 		try {
 			stmt = conn.createStatement();
@@ -396,7 +398,11 @@ public class Database {
 				String name = rs.getString("name");
 				double score = rs.getDouble("score");
 				int level = rs.getInt("level");
-				retVal.add(String.format("%d)%s: Score: %.2f|Level: %d", count,name,score,level));
+				JSONObject obj = new JSONObject();
+				obj.append("name", name);
+				obj.append("score", score);
+				obj.append("level", level);
+				retVal.add(obj);
 				count++;
 			}
 		} catch (SQLException e) {
