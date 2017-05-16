@@ -399,9 +399,9 @@ public class Database {
 				double score = rs.getDouble("score");
 				int level = rs.getInt("level");
 				JSONObject obj = new JSONObject();
-				obj.append("name", name);
-				obj.append("score", score);
-				obj.append("level", level);
+				obj.put("name", name);
+				obj.put("score", score);
+				obj.put("level", level);
 				retVal.add(obj);
 				count++;
 			}
