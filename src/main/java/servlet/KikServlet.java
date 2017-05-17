@@ -52,6 +52,9 @@ public class KikServlet extends HttpServlet{
 		out.print("Connection: close\r\n"); // Will close stream
 		out.print("\r\n"); // End of headers
 		out.print("<start>");
+		if (response.equals("") || response.equals(" ")){
+			response = "What?";
+		}
 		out.print(response);
 		out.print("<end>");
 		System.out.println("URL: "+ response);

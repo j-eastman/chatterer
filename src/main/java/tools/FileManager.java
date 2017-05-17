@@ -61,7 +61,7 @@ public class FileManager {
 				System.out.println("The file is uploaded successfully.");
 			}
 			inputStream.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			close();
 		}
