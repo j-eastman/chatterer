@@ -55,7 +55,11 @@ public class KikMsgServlet extends HttpServlet {
 			out.print("Connection: close\r\n"); // Will close stream
 			out.print("\r\n"); // End of headers
 			out.print("<start>");
-			out.print(mh.getResponse(jsonMes));
+			String t = mh.getResponse(jsonMes);
+			if (t.equals("") || t.equals(" ")){
+				t = "What?";
+			}
+			out.print(t);
 			out.print("<end>");
 			// System.out.println("URL: "+ response);
 			out.flush();
