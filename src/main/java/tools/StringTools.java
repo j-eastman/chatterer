@@ -12,7 +12,7 @@ public class StringTools {
 	static Word[] words = {you,are,youre,couldve,whats};
 	
 	static String[] punct = {"!",".","?"};
-	static String punctExtended = "[];:',+=-_)(*&^%$#@|\"\\";
+	static char[] punctExtended = {'[',']',';',':','+','=','-','_','(',')','*','&','^','%','$','#','@','|','\\','"','\''};
 	
 	private static String replaceAll(String s){
 		for (Word w : words){
@@ -60,8 +60,8 @@ public class StringTools {
 				arr[i] = temp; 
 			}	
 		}
-		for (int i = 0; i < punctExtended.length();i++){
-			s = s.replaceAll(Character.toString(punctExtended.charAt(i)), "");
+		for (int i = 0; i < punctExtended.length;i++){
+			s = s.replaceAll(Character.toString(punctExtended[i]), "");
 		}
 		
 		return s;
