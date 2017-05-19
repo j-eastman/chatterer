@@ -61,6 +61,7 @@ public class StringTools {
 			}	
 		}
 		for (int i = 0; i < punctExtended.length;i++){
+			System.out.println("PUNCT: " + punctExtended[i]);
 			s = s.replaceAll(Character.toString(punctExtended[i]), "");
 		}
 		
