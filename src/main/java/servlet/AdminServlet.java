@@ -38,8 +38,8 @@ public class AdminServlet extends HttpServlet{
          while ((line = br.readLine()) != null && !line.equals("")) {
              json += line;
          }
-         JSONObject jsonObject =  new JSONObject(json);
          System.out.println("\n\nJSONLine: " + json + "\n\n\n");
+         JSONObject jsonObject =  new JSONObject(json); 
         JsonMessage jsonMes = new JsonMessage(json);
         if (jsonObject.getString("command").equals("updateTable")){
         	System.out.println("Updating tables...");
