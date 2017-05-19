@@ -109,12 +109,13 @@ public class Database {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
 		System.out.printf("Inserting %s with responses: '%s' into table: %s\n", entry, Arrays.toString(responses),
 				tables[table]);
-		String sql = String.format("INSERT INTO %s(word,responses) VALUES('%s','%s');", tables[table], entry,
-				form(responses));
+		String sql = String.format("INSERT INTO %s(word,responses,isBad,match_str) VALUES('%s','%s',%s,'%s');", tables[table], entry,
+				form(responses),String.valueOf(Dictionary.isBad(entry)),StringTools.getMatchingString(entry));
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
+			all.add(entry);
 		} catch (SQLException e) {
 			System.out.println(e.getErrorCode());
 		}
@@ -123,7 +124,8 @@ public class Database {
 	private void insert(String entry, int table) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
 		System.out.printf("Inserting %s into table: %s\n", entry, tables[table]);
-		String sql = String.format("INSERT INTO %s(word,frequency) VALUES('%s',1);", tables[table], entry);
+		String sql = String.format("INSERT INTO %s(word,frequency,isBad,match_str) VALUES('%s',1);", tables[table], entry);
+		//String sql = String.format("INSERT INTO %s(word,frequency,isBad,match_str) VALUES('%s',1,%s,'%s');", tables[table], entry,String.valueOf(Dictionary.isBad(entry)),StringTools.getMatchingString(entry));
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
@@ -418,5 +420,29 @@ public class Database {
 	}
 
 	public void close() {
+	}
+	private void addColumn(String table, String column, String type){
+		String sql = String.format("ALTER TABLE %s ADD COLUMN %s %s;", table,column,type);
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getErrorCode());
+		}
+	}
+	public void matchColumn(){
+		for (int i = 0; i < 26; i++){
+			addColumn(tables[i],"match_str","text");
+		}
+	}
+	public void setBad(String table){
+		String sql = String.format("SELECT * FROM %s;", table);
+		try{
+			Statement stmt = conn.createStatement();
+			ResultSet res = stmt.executeQuery(sql);
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 }

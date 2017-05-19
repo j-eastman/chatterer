@@ -53,9 +53,17 @@ public class StringTools {
 		}
 	}
 	public static String getMatchingString(String s){
+		String[] arr = s.split(" "); 
+		for (int i = 0; i < arr.length;i++){
+			String temp = Dictionary.getSrc(arr[i]);
+			if (temp != null){
+				arr[i] = temp; 
+			}	
+		}
 		for (int i = 0; i < punctExtended.length();i++){
 			s = s.replaceAll(Character.toString(punctExtended.charAt(i)), "");
 		}
+		
 		return s;
 	}
 	public static String fixString(String s){
@@ -105,5 +113,5 @@ class Word{
 	public String getWord(){
 		return this.word;
 	}
-	
 }
+
