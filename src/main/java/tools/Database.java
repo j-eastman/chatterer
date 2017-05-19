@@ -400,7 +400,9 @@ public class Database {
 		try {
 			Statement stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
-			retVal = rs.getBoolean("isCensored");
+			while(rs.next()){
+				retVal = rs.getBoolean("isCensored");
+			}
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
