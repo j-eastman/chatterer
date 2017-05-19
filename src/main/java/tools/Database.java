@@ -398,8 +398,10 @@ public class Database {
 		Boolean retVal = false;
 		ResultSet rs = query(sql);
 		try {
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			retVal = rs.getBoolean("isCensored");
-
+			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
