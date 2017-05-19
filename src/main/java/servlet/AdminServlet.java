@@ -64,6 +64,9 @@ public class AdminServlet extends HttpServlet{
         	out.flush();
         	out.close();
         }
+        if(jsonMes.get("command").equalsIgnoreCase("update")){
+        	db.matchColumn();
+        }
         System.out.println(json);
 	}
 }
