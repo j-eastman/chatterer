@@ -3,6 +3,7 @@ package servlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -29,6 +30,7 @@ public class AdminServlet extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 		Database db = Main.db;
+		PrintWriter out = resp.getWriter();
     	//PrintWriter out = resp.getWriter();
     	BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
          String json = "";
@@ -55,6 +57,12 @@ public class AdminServlet extends HttpServlet{
         if (jsonMes.get("command").equalsIgnoreCase("getResStr")){
         	System.out.println("Getting resstr for " + jsonMes.get("word"));
         	System.out.println("ResStr: " + db.getResStr(jsonMes.get("word")));
+        }
+        if (jsonMes.get("command").equalsIgnoreCase("getDBURL")){
+        	System.out.println("Returning DATABASE_URL...");
+        	out.println(System.getenv("DATABASE_URL"));
+        	out.flush();
+        	out.close();
         }
         System.out.println(json);
 	}
