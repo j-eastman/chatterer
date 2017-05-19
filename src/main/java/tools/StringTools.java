@@ -12,7 +12,7 @@ public class StringTools {
 	static Word[] words = {you,are,youre,couldve,whats};
 	
 	static String[] punct = {"!",".","?"};
-	static char[] punctExtended = {'[',']',';',':','+','=','-','_','(',')','*','&','^','%','$','#','@','|','\\','"','\''};
+	static char[] punctExtended = {';',':','+','=','-','_','(',')','*','&','^','%','$','#','@','|','\\','"','\''};
 	
 	private static String replaceAll(String s){
 		for (Word w : words){
