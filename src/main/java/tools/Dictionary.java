@@ -10,11 +10,11 @@ public class Dictionary {
 	static String[] badWords = new String[MAXSIZE];
 	static String[][] abbrv = new String[MAXSIZE][2];
 	
-	public Dictionary() {
+	public static void init() {
 		getBadWords();
 		getAbbrv();
 	}
-	private void getBadWords(){
+	private static void getBadWords(){
 		URL url = null;
 		try {
 			url = new URL("http://blanket1aprons.x10host.com/source/terms.prn");
@@ -34,7 +34,7 @@ public class Dictionary {
 			e.printStackTrace();
 		}
 	}
-	private void getAbbrv(){
+	private static void getAbbrv(){
 		URL url = null;
 		try {
 			url = new URL("http://blanket1aprons.x10host.com/source/abbrv.csv");
@@ -66,9 +66,11 @@ public class Dictionary {
 		String[] arr = s.split(" ");
 		for (String str: arr){
 			if (badWords[hash(str)] != null){
+				System.out.printf("'%s' contains bad word: %s|%s\n",s,badWords[hash(str)],str);
 				return true;
 			}
 		}
+		System.out.printf("'%s' does not contain any bad words.\n",s);
 		return false;
 	}
 	static String getSrc(String str){

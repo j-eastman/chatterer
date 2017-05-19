@@ -295,7 +295,6 @@ public class Database {
 	}
 
 	public String getResStr(String entry) {
-		System.out.printf("Getting resstr for: %s\n", entry);
 		String sql = String.format("SELECT resstr FROM %s WHERE word='%s';", tables[getIndex(entry)], entry);
 		Statement stmt;
 		String retVal = "";
@@ -309,7 +308,6 @@ public class Database {
 				count++;
 			}
 			if (count == 0) {
-				System.out.println("ERROR: NO RESULTS");
 				return "";
 			}
 			stmt.close();
@@ -413,8 +411,10 @@ public class Database {
 	public void toggleCensor(String username) {
 		String sql;
 		if (isCensored(username)) {
+			System.out.printf("Setting isCensored to FALSE for user:%s\n",username);
 			sql = String.format("UPDATE userdata set isCensored=FALSE where username='%s'", username);
 		} else {
+			System.out.printf("Setting isCensored to TRUE for user:%s\n",username);
 			sql = String.format("UPDATE userdata set isCensored=TRUE where username='%s'", username);
 		}
 		update(sql);

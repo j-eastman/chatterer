@@ -15,6 +15,7 @@ import org.apache.catalina.webresources.StandardRoot;
 import org.apache.tomcat.util.scan.Constants;
 import org.apache.tomcat.util.scan.StandardJarScanFilter;
 import tools.Database;
+import tools.Dictionary;
 import tools.FileManager;
 
 public class Main {
@@ -82,6 +83,7 @@ public class Main {
             resourceSet = new EmptyResourceSet(resources);
         }
         fm = new FileManager();
+        Dictionary.init();
         resources.addPreResources(resourceSet);
         ctx.setResources(resources);
         tomcat.start();
