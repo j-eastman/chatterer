@@ -84,8 +84,9 @@ public class Database {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
 		System.out.printf("Inserting %s with responses: '%s' into table: %s\n", entry, Arrays.toString(responses),
 				tables[table]);
-		String sql = String.format("INSERT INTO %s(word,responses,isBad,match_str) VALUES('%s','%s',%s,'%s');", tables[table], entry,
-				form(responses),String.valueOf(Dictionary.isBad(entry)),StringTools.getMatchingString(entry));
+		String sql = String.format("INSERT INTO %s(word,responses,isBad,match_str) VALUES('%s','%s',%s,'%s');",
+				tables[table], entry, form(responses), String.valueOf(Dictionary.isBad(entry)),
+				StringTools.getMatchingString(entry));
 		update(sql);
 		all.add(entry);
 	}
@@ -93,8 +94,11 @@ public class Database {
 	private void insert(String entry, int table) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
 		System.out.printf("Inserting %s into table: %s\n", entry, tables[table]);
-		//String sql = String.format("INSERT INTO %s(word,frequency,isBad,match_str) VALUES('%s',1);", tables[table], entry);
-		String sql = String.format("INSERT INTO %s(word,frequency,isBad,match_str) VALUES('%s',1,%s,'%s');", tables[table], entry,String.valueOf(Dictionary.isBad(entry)),StringTools.getMatchingString(entry));
+		// String sql = String.format("INSERT INTO
+		// %s(word,frequency,isBad,match_str) VALUES('%s',1);", tables[table],
+		// entry);
+		String sql = String.format("INSERT INTO %s(word,frequency,isBad,match_str) VALUES('%s',1,%s,'%s');",
+				tables[table], entry, String.valueOf(Dictionary.isBad(entry)), StringTools.getMatchingString(entry));
 		update(sql);
 	}
 
@@ -326,12 +330,15 @@ public class Database {
 				entry);
 		update(sql);
 	}
-	public void updateHighscores(String name, double score,int level,String stuff){
-		System.out.printf("Adding %s with score=%.2f and level=%d to highscores table...\n", name,score,level);
-		String sql = String.format("INSERT INTO highscores(name,score,level,stuff) VALUES('%s',%.2f,%d,'%s');", name, score,level,stuff);
+
+	public void updateHighscores(String name, double score, int level, String stuff) {
+		System.out.printf("Adding %s with score=%.2f and level=%d to highscores table...\n", name, score, level);
+		String sql = String.format("INSERT INTO highscores(name,score,level,stuff) VALUES('%s',%.2f,%d,'%s');", name,
+				score, level, stuff);
 		update(sql);
-		
+
 	}
+
 	public ArrayList<JSONObject> getHighscores() {
 		System.out.println("Getting highscores...");
 		String sql = "SELECT * FROM highscores ORDER BY score DESC;";
@@ -361,67 +368,73 @@ public class Database {
 
 	public void close() {
 	}
-	private void addColumn(String table, String column, String type){
-		String sql = String.format("ALTER TABLE %s ADD COLUMN %s %s;", table,column,type);
+
+	private void addColumn(String table, String column, String type) {
+		String sql = String.format("ALTER TABLE %s ADD COLUMN %s %s;", table, column, type);
 		update(sql);
 	}
-	public void matchColumn(){
-		for (int i = 0; i < 26; i++){
-			addColumn(tables[i],"match_str","text");
+
+	public void matchColumn() {
+		for (int i = 0; i < 26; i++) {
+			addColumn(tables[i], "match_str", "text");
 		}
 	}
-	public void setBad(String table){
+
+	public void setBad(String table) {
 		String sql = String.format("SELECT * FROM %s;", table);
-		try{
+		try {
 			Statement stmt = conn.createStatement();
 			ResultSet res = stmt.executeQuery(sql);
-			while(res.next()){
+			while (res.next()) {
 				String word = res.getString("word");
 			}
-		} catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	public boolean isCensored(String username){
+
+	public boolean isCensored(String username) {
 		String sql = String.format("SELECT * FROM userdata WHERE username='%s';", username);
 		Boolean retVal = false;
 		ResultSet rs = query(sql);
 		try {
-			while(rs.next()){
-				retVal = rs.getBoolean("isCensored");
-			}
+			retVal = rs.getBoolean("isCensored");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return retVal;
 	}
-	public void toggleCensor(String username){
+
+	public void toggleCensor(String username) {
 		String sql;
-		if (isCensored(username)){
-			sql = String.format("UPDATE userdata set isCensored=FALSE where username='%s'",username);
+		if (isCensored(username)) {
+			sql = String.format("UPDATE userdata set isCensored=FALSE where username='%s'", username);
 		} else {
-			sql = String.format("UPDATE userdata set isCensored=TRUE where username='%s'",username);
+			sql = String.format("UPDATE userdata set isCensored=TRUE where username='%s'", username);
 		}
 		update(sql);
 	}
-	private ResultSet query(String sql){
+
+	private ResultSet query(String sql) {
 		ResultSet rs = null;
-		try{
+		try {
 			Statement stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			stmt.close();
-		} catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return rs;
 	}
-	private void update(String sql){
+
+	private void update(String sql) {
 		Statement stmt = null;
-		try{
+		try {
 			stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-		} catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 			try {
 				stmt.close();
