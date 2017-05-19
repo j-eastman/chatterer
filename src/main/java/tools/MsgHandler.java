@@ -28,6 +28,14 @@ public class MsgHandler {
 	public String getResponse(JsonMessage body){
 		String from = body.get("username");
 		String msg = body.get("body");
+		if (msg.equalsIgnoreCase("Toggle Censor")){
+			db.toggleCensor(from);
+			if(db.isCensored(from)){
+				return "Responses to you will now be censored. Send 'Toggle Censor' to change this setting.";
+			} else {
+				return "Responses to you will no longer be censored. Send 'Toggle Censor' to change this setting.";
+			}
+		}
 		msg = msg.replaceAll("'", "");
 		String myResp;
 		Random r = new Random();
@@ -43,12 +51,17 @@ public class MsgHandler {
 			all = db.all;
 			System.out.println("All Size: " + all.size());
 			myResp = all.get(r.nextInt(all.size())); 
+			if (db.isCensored(from)){
+				while (Dictionary.isBad(myResp)){
+					myResp = all.get(r.nextInt(all.size()));
+				}
+			}
 		} else{ 
 			System.out.println("Returning responses.");
 			String[] resps = respStr.split("<brk>");
 			myResp = resps[r.nextInt(resps.length)];
 			int count = 0;
-			while(myResp.equalsIgnoreCase("null")){
+			while(myResp.equalsIgnoreCase("null") || Dictionary.isBad(myResp)){
 				myResp = resps[r.nextInt(resps.length)];
 				count++;
 				if(count == 10){
@@ -76,6 +89,11 @@ public class MsgHandler {
 		Random r = new Random();
 		System.out.println("All Size: " + all.size());
 		myResp = all.get(r.nextInt(all.size()));
+		if (db.isCensored(from)){
+			while (Dictionary.isBad(myResp)){
+				myResp = all.get(r.nextInt(all.size()));
+			}
+		}
 		System.out.println("From:" + from);
 		db.dbScan(msg,from,myResp);
 		db.updateUserData(myResp,from);
@@ -86,7 +104,7 @@ public class MsgHandler {
 		db.dbScan(msg, username, myResp);
 	}
 	public void postMsg(JsonMessage msg){
-		String s = msg.get("body").toLowerCase();
+		//String s = msg.get("body").toLowerCase();
 		
 		db.newEntry(msg.get("body").toLowerCase());
 	}

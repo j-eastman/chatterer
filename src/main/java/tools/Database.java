@@ -23,13 +23,7 @@ public class Database {
 		for (int i = 0; i < 27; i++) {
 			// resStr
 			String sql = String.format("UPDATE %s SET isBad = FALSE;", tables[i]);
-			try {
-				Statement stmt = conn.createStatement();
-				stmt.executeUpdate(sql);
-				stmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getErrorCode());
-			}
+			update(sql);
 		}
 	}
 
@@ -83,26 +77,14 @@ public class Database {
 		System.out.printf("Updating entry %s with responses: '%s' into table: %s\n", entry, Arrays.toString(newVal),
 				tables[table]);
 		String sql = String.format("UPDATE %s SET responses = %s WHERE word='%s';", tables[table], form(newVal), entry);
-		try {
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(e.getErrorCode());
-		}
+		update(sql);
 	}
 
 	public void updateEntry(String entry, int table, String newVal) {
 		// UPDATE table SET responses = 'newVal' WHERE word = entry;
 		System.out.printf("Updating entry %s with resstr: '%s' into table: %s\n", entry, newVal, tables[table]);
 		String sql = String.format("UPDATE %s SET resstr = '%s' WHERE word = '%s';", tables[table], newVal, entry);
-		try {
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(e.getErrorCode());
-		}
+		update(sql);
 	}
 
 	public void insert(String entry, int table, String[] responses) {
@@ -111,28 +93,16 @@ public class Database {
 				tables[table]);
 		String sql = String.format("INSERT INTO %s(word,responses,isBad,match_str) VALUES('%s','%s',%s,'%s');", tables[table], entry,
 				form(responses),String.valueOf(Dictionary.isBad(entry)),StringTools.getMatchingString(entry));
-		try {
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-			all.add(entry);
-		} catch (SQLException e) {
-			System.out.println(e.getErrorCode());
-		}
+		update(sql);
+		all.add(entry);
 	}
 
 	private void insert(String entry, int table) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
 		System.out.printf("Inserting %s into table: %s\n", entry, tables[table]);
-		String sql = String.format("INSERT INTO %s(word,frequency,isBad,match_str) VALUES('%s',1);", tables[table], entry);
-		//String sql = String.format("INSERT INTO %s(word,frequency,isBad,match_str) VALUES('%s',1,%s,'%s');", tables[table], entry,String.valueOf(Dictionary.isBad(entry)),StringTools.getMatchingString(entry));
-		try {
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(e.getErrorCode());
-		}
+		//String sql = String.format("INSERT INTO %s(word,frequency,isBad,match_str) VALUES('%s',1);", tables[table], entry);
+		String sql = String.format("INSERT INTO %s(word,frequency,isBad,match_str) VALUES('%s',1,%s,'%s');", tables[table], entry,String.valueOf(Dictionary.isBad(entry)),StringTools.getMatchingString(entry));
+		update(sql);
 	}
 
 	private int getIndex(String s) {
@@ -269,16 +239,8 @@ public class Database {
 
 	public void updateUserData(String myLast, String username) {
 		String sql = String.format("UPDATE %s SET mylast = '%s' WHERE username='%s';", tables[27], myLast, username);
-		Statement stmt;
-		try {
-			System.out.printf("Updating mylast for user %s to %s\n", username, myLast);
-			stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-		} catch (SQLException e) {
-			close();
-			System.out.println(e.getErrorCode());
-		}
+		System.out.printf("Updating mylast for user %s to %s\n", username, myLast);
+		update(sql);
 	}
 
 	public void dbScan(String msg, String username, String myResponse) {
@@ -369,27 +331,12 @@ public class Database {
 		System.out.printf("Updating entry %s with %s\n", entry, newResp);
 		String sql = String.format("UPDATE %s SET resstr = '%s' WHERE word='%s';", tables[getIndex(entry)], newResp,
 				entry);
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-		} catch (SQLException e) {
-			close();
-			e.printStackTrace();
-
-		}
+		update(sql);
 	}
 	public void updateHighscores(String name, double score,int level,String stuff){
 		System.out.printf("Adding %s with score=%.2f and level=%d to highscores table...\n", name,score,level);
 		String sql = String.format("INSERT INTO highscores(name,score,level,stuff) VALUES('%s',%.2f,%d,'%s');", name, score,level,stuff);
-		try {
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		update(sql);
 		
 	}
 	public ArrayList<JSONObject> getHighscores() {
@@ -423,13 +370,7 @@ public class Database {
 	}
 	private void addColumn(String table, String column, String type){
 		String sql = String.format("ALTER TABLE %s ADD COLUMN %s %s;", table,column,type);
-		try {
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(e.getErrorCode());
-		}
+		update(sql);
 	}
 	public void matchColumn(){
 		for (int i = 0; i < 26; i++){
@@ -441,8 +382,59 @@ public class Database {
 		try{
 			Statement stmt = conn.createStatement();
 			ResultSet res = stmt.executeQuery(sql);
+			while(res.next()){
+				String word = res.getString("word");
+			}
 		} catch (SQLException e){
 			e.printStackTrace();
+		}
+	}
+	public boolean isCensored(String username){
+		String sql = String.format("SELECT * FROM userdata WHERE username='%s';", username);
+		Boolean retVal = false;
+		ResultSet rs = query(sql);
+		try {
+			while(rs.next()){
+				retVal = rs.getBoolean("isCensored");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return retVal;
+	}
+	public void toggleCensor(String username){
+		String sql;
+		if (isCensored(username)){
+			sql = String.format("UPDATE userdata set isCensored=FALSE where username='%s'",username);
+		} else {
+			sql = String.format("UPDATE userdata set isCensored=TRUE where username='%s'",username);
+		}
+		update(sql);
+	}
+	private ResultSet query(String sql){
+		ResultSet rs = null;
+		try{
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			stmt.close();
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	private void update(String sql){
+		Statement stmt = null;
+		try{
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+		} catch(SQLException e){
+			e.printStackTrace();
+			try {
+				stmt.close();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 }
