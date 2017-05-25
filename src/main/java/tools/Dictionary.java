@@ -24,8 +24,8 @@ public class Dictionary {
 	public static void init() {
 		getBadWords();
 		getAbbrv();
-		spellCheck = new SpellCheck();
 		dictionary = new WordRepo("http://blanket1aprons.x10host.com/source/dictionary.txt");
+		spellCheck = new SpellCheck();
 	}
 
 	public static String spellCheck(String word){
@@ -108,8 +108,9 @@ public class Dictionary {
 		System.out.println("HEre: "+ s);
 		String[] arr = s.split(" ");
 		double count = 0;
+		
 		for (String str:arr){
-			if (str !=null && !dictionary.isWord(str)){
+			if (!dictionary.isWord(str)){
 				count++;
 			}
 		}
