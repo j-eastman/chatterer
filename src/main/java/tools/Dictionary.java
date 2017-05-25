@@ -108,7 +108,7 @@ public class Dictionary {
 		String[] arr = s.split(" ");
 		double count = 0;
 		for (String str:arr){
-			if (!dictionary.isWord(str)){
+			if (str !=null && !dictionary.isWord(str)){
 				count++;
 			}
 		}
