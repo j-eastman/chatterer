@@ -110,6 +110,9 @@ public class Dictionary {
 		double count = 0;
 		
 		for (String str:arr){
+			if (dictionary == null){
+				System.out.println("ITS NULL");
+			}
 			if (!dictionary.isWord(str)){
 				count++;
 			}
