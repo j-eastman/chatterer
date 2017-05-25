@@ -75,7 +75,7 @@ public class Dictionary {
 			br = new BufferedReader(new InputStreamReader(url.openStream()));
 			String available;
 			while ((available = br.readLine()) != null) {
-				System.out.println(available);
+				//System.out.println(available);
 				int hash = hash(available.split(";")[0]);
 				abbrv[hash] = available.split(";");
 			}
@@ -105,7 +105,7 @@ public class Dictionary {
 		return false;
 	}
 	public static boolean isWord(String s){
-		System.out.println("HEre");
+		System.out.println("HEre: "+ s);
 		String[] arr = s.split(" ");
 		double count = 0;
 		for (String str:arr){
