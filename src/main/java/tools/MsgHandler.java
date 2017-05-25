@@ -1,18 +1,19 @@
 package tools;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import launch.Main;
 
 public class MsgHandler {
 	Database db = Main.db;
+	Random r = new Random();
 	public MsgHandler(){
 	}
 	public String formatString(String s){
 		String punctuation = ".!?";
 		String c = "";
 		String retVal = "";
+		s = checkSpelling(s);
 		if (s.length() > 0){
 			c = Character.toString(s.charAt(0));
 			c = c.toUpperCase();
@@ -24,6 +25,16 @@ public class MsgHandler {
 		}
 
 		return retVal;
+	}
+	private String checkSpelling(String s){
+		String[] arr = s.split(" ");
+		String retVal = "";
+		for (String str:arr){
+			str = Dictionary.spellCheck(str);
+			retVal+=str+" ";
+		}
+		return retVal.substring(0,retVal.length()-1);
+		
 	}
 	public String getResponse(JsonMessage body){
 		String from = body.get("username");
@@ -47,15 +58,7 @@ public class MsgHandler {
 				msg = "null";
 			}
 			System.out.println("No response found, random response.");
-			ArrayList<String> all = new ArrayList<String>();
-			all = db.all;
-			System.out.println("All Size: " + all.size());
-			myResp = all.get(r.nextInt(all.size())); 
-			if (db.isCensored(from)){
-				while (Dictionary.isBad(myResp)){
-					myResp = all.get(r.nextInt(all.size()));
-				}
-			}
+			myResp = randomRep(db.isCensored(from));
 		} else{ 
 			System.out.println("Returning responses.");
 			String[] resps = respStr.split("<brk>");
@@ -66,10 +69,7 @@ public class MsgHandler {
 				count++;
 				if(count == 10){
 					System.out.println("No response found, random response.");
-					ArrayList<String> all = new ArrayList<String>();
-					all = db.all;
-					System.out.println("All Size: " + all.size());
-					myResp = all.get(r.nextInt(all.size())); 
+					myResp = randomRep(db.isCensored(from)); 
 				}
 			}
 		}
@@ -83,17 +83,8 @@ public class MsgHandler {
 		String from = body.get("username");
 		String msg = body.get("body");
 		String myResp;
-		ArrayList<String> all = new ArrayList<String>();
 		db.reconnect();
-		all = db.all;
-		Random r = new Random();
-		System.out.println("All Size: " + all.size());
-		myResp = all.get(r.nextInt(all.size()));
-		if (db.isCensored(from)){
-			while (Dictionary.isBad(myResp)){
-				myResp = all.get(r.nextInt(all.size()));
-			}
-		}
+		myResp = randomRep(db.isCensored(from));
 		System.out.println("From:" + from);
 		db.dbScan(msg,from,myResp);
 		db.updateUserData(myResp,from);
@@ -109,4 +100,16 @@ public class MsgHandler {
 		db.newEntry(msg.get("body").toLowerCase());
 	}
 	public void close(){}
+	public String randomRep(boolean isCensored){
+		String retVal = db.all.get(r.nextInt(db.all.size()));
+		if (isCensored){
+			while (Dictionary.isBad(retVal) || !Dictionary.isWord(retVal)){
+				retVal = db.all.get(r.nextInt(db.all.size()));
+			}
+		}
+		while(!Dictionary.isWord(retVal)){
+			retVal = db.all.get(r.nextInt(db.all.size()));
+		}
+		return retVal;
+	}
 }
