@@ -1,12 +1,15 @@
 package servlet;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -60,7 +63,7 @@ public class BotServlet extends HttpServlet {
 			json += line;
 		}
 		System.out.println("BOTJSON: " + json);
-		resp.setStatus(HttpServletResponse.SC_OK);
+		//resp.setStatus(HttpServletResponse.SC_OK);
 		JSONObject first = new JSONObject(json);
 		JSONObject js = first.getJSONArray("messages").getJSONObject(0);
 		System.out.println("Message: " +js.toString());
@@ -74,7 +77,13 @@ public class BotServlet extends HttpServlet {
 			
 		out.flush();
 		out.close();*/
-		test(js);
+		//test(js);
+		try {
+			System.out.println(send(js.toString()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	void test(JSONObject json) throws ClientProtocolException, IOException{
@@ -110,6 +119,47 @@ public class BotServlet extends HttpServlet {
 		JSONObject[] arr = {message};
 		retVal.put("messages", arr);
 		return retVal;
+	}
+	public static String send(String data) throws Exception {
+		URL obj = null;
+		String method = "post";
+		String url = "https://api.kik.com/v1/message";
+		if (method.equals("both") || method.equals("get") && !data.isEmpty()) {
+			obj = new URL(url + "?" + data);
+		} else
+			obj = new URL(url);
+
+		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+
+		con.setRequestProperty("Authorization",
+				"Basic " + Base64.getEncoder().encodeToString((USER + ":" + API_KEY).getBytes("utf-8")));
+		con.setRequestMethod(method.toUpperCase());
+		con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+
+		if (method.equalsIgnoreCase("post")) {
+			con.setDoOutput(true);
+			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+			wr.write(data.getBytes("utf-8"));
+			wr.flush();
+			wr.close();
+		}
+
+		int responseCode = con.getResponseCode();
+		System.out.println("\nSent '" + method.toUpperCase() + "' request to URL : " + url);
+		System.out.println("Data : " + data);
+		System.out.println("Response Code : " + responseCode);
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+
+		while ((inputLine = in.readLine()) != null) {
+			response.append(inputLine).append("\n");
+		}
+		in.close();
+		System.out.println("Response text : " + response.toString());
+
+		return response.toString();
 	}
 }
 class JSResp{
