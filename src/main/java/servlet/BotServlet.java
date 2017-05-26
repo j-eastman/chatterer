@@ -87,7 +87,8 @@ public class BotServlet extends HttpServlet {
 		httpPost.setHeader("Connection", "close");
 		httpPost.setEntity(new StringEntity(getJSON(json).toString()));
 		HttpResponse httpResponse = httpClient.execute(httpPost);
-		StatusLine statusLine = httpResponse.getStatusLine();				
+		StatusLine statusLine = httpResponse.getStatusLine();	
+		System.out.println("Status: " + statusLine.toString());
 		if(statusLine.getStatusCode() == HttpStatus.SC_OK)
 		{
 		  ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -95,6 +96,8 @@ public class BotServlet extends HttpServlet {
 		  String responseString = outputStream.toString();
 		  System.out.println(responseString);
 		//  ......  //processding operations				
+		}else{
+			System.out.println("Message failed.");
 		}
 	}
 	public static JSONObject getJSON(JSONObject mes){
