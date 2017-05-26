@@ -45,8 +45,8 @@ public class KikServlet extends HttpServlet{
              json += line;
         } 
         JsonMessage jsonMes = new JsonMessage(json);
-        ImageMatcher im = new ImageMatcher();
-        String response = im.processImage(jsonMes.get("picUrl"));
+      //  ImageMatcher im = new ImageMatcher();
+        String response = jsonMes.get("picUrl");
 		out.print("HTTP/1.1 200 \r\n"); // Version & status code
 		out.print("Content-Type: text/plain\r\n"); // The type of data
 		out.print("Connection: close\r\n"); // Will close stream

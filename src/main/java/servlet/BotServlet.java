@@ -83,7 +83,7 @@ public class BotServlet extends HttpServlet {
 		String cred = String.format("%s:%s",USER,API_KEY);
 		String credential = Base64.getEncoder().encodeToString(cred.getBytes(StandardCharsets.UTF_8));
 		httpPost.setHeader("Authorization", "Basic " + credential.substring(0, credential.length()-1));
-		httpPost.setHeader("Accept", "application/json");
+		httpPost.setHeader("content-type", "application/json");
 		httpPost.setHeader("Connection", "close");
 		httpPost.setEntity(new StringEntity(getJSON(json).toString()));
 		HttpResponse httpResponse = httpClient.execute(httpPost);
