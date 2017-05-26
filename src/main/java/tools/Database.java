@@ -200,7 +200,7 @@ public class Database {
 					if (result != null) {
 						temp = (String[]) respParse(result);
 						for (String s : temp) {
-							System.out.println(s);
+						//	System.out.println(s);
 						}
 					}
 
@@ -251,9 +251,9 @@ public class Database {
 				System.out.printf("User %s found. Updating responses.\n", username);
 				stmt.close();
 				if (!myLast.equals("")) {
-					System.out.println("myLast: " + myLast);
+				//	System.out.println("myLast: " + myLast);
 					String respStr = getResStr(myLast);
-					System.out.println("respStr: " + respStr);
+				//	System.out.println("respStr: " + respStr);
 					respStr += "<brk>" + msg;
 					stmt.close();
 					updateEntry(myLast, getIndex(myLast), respStr);

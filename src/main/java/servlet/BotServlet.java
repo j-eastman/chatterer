@@ -86,6 +86,7 @@ public class BotServlet extends HttpServlet {
 		httpPost.setHeader("content-type", "application/json");
 		httpPost.setHeader("Connection", "close");
 		httpPost.setEntity(new StringEntity(getJSON(json).toString()));
+		System.out.println("HTTP: " + httpPost.toString());
 		HttpResponse httpResponse = httpClient.execute(httpPost);
 		StatusLine statusLine = httpResponse.getStatusLine();	
 		System.out.println("Status: " + statusLine.toString());
