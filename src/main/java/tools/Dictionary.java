@@ -22,9 +22,9 @@ public class Dictionary {
 	static SpellCheck spellCheck;
 	static WordRepo dictionary;
 	public static void init() {
+		dictionary = new WordRepo("http://blanket1aprons.x10host.com/source/dictionary.txt");
 		getBadWords();
 		getAbbrv();
-		dictionary = new WordRepo("http://blanket1aprons.x10host.com/source/dictionary.txt");
 		spellCheck = new SpellCheck();
 	}
 
@@ -112,6 +112,7 @@ public class Dictionary {
 		for (String str:arr){
 			if (dictionary == null){
 				System.out.println("ITS NULL");
+				dictionary = new WordRepo("http://blanket1aprons.x10host.com/source/dictionary.txt");
 			}
 			if (!dictionary.isWord(str)){
 				count++;
