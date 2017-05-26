@@ -31,7 +31,8 @@ public class Dictionary {
 		if (abbrv == null){
 			getAbbrv();
 		}
-		if (abbrv[hash(word)] != null && abbrv[hash(word)][0].equalsIgnoreCase(word)){
+		int hash = hash(word);
+		if (abbrv[hash] != null && abbrv[hash][0] != null && abbrv[hash(word)][0].equalsIgnoreCase(word)){
 			return abbrv[hash(word)][1].toLowerCase();
 		}
 		return word;
