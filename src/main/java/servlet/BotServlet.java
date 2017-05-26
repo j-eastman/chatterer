@@ -39,7 +39,7 @@ public class BotServlet extends HttpServlet {
 	private static final String USER = "minime613_bot";
 	private static final String API_KEY = "6ddab328-8241-4d54-a651-486970c9cf1f";
 	private static final long serialVersionUID = 1L;
-
+	static MsgHandler mh = new MsgHandler();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ServletOutputStream out = resp.getOutputStream();
@@ -62,6 +62,7 @@ public class BotServlet extends HttpServlet {
 		while ((line = br.readLine()) != null && !line.equals("")) {
 			json += line;
 		}
+
 		System.out.println("BOTJSON: " + json);
 		//resp.setStatus(HttpServletResponse.SC_OK);
 		JSONObject first = new JSONObject(json);
@@ -78,6 +79,7 @@ public class BotServlet extends HttpServlet {
 		out.flush();
 		out.close();*/
 		//test(js);
+		mh.postMsg(js.getString("body"));
 		try {
 			System.out.println(send(getJSON(js).toString()));
 		} catch (Exception e) {
@@ -114,8 +116,12 @@ public class BotServlet extends HttpServlet {
 	public static JSONObject getJSON(JSONObject mes){
 		//body, to, type, chatId
 		JSONObject retVal = new JSONObject();
+		String response = mh.getResponse(mes.getString("from"), mes.getString("body"));
+		if (response.equals("") || response.equals(" ")){
+			response = "What?";
+		}
 		JSONObject message = new JSONObject();
-		message.put("body",mes.get("body")).put("to", mes.get("from")).put("type", "text").put("chatId", mes.get("chatId"));
+		message.put("body",response).put("to", mes.get("from")).put("type", "text").put("chatId", mes.get("chatId"));
 		JSONObject[] arr = {message};
 		retVal.put("messages", arr);
 		return retVal;

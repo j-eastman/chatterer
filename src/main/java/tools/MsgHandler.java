@@ -84,6 +84,48 @@ public class MsgHandler {
 		System.out.printf("Chatterer:%s\n", myResp);
 		return formatString(myResp);
 	}
+	public String getResponse(String from, String msg) {
+		if (msg.equalsIgnoreCase("Toggle Censor")) {
+			System.out.printf("Toggling censor for user: %s\n", from);
+			db.toggleCensor(from);
+			if (db.isCensored(from)) {			
+				return "Responses to you will now be censored. Send 'Toggle Censor' to change this setting.";
+			} else {
+				return "Responses to you will no longer be censored. Send 'Toggle Censor' to change this setting.";
+			}
+		}
+		msg = msg.replaceAll("'", "");
+		String myResp;
+		Random r = new Random();
+		String respStr = db.getResStr(msg);
+		if (respStr == null || respStr.equals("<brk>") || respStr.equals("") || respStr.equals("null")
+				|| respStr.equals(" ") || msg.equals("") || msg.equals(" ")) {
+			if (msg.equals("") || msg.equals(" ")) {
+				System.out.println("Incoming message was null.");
+				msg = "null";
+			}
+			myResp = randomRep(db.isCensored(from));
+		} else {
+			String[] resps = respStr.split("<brk>");
+			myResp = resps[r.nextInt(resps.length)];
+			int count = 0;
+			while (myResp.equalsIgnoreCase("null") || Dictionary.isBad(myResp)) {
+				myResp = resps[r.nextInt(resps.length)];
+				count++;
+				if (count == 10) {
+					System.out.println("Loop limit reached.");
+					myResp = randomRep(db.isCensored(from));
+				}
+			}
+		}
+		db.reconnect();
+		db.dbScan(msg, from, myResp);
+		db.updateUserData(myResp, from);
+		myResp = formatString(myResp);
+		System.out.printf("%s:%s\n",from,msg);
+		System.out.printf("Chatterer:%s\n", myResp);
+		return formatString(myResp);
+	}
 
 	public String getRandomReply(JsonMessage body) {
 		String from = body.get("username");
@@ -103,6 +145,9 @@ public class MsgHandler {
 
 	public void postMsg(JsonMessage msg) {
 		db.newEntry(msg.get("body").toLowerCase());
+	}
+	public void postMsg(String msg){
+		db.newEntry(msg.toLowerCase());
 	}
 
 	public void close() {
