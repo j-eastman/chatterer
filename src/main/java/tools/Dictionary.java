@@ -31,6 +31,9 @@ public class Dictionary {
 	public static String spellCheck(String word){
 		String retVal = word;
 		try {
+			if(spellCheck == null){
+				spellCheck = new SpellCheck();
+			}
 			retVal = spellCheck.bestFit(word);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -196,8 +199,8 @@ class SpellCheck {
 			directory = FSDirectory.open(dir);
 			spellChecker = new SpellChecker(directory);
 			url = new URL("http://blanket1aprons.x10host.com/source/dictionary.txt");
-			String tDir = System.getProperty("java.io.tmpdir");
-			String path = tDir + "tmp" + ".txt";
+			//String tDir = System.getProperty();
+			String path = "./tmp" + ".txt";
 			f = new File(path);
 			f.deleteOnExit();
 			FileUtils.copyURLToFile(url, f);
