@@ -75,7 +75,7 @@ public class Bot {
 			message = "What?";
 		}
 		JSONObject mes = new JSONObject();
-		mes.put("body",message).put("to", username).put("type", "text").put("chatId", "null");
+		mes.put("body",message).put("to", username).put("type", "text").put("chatId", "b3be3bc15dbe59931666c06290abd944aaa769bb2ecaaf859bfb65678880afab");
 		JSONObject[] arr = {mes};
 		retVal.put("messages", arr);
 		return retVal;
