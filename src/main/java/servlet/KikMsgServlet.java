@@ -61,7 +61,6 @@ public class KikMsgServlet extends HttpServlet {
 			}
 			out.print(t);
 			out.print("<end>");
-			// System.out.println("URL: "+ response);
 			out.flush();
 			out.close();
 			mh.close();

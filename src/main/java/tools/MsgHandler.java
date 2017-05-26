@@ -8,8 +8,7 @@ public class MsgHandler {
 	Database db = Main.db;
 	Random r = new Random();
 
-	public MsgHandler() {
-	}
+	public MsgHandler() {}
 
 	public String formatString(String s) {
 		String punctuation = ".!?";
@@ -25,7 +24,6 @@ public class MsgHandler {
 				retVal += ".";
 			}
 		}
-
 		return retVal.replaceAll(" i ", " I ").replaceAll("i'm", "I'm");
 	}
 
@@ -46,8 +44,9 @@ public class MsgHandler {
 		String from = body.get("username");
 		String msg = body.get("body");
 		if (msg.equalsIgnoreCase("Toggle Censor")) {
+			System.out.printf("Toggling censor for user: %s\n", from);
 			db.toggleCensor(from);
-			if (db.isCensored(from)) {
+			if (db.isCensored(from)) {			
 				return "Responses to you will now be censored. Send 'Toggle Censor' to change this setting.";
 			} else {
 				return "Responses to you will no longer be censored. Send 'Toggle Censor' to change this setting.";
@@ -57,17 +56,14 @@ public class MsgHandler {
 		String myResp;
 		Random r = new Random();
 		String respStr = db.getResStr(msg);
-		System.out.println("RespStr: " + respStr);
 		if (respStr == null || respStr.equals("<brk>") || respStr.equals("") || respStr.equals("null")
 				|| respStr.equals(" ") || msg.equals("") || msg.equals(" ")) {
 			if (msg.equals("") || msg.equals(" ")) {
 				System.out.println("Incoming message was null.");
 				msg = "null";
 			}
-			System.out.println("No response found, random response.");
 			myResp = randomRep(db.isCensored(from));
 		} else {
-			System.out.println("Returning responses.");
 			String[] resps = respStr.split("<brk>");
 			myResp = resps[r.nextInt(resps.length)];
 			int count = 0;
@@ -75,15 +71,17 @@ public class MsgHandler {
 				myResp = resps[r.nextInt(resps.length)];
 				count++;
 				if (count == 10) {
-					System.out.println("No response found, random response.");
+					System.out.println("Loop limit reached.");
 					myResp = randomRep(db.isCensored(from));
 				}
 			}
 		}
 		db.reconnect();
-		System.out.println("From:" + from);
 		db.dbScan(msg, from, myResp);
 		db.updateUserData(myResp, from);
+		myResp = formatString(myResp);
+		System.out.printf("%s:%s\n",from,msg);
+		System.out.printf("Chatterer:%s\n", myResp);
 		return formatString(myResp);
 	}
 
@@ -100,13 +98,10 @@ public class MsgHandler {
 	}
 
 	public void storeResults(String msg, String username, String myResp) {
-
 		db.dbScan(msg, username, myResp);
 	}
 
 	public void postMsg(JsonMessage msg) {
-		// String s = msg.get("body").toLowerCase();
-
 		db.newEntry(msg.get("body").toLowerCase());
 	}
 

@@ -87,7 +87,6 @@ public class Dictionary {
 			br = new BufferedReader(new InputStreamReader(url.openStream()));
 			String available;
 			while ((available = br.readLine()) != null) {
-				//System.out.println(available);
 				int hash = hash(available.split(";")[0]);
 				abbrv[hash] = available.split(";");
 			}

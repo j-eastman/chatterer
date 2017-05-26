@@ -1,6 +1,5 @@
 package tools;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -23,7 +22,6 @@ public class ImageMatcher {
 		BufferedImage img = fetchImg(url);
 		String name = generateName();
 		fm.uploadImage(toByteArray(img),name);
-		//fm.uploadImage(toByteArray(crop(img)), name);
 		return "http://blanket1aprons.x10host.com/"+name;
 	}
 	private String generateName(){
@@ -45,7 +43,7 @@ public class ImageMatcher {
 		}
 		return retVal;
 	}
-	private int firstYellow (BufferedImage img){
+	/*private int firstYellow (BufferedImage img){
 		int highestY = 1;
 		for (int i = 1; i < 50; i++) {
 			for (int j = 1; j < img.getWidth()/2; j++) {
@@ -60,14 +58,14 @@ public class ImageMatcher {
 		}
 		System.out.println(highestY);
 		return highestY;
-	}
-	private boolean inBounds(int a, int b, int c) {
+	}*/
+	/*private boolean inBounds(int a, int b, int c) {
 		return (a >= b && a < c);
-	}
-	private BufferedImage crop(BufferedImage img){
+	}*/
+	/*private BufferedImage crop(BufferedImage img){
 	      BufferedImage dest = img.getSubimage(0, 0, img.getWidth(), img.getHeight()-firstYellow(img));
 	      return dest; 
-	}
+	}*/
 	private byte[] toByteArray(BufferedImage img){
 		if (img != null){	
 			try {

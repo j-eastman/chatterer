@@ -94,9 +94,6 @@ public class Database {
 	private void insert(String entry, int table) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
 		System.out.printf("Inserting %s into table: %s\n", entry, tables[table]);
-		// String sql = String.format("INSERT INTO
-		// %s(word,frequency,isBad,match_str) VALUES('%s',1);", tables[table],
-		// entry);
 		String sql = String.format("INSERT INTO %s(word,frequency,isBad,match_str) VALUES('%s',1,%s,'%s');",
 				tables[table], entry, String.valueOf(Dictionary.isBad(entry)), StringTools.getMatchingString(entry));
 		update(sql);
@@ -121,10 +118,8 @@ public class Database {
 		System.out.println("RETVAL: " + retVal);
 		if (retVal == null) {
 			newEntry(query);
-			// dbScan(query, user);
 			return "nada";
 		}
-		// dbScan(query, user);
 		Random r = new Random();
 		return retVal[r.nextInt(retVal.length)];
 	}
@@ -138,7 +133,6 @@ public class Database {
 				System.out.printf("%s not found. Entering it into table: %s\n", entry, tables[getIndex(entry)]);
 				insert(entry, getIndex(entry));
 			} else {
-				System.out.printf("%s found. Updating frequency.\n", entry);
 				stmt.close();
 				updateFrequency(entry);
 			}
@@ -242,9 +236,7 @@ public class Database {
 
 	public void dbScan(String msg, String username, String myResponse) {
 		// username prevMsg myLast
-		System.out.println("Scanning userdata for user:" + username);
 		String sql = String.format("SELECT * FROM %s WHERE username='%s';", tables[27], username);
-		// System.out.println("QUERY: " + sql);
 		try {
 			Statement stmt = conn.createStatement();
 			String myLast = getMyLast(username);
@@ -322,7 +314,6 @@ public class Database {
 
 	public void updateResStr(String entry, String newResp) {
 		// String sql = String.format("UPDATE %s SET responses = %s WHERE
-		// word='%s';", tables[table], form(newVal), entry);
 		System.out.printf("Updating entry %s with %s\n", entry, newResp);
 		String sql = String.format("UPDATE %s SET resstr = '%s' WHERE word='%s';", tables[getIndex(entry)], newResp,
 				entry);
@@ -334,7 +325,6 @@ public class Database {
 		String sql = String.format("INSERT INTO highscores(name,score,level,stuff) VALUES('%s',%.2f,%d,'%s');", name,
 				score, level, stuff);
 		update(sql);
-
 	}
 
 	public ArrayList<JSONObject> getHighscores() {
