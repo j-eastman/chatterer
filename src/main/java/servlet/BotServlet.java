@@ -60,7 +60,9 @@ public class BotServlet extends HttpServlet {
 			json += line;
 		}
 		System.out.println("BOTJSON: " + json);
-		JSONObject js = new JSONObject(json);
+		JSONObject first = new JSONObject(json);
+		JSONObject js = first.getJSONArray("messages").getJSONObject(0);
+		System.out.println("Message: " +js.toString());
 		// String response = mh.getResponse(jsonMes);
 		/*out.print("HTTP/1.1 200 \r\n"); // Version & status code
 		out.print("Authorization: Basic\r\n");
