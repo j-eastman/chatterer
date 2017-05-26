@@ -79,7 +79,7 @@ public class BotServlet extends HttpServlet {
 		out.close();*/
 		//test(js);
 		try {
-			System.out.println(send(js.toString()));
+			System.out.println(send(getJSON(js).toString()));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
