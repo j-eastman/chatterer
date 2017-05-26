@@ -75,7 +75,7 @@ public class Database {
 
 	public void updateEntry(String entry, int table, String newVal) {
 		// UPDATE table SET responses = 'newVal' WHERE word = entry;
-		System.out.printf("Updating entry %s with resstr: '%s' into table: %s\n", entry, newVal, tables[table]);
+		//System.out.printf("Updating entry %s with resstr: '%s' into table: %s\n", entry, newVal, tables[table]);
 		String sql = String.format("UPDATE %s SET resstr = '%s' WHERE word = '%s';", tables[table], newVal, entry);
 		update(sql);
 	}

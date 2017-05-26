@@ -16,12 +16,12 @@ public class Bot {
 	public static final String CONFIG_ENDPOINT = SITE + "config";
 	public static final String MESSAGE_ENDPOINT = SITE + "message";
 	public static final String USER_ENDPOINT = SITE + "user/";
-	private String username;
-	private String apiKey;
+	public static String username;
+	public static String apiKey;
 
 	public Bot(String username, String apiKey) {
-		this.username = username;
-		this.apiKey = apiKey;
+		Bot.username = username;
+		Bot.apiKey = apiKey;
 	}
 
 	public String getURL() {
