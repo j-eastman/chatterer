@@ -60,6 +60,7 @@ public class BotServlet extends HttpServlet {
 			json += line;
 		}
 		System.out.println("BOTJSON: " + json);
+		resp.setStatus(HttpServletResponse.SC_OK);
 		JSONObject first = new JSONObject(json);
 		JSONObject js = first.getJSONArray("messages").getJSONObject(0);
 		System.out.println("Message: " +js.toString());
