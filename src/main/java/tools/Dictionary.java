@@ -27,7 +27,12 @@ public class Dictionary {
 		getAbbrv();
 		spellCheck = new SpellCheck();
 	}
-
+	public static String replaceAbbrv(String word){
+		if (abbrv[hash(word)][0].equalsIgnoreCase(word)){
+			return abbrv[hash(word)][1].toLowerCase();
+		}
+		return word;
+	}
 	public static String spellCheck(String word){
 		String retVal = word;
 		try {
@@ -43,7 +48,7 @@ public class Dictionary {
 		if (retVal == null){
 			return word;
 		}
-		return retVal;
+		return replaceAbbrv(retVal);
 	}
 	private static void getBadWords() {
 		URL url = null;
@@ -108,7 +113,6 @@ public class Dictionary {
 		return false;
 	}
 	public static boolean isWord(String s){
-		System.out.println("HEre: "+ s);
 		String[] arr = s.split(" ");
 		double count = 0;
 		

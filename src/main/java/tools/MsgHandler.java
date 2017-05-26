@@ -26,7 +26,7 @@ public class MsgHandler {
 			}
 		}
 
-		return retVal;
+		return retVal.replaceAll(" i ", " I ").replaceAll("i'm", "I'm");
 	}
 
 	private String checkSpelling(String s) {
@@ -117,10 +117,12 @@ public class MsgHandler {
 		String retVal = db.all.get(r.nextInt(db.all.size()));
 		if (isCensored) {
 			while (Dictionary.isBad(retVal) || !Dictionary.isWord(retVal)) {
+				System.out.printf("Problem string: '%s'\n",retVal);
 				retVal = db.all.get(r.nextInt(db.all.size()));
 			}
 		}
 		while (!Dictionary.isWord(retVal)) {
+			System.out.printf("Problem string: '%s'\n",retVal);
 			retVal = db.all.get(r.nextInt(db.all.size()));
 		}
 		return retVal;
