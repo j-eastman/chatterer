@@ -296,7 +296,6 @@ public class Database {
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				retVal = rs.getString("resstr");
-				System.out.printf("Returning: %s\n", retVal);
 				count++;
 			}
 			if (count == 0) {
