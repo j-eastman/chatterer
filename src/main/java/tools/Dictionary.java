@@ -28,6 +28,9 @@ public class Dictionary {
 		spellCheck = new SpellCheck();
 	}
 	public static String replaceAbbrv(String word){
+		if (abbrv == null){
+			getAbbrv();
+		}
 		if (abbrv[hash(word)] != null && abbrv[hash(word)][0].equalsIgnoreCase(word)){
 			return abbrv[hash(word)][1].toLowerCase();
 		}
