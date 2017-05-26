@@ -39,6 +39,7 @@ public class Bot {
 	public String send(String message,String username) throws IOException{
 		URL obj = null;
 		String url = "https://api.kik.com/v1/message";
+		obj = new URL(url);
 		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 		String out = getJSON(message,username).toString();
 		con.setRequestProperty("Authorization",getAuthToken());
