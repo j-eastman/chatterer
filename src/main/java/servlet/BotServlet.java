@@ -59,6 +59,7 @@ public class BotServlet extends HttpServlet {
 		while ((line = br.readLine()) != null && !line.equals("")) {
 			json += line;
 		}
+		System.out.println("BOTJSON: " + json);
 		JSONObject js = new JSONObject(json);
 		// String response = mh.getResponse(jsonMes);
 		/*out.print("HTTP/1.1 200 \r\n"); // Version & status code
