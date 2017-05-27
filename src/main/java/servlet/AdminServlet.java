@@ -37,6 +37,7 @@ public class AdminServlet extends HttpServlet{
          JSONObject jsonObject =  new JSONObject(json); 
          JSONArray arr = jsonObject.getJSONArray("usernames");
          for (int i = 0; i < arr.length(); i++){
+        	 System.out.println("Adding user: "+arr.getString(i));
         	 Main.db.addUser(arr.getString(i));
          }
 	}
