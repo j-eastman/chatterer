@@ -75,7 +75,7 @@ public class BotServlet extends HttpServlet {
 				bot.onFriendPickerMessage(message);
 				break;
 			case Message.TYPE_STICKER:
-				bot.onFriendPickerMessage(message);
+				bot.onStickerMessage(message);
 				break;
 			case Message.TYPE_DELIVERY_RECEIPT:
 				bot.onDeliveryReceiptMessage(message);
