@@ -40,7 +40,7 @@ public class Message {
 		} catch (JSONException e) {
 		}
 		keyboard = getHelperKeyboard();
-		if (body.equalsIgnoreCase("help")) {
+		if (body != null && body.equalsIgnoreCase("help")) {
 			keyboard.isHidden = false;
 		}
 	}
