@@ -28,7 +28,7 @@ public class Database {
 	}
 	public ArrayList<String> getAllUsers(){
 		ArrayList<String> retVal = new ArrayList<String>();
-		String sql = "SELECT * FROM usertable;";
+		String sql = "SELECT * FROM userdata;";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
