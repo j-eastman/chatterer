@@ -131,7 +131,7 @@ public class Message {
 			response = "What?";
 		}
 		JSONObject message = new JSONObject();
-		System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response, from, "text", chatId);
+		//System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response, from, "text", chatId);
 		message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
 		if (typeTime > 0) {
 			message.put("typeTime", typeTime);
@@ -150,7 +150,7 @@ public class Message {
 			response = "What?";
 		}
 		JSONObject message = new JSONObject();
-		System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response, from, "text", chatId);
+		//System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response, from, "text", chatId);
 		message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
 		if (typeTime > 0) {
 			message.put("typeTime", typeTime);
