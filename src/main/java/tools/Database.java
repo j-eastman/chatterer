@@ -281,7 +281,7 @@ public class Database {
 		try {
 			Statement stmt = conn.createStatement();
 			String myLast = getMyLast(username);
-			if (myLast.equals("<none>")) {
+			if (myLast  == null || myLast.equals("<none>")) {
 				stmt.close();
 				System.out.printf("User %s not found. Inserting into table.\n", username);
 				addUser(username, myResponse);
