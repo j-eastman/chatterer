@@ -38,6 +38,7 @@ public class Message {
 	public void reply(String message) {
 		System.out.println("REPLY: " + message);
 		try {
+			System.out.println(getJSON(message).toString());
 			bot.send(getJSON(message));
 		} catch (Exception e) {
 			e.printStackTrace();
