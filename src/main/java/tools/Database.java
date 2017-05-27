@@ -54,7 +54,7 @@ public class Database {
 		if (!allUsers.contains(username)){
 			allUsers.add(username);
 		}
-		String sql = String.format("INSERT into userdata (username,myLast) VALUES ($$%s$$,$$%s%%) ON CONFLICT ON CONSTRAINT username DO UPDATE;", username,myLast);
+		String sql = String.format("INSERT into userdata (username,myLast) VALUES ($$%s$$,$$%s$$) ON CONFLICT ON CONSTRAINT username DO UPDATE;", username,myLast);
 		update(sql);
 	}
 	public Database() {
