@@ -74,8 +74,8 @@ public class Commands {
 		if (input.split("definition of").length != 2) {
 			return "Formatting error. Please try again.";
 		}
-		String term = input.split("defintion of")[1].trim();
-		input = input.toLowerCase().split("defintion of")[1].trim().replaceAll(" ", "+");
+		String term = input.split("definition of")[1].trim();
+		input = input.toLowerCase().split("definition of")[1].trim().replaceAll(" ", "+");
 		String uri = "http://api.urbandictionary.com/v0/define?term=" + input;
 		String json = "";
 		URL url = null;
