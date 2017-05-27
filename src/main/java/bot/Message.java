@@ -40,8 +40,6 @@ public class Message {
 	public void reply(String message) {
 		try {
 			bot.send(getJSON(message));
-		} catch (NullPointerException e) {
-			e.printStackTrace();
 		} catch (IOException e){
 			e.printStackTrace();
 		}
