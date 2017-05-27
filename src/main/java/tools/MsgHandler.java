@@ -94,6 +94,9 @@ public class MsgHandler {
 				return "Responses to you will no longer be censored. Send 'Toggle Censor' to change this setting.";
 			}
 		}
+		if (msg.equalsIgnoreCase("help")){
+			return "Hi, have you tried my features?\n\"google (something you want to google)\"\n\"what are the lyrics to \"Don't Stop Believing\" by \"Journey\"\"\n\"urban dictionary defintion of anything-you-want\"\n\"Toggle Censor\" to turn my censor on and off";
+		}
 		msg = msg.replaceAll("'", "");
 		String myResp;
 		Random r = new Random();
