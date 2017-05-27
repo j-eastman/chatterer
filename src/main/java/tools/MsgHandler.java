@@ -67,7 +67,7 @@ public class MsgHandler {
 			String[] resps = respStr.split("<brk>");
 			myResp = resps[r.nextInt(resps.length)];
 			int count = 0;
-			while (myResp.equalsIgnoreCase("null") || Dictionary.isBad(myResp)) {
+			while (myResp.equalsIgnoreCase("null") || Dictionary.isBad(myResp) || !Dictionary.isWord(myResp)) {
 				myResp = resps[r.nextInt(resps.length)];
 				count++;
 				if (count == 10) {
@@ -112,7 +112,7 @@ public class MsgHandler {
 			String[] resps = respStr.split("<brk>");
 			myResp = resps[r.nextInt(resps.length)];
 			int count = 0;
-			while (myResp.equalsIgnoreCase("null") || Dictionary.isBad(myResp)) {
+			while (myResp.equalsIgnoreCase("null") || Dictionary.isBad(myResp) || !Dictionary.isWord(myResp)) {
 				myResp = resps[r.nextInt(resps.length)];
 				count++;
 				if (count == 10) {
