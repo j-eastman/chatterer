@@ -37,6 +37,10 @@ public class Message {
 			}
 		} catch (JSONException e) {
 		}
+		keyboard = getHelperKeyboard();
+		if (body.equalsIgnoreCase("help")){
+			keyboard.isHidden = false;
+		}
 	}
 
 	public void reply(String message) {

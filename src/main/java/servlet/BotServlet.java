@@ -54,7 +54,6 @@ public class BotServlet extends HttpServlet {
 		JSONArray messages = first.getJSONArray("messages");
 		for (int i = 0; i < messages.length(); i++) {
 			Message message = new Message(messages.getJSONObject(i), bot);
-			message.addKeyboard(Message.getHelperKeyboard());
 			message.setTypeTime(1000);
 			String response;
 			if (Commands.isCommand(message.body)) {
