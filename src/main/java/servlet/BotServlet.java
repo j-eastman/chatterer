@@ -32,7 +32,7 @@ public class BotServlet extends HttpServlet {
 	private static final String USER = "minime613_bot";
 	private static final String API_KEY = "6ddab328-8241-4d54-a651-486970c9cf1f";
 	private static final long serialVersionUID = 1L;
-	Bot bot = new ChattererBot(USER, API_KEY);
+	Bot minime613_bot = new ChattererBot(USER, API_KEY);
 	Bot chatterer = new ChattererBot("chatterer_bot","9bed7a78-84a7-404f-81dd-28b20f93264b");
 	static MsgHandler mh = new MsgHandler();
 
@@ -53,7 +53,7 @@ public class BotServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
 		String header = req.getHeader("X-Kik-Username");
-		System.out.println("HEADER: " + header);
+		
 		String json = "";
 		String line;
 		while ((line = br.readLine()) != null && !line.equals("")) {
@@ -62,6 +62,12 @@ public class BotServlet extends HttpServlet {
 		JSONObject first = new JSONObject(json);
 		JSONArray messages = first.getJSONArray("messages");
 		for (int i = 0; i < messages.length(); i++) {
+			Bot bot;
+			if (header.equals("minime613_bot")){
+				bot = minime613_bot;
+			} else {
+				bot = chatterer;
+			}
 			Message message = new Message(messages.getJSONObject(i), bot);
 			message.setTypeTime(1000);
 			int type = message.getType();
