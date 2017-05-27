@@ -36,6 +36,7 @@ public class Message {
 	}
 
 	public void reply(String message) {
+		System.out.println("REPLY: " + message);
 		try {
 			bot.send(getJSON(message));
 		} catch (Exception e) {
@@ -59,7 +60,7 @@ public class Message {
 	public JSONObject getJSON(String response) {
 		// body, to, type, chatId
 		JSONObject retVal = new JSONObject();
-		if (response.equals("") || response.equals(" ")) {
+		if (response.equals("") || response.equals(" ") || response == null) {
 			response = "What?";
 		}
 		JSONObject message = new JSONObject();

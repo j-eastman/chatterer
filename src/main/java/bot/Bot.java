@@ -96,7 +96,6 @@ public class Bot {
 		}
 		in.close();
 		System.out.println("Response text : " + response.toString());
-
 		return response.toString();
 	}
 	public JSONObject getJSON(String message,String username){
