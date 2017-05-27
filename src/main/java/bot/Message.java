@@ -18,6 +18,7 @@ public class Message {
 	Bot bot;
 
 	public Message(JSONObject incoming, Bot bot) {
+		this.bot = bot;
 		try {
 			chatId = incoming.getString("chatId");
 			id = incoming.getString("id");
