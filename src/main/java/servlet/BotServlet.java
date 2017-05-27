@@ -16,18 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import bot.Bot;
+import bot.Message;
 import tools.MsgHandler;
 
 @WebServlet("/botmsg")
@@ -38,6 +31,7 @@ public class BotServlet extends HttpServlet {
 	private static final String USER = "minime613_bot";
 	private static final String API_KEY = "6ddab328-8241-4d54-a651-486970c9cf1f";
 	private static final long serialVersionUID = 1L;
+	Bot bot = new Bot(USER, API_KEY);
 	static MsgHandler mh = new MsgHandler();
 
 	@Override
@@ -55,110 +49,25 @@ public class BotServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// PrintWriter out = resp.getWriter();
 		BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
 		String json = "";
 		String line;
 		while ((line = br.readLine()) != null && !line.equals("")) {
 			json += line;
 		}
-		Bot bot = new Bot("minime613_bot", "6ddab328-8241-4d54-a651-486970c9cf1f");
 		JSONObject first = new JSONObject(json);
-		JSONObject js = first.getJSONArray("messages").getJSONObject(0);
-		if (js.getString("body").equals("test")) {
-			System.out.println(bot.send("test", "minime6134"));
-		} else {
-			mh.postMsg(js.getString("body"));
-			try {
-				System.out.println(send(getJSON(js).toString()));
-			} catch (Exception e) {
-				e.printStackTrace();
+		JSONArray messages = first.getJSONArray("messages");
+		for (int i = 0; i < messages.length(); i++) {
+			Message message = new Message(messages.getJSONObject(i), bot);
+			message.addKeyboard(new String[] { "test1", "test2", "test3" }, true);
+			message.setTypeTime(1000);
+			mh.postMsg(message.body);
+			String response = mh.getResponse(message.body,message.from);
+			if (response.equals("") || response.equals(" ")){
+				response = "What?";
 			}
+			message.reply(response);
 		}
+
 	}
-
-	void test(JSONObject json) throws ClientProtocolException, IOException {
-		HttpClient httpClient = HttpClientBuilder.create().build();
-
-		HttpPost httpPost = new HttpPost("https://api.kik.com/v1/message");
-		String cred = String.format("%s:%s", USER, API_KEY);
-		String credential = Base64.getEncoder().encodeToString(cred.getBytes(StandardCharsets.UTF_8));
-		httpPost.setHeader("Authorization", "Basic " + credential.substring(0, credential.length() - 1));
-		httpPost.setHeader("content-type", "application/json");
-		httpPost.setHeader("Connection", "close");
-		httpPost.setEntity(new StringEntity(getJSON(json).toString()));
-		System.out.println("HTTP: " + httpPost.getMethod());
-		HttpResponse httpResponse = httpClient.execute(httpPost);
-		StatusLine statusLine = httpResponse.getStatusLine();
-		System.out.println("Status: " + statusLine.toString());
-		if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
-			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			httpResponse.getEntity().writeTo(outputStream);
-			String responseString = outputStream.toString();
-			System.out.println(responseString);
-			// ...... //processding operations
-		} else {
-			System.out.println("Message failed.");
-		}
-	}
-
-	public static JSONObject getJSON(JSONObject mes) {
-		// body, to, type, chatId
-		JSONObject retVal = new JSONObject();
-		String response = mh.getResponse(mes.getString("from"), mes.getString("body"));
-		if (response.equals("") || response.equals(" ")) {
-			response = "What?";
-		}
-		JSONObject message = new JSONObject();
-		message.put("body", response).put("to", mes.get("from")).put("type", "text").put("chatId", mes.get("chatId"));
-		JSONObject[] arr = { message };
-		retVal.put("messages", arr);
-		return retVal;
-	}
-
-	public static String send(String data) throws Exception {
-		URL obj = null;
-		String method = "post";
-		String url = "https://api.kik.com/v1/message";
-		if (method.equals("both") || method.equals("get") && !data.isEmpty()) {
-			obj = new URL(url + "?" + data);
-		} else
-			obj = new URL(url);
-
-		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-
-		con.setRequestProperty("Authorization",
-				"Basic " + Base64.getEncoder().encodeToString((USER + ":" + API_KEY).getBytes("utf-8")));
-		con.setRequestMethod(method.toUpperCase());
-		con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-
-		if (method.equalsIgnoreCase("post")) {
-			con.setDoOutput(true);
-			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-			wr.write(data.getBytes("utf-8"));
-			wr.flush();
-			wr.close();
-		}
-
-		int responseCode = con.getResponseCode();
-		System.out.println("\nSent '" + method.toUpperCase() + "' request to URL : " + url);
-		System.out.println("Data : " + data);
-		System.out.println("Response Code : " + responseCode);
-
-		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
-
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine).append("\n");
-		}
-		in.close();
-		System.out.println("Response text : " + response.toString());
-
-		return response.toString();
-	}
-}
-
-class JSResp {
-
 }

@@ -68,6 +68,37 @@ public class Bot {
 
 		return response.toString();
 	}
+	public String send(JSONObject json) throws IOException{
+		URL obj = null;
+		String url = "https://api.kik.com/v1/message";
+		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+		String out = json.toString();
+		con.setRequestProperty("Authorization",getAuthToken());
+		con.setRequestMethod("POST");
+		con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		wr.write(out.getBytes("utf-8"));
+		wr.flush();
+		wr.close();
+		
+		int responseCode = con.getResponseCode();
+		System.out.println("\nSent 'POST' request to URL : " + url);
+		System.out.println("Data : " + out);
+		System.out.println("Response Code : " + responseCode);
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+
+		while ((inputLine = in.readLine()) != null) {
+			response.append(inputLine).append("\n");
+		}
+		in.close();
+		System.out.println("Response text : " + response.toString());
+
+		return response.toString();
+	}
 	public JSONObject getJSON(String message,String username){
 		//body, to, type, chatId
 		JSONObject retVal = new JSONObject();
