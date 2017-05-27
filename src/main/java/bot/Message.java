@@ -90,7 +90,7 @@ public class Message {
 		Random r = new Random();
 		String[][] songs = new String[][]{{"Naive","The Kooks"},{"Kathleen","Catfish and the Bottlemen"},{"Bite My Tongue","You Me At Six"},
 			{"Teenagers","My Chemical Romance"},{"Family Reunion","Blink-182"},{"Someday","The Strokes"},{"Call Me Maybe","Carly Rae Jepson"}};
-		String[] search = new String[]{"memes","super cool memes","ironic memes","edgy memes","kik"};
+		String[] search = new String[]{"memes","dank memes","ironic memes","edgy memes","kik"};
 		String[] google = new String[]{"stuff","things","anything","bot"};
 		String[] song = songs[r.nextInt(songs.length)];
 		String ud = search[r.nextInt(search.length)];
