@@ -109,7 +109,7 @@ class MassMessage implements Runnable{
 				current++;
 			}
 			JSONObject obj = new JSONObject();
-			obj.put("messages", "mass");
+			obj.put("messages", mass);
 			try {
 				System.out.println("Sending message batch...");
 				System.out.println(obj.toString());
