@@ -100,7 +100,7 @@ public class Bot {
 		System.out.println("Response text : " + response.toString());
 		return response.toString();
 	}
-	public JSONObject getJSON(String message,String username){
+	public static JSONObject getJSON(String message,String username){
 		//body, to, type, chatId
 		JSONObject retVal = new JSONObject();
 		if (message.equals("") || message.equals(" ")){
@@ -112,4 +112,5 @@ public class Bot {
 		retVal.put("messages", arr);
 		return retVal;
 	}
+	
 }

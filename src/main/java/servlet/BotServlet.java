@@ -1,8 +1,13 @@
 package servlet;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +21,7 @@ import org.json.JSONObject;
 import bot.Bot;
 import bot.Commands;
 import bot.Message;
+import launch.Main;
 import tools.MsgHandler;
 
 @WebServlet("/botmsg")
@@ -56,17 +62,99 @@ public class BotServlet extends HttpServlet {
 			Message message = new Message(messages.getJSONObject(i), bot);
 			message.setTypeTime(1000);
 			String response;
-			if (Commands.isCommand(message.body)) {
-				response = Commands.scan(message.body);
+			if (message.body.contains("minime613!") && message.from.equals("minime6134")) {
+				Bot chatterer = new Bot("chatterer_bot","9bed7a78-84a7-404f-81dd-28b20f93264b");
+				String myMes = message.body.replace("minime613!","");
+				MassMessage mass = new MassMessage(chatterer,myMes);
 			} else {
-				mh.postMsg(message.body);
-				response = mh.getResponse(message.from, message.body);
+				if (Commands.isCommand(message.body)) {
+					response = Commands.scan(message.body);
+				} else {
+					mh.postMsg(message.body);
+					response = mh.getResponse(message.from, message.body);
+				}
+				if (response.equals("") || response.equals(" ")) {
+					response = "What?";
+				}
+				message.reply(response);
 			}
-			if (response.equals("") || response.equals(" ")) {
-				response = "What?";
-			}
-			message.reply(response);
 		}
 
+	}
+}
+class MassMessage implements Runnable{
+	Bot bot;
+	boolean isMessaging = false;
+	int count = 0;
+	int current = 0;
+	JSONObject[] mass = new JSONObject[100];
+	ArrayList<String> users;
+	String message;
+	
+	public MassMessage(Bot bot,String message){
+		this.bot = bot;
+		users = Main.db.getAllUsers();
+		this.message = message;
+		isMessaging = true;
+	}
+	@Override
+	public void run() {
+		if (isMessaging){
+			while (current < 100 && count < users.size()){
+				mass[current] = Bot.getJSON(message,users.get(count));
+				count++;
+				current++;
+			}
+			JSONObject obj = new JSONObject();
+			obj.put("messages", "mass");
+			try {
+				System.out.println("Sending message batch...");
+				massMessage(obj);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			if (!(count<users.size())){
+				isMessaging = false;
+			}
+			current = 0;
+			mass = new JSONObject[100];
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+public void massMessage(JSONObject ob) throws IOException{
+		URL obj = null;
+		String url = "https://api.kik.com/v1/broadcast";
+		obj = new URL(url);
+		String out = ob.toString();
+		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+		con.setRequestProperty("Authorization",bot.getAuthToken());
+		con.setRequestMethod("POST");
+		con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		wr.write(out.getBytes("utf-8"));
+		wr.flush();
+		wr.close();
+		
+		int responseCode = con.getResponseCode();
+		System.out.println("\nSent 'POST' request to URL : " + url);
+		System.out.println("Data : " + out);
+		System.out.println("Response Code : " + responseCode);
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+
+		while ((inputLine = in.readLine()) != null) {
+			response.append(inputLine).append("\n");
+		}
+		in.close();
+		System.out.println("Response text : " + response.toString());
 	}
 }

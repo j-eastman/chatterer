@@ -26,7 +26,23 @@ public class Database {
 			update(sql);
 		}
 	}
-
+	public ArrayList<String> getAllUsers(){
+		ArrayList<String> retVal = new ArrayList<String>();
+		String sql = "SELECT * FROM usertable;";
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				retVal.add(rs.getString("username"));
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			close();
+			System.out.println(e.getErrorCode());
+		}
+	
+	return retVal;
+	}
 	public Database() {
 		try {
 			conn = getConnection();

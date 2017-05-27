@@ -86,6 +86,23 @@ public class Message {
 		retVal.put("messages", arr);
 		return retVal;
 	}
+	public JSONObject getSingleJSON(String response){
+		// body, to, type, chatId
+		JSONObject retVal = new JSONObject();
+		if (response.equals("") || response.equals(" ") || response == null) {
+			response = "What?";
+		}
+		JSONObject message = new JSONObject();
+		System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response,from,"text",chatId);
+		message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
+		if (typeTime > 0) {
+			message.put("typeTime", typeTime);
+		}
+		if (keyboard != null) {
+			message.put("keyboards", keyboard.getKeyboard());
+		}
+		return message;
+	}
 	public static Keyboard getHelperKeyboard(){
 		Random r = new Random();
 		String[][] songs = new String[][]{{"Naive","The Kooks"},{"Kathleen","Catfish and the Bottlemen"},{"Bite My Tongue","You Me At Six"},
