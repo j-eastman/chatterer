@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import org.json.JSONObject;
@@ -45,8 +44,17 @@ public class Database {
 	return retVal;
 	}
 	public void addUser(String username){
-		allUsers.add(username);
-		String sql = String.format("INSERT into userdata (username) SELECT '%s' WHERE NOT EXISTS ( SELECT username FROM userdata WHERE username='%s');", username,username);
+		if (!allUsers.contains(username)){
+			allUsers.add(username);
+		}
+		String sql = String.format("INSERT into userdata (username) VALUES ('%s') ON CONFLICT DO NOTHING;", username);
+		update(sql);
+	}
+	public void addUser(String username,String myLast){
+		if (!allUsers.contains(username)){
+			allUsers.add(username);
+		}
+		String sql = String.format("INSERT into userdata (username,myLast) VALUES ('%s','%s') ON CONFLICT DO UPDATE;", username,myLast);
 		update(sql);
 	}
 	public Database() {
@@ -90,8 +98,8 @@ public class Database {
 
 	public void updateEntry(String entry, int table, String[] newVal) {
 		// UPDATE table SET responses = 'newVal' WHERE word = entry;
-		System.out.printf("Updating entry %s with responses: '%s' into table: %s\n", entry, Arrays.toString(newVal),
-				tables[table]);
+	//	System.out.printf("Updating entry %s with responses: '%s' into table: %s\n", entry, Arrays.toString(newVal),
+	//			tables[table]);
 		String sql = String.format("UPDATE %s SET responses = %s WHERE word='%s';", tables[table], form(newVal), entry);
 		update(sql);
 	}
@@ -105,8 +113,8 @@ public class Database {
 
 	public void insert(String entry, int table, String[] responses) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
-		System.out.printf("Inserting %s with responses: '%s' into table: %s\n", entry, Arrays.toString(responses),
-				tables[table]);
+	//	System.out.printf("Inserting %s with responses: '%s' into table: %s\n", entry, Arrays.toString(responses),
+	//			tables[table]);
 		String sql = String.format("INSERT INTO %s(word,responses,isBad,match_str) VALUES('%s','%s',%s,'%s');",
 				tables[table], entry, form(responses), String.valueOf(Dictionary.isBad(entry)),
 				StringTools.getMatchingString(entry));
@@ -116,7 +124,7 @@ public class Database {
 
 	private void insert(String entry, int table) {
 		// INSERT INTO table(word,responses) VALUES(entry,responses)
-		System.out.printf("Inserting %s into table: %s\n", entry, tables[table]);
+	//	System.out.printf("Inserting %s into table: %s\n", entry, tables[table]);
 		String sql = String.format("INSERT INTO %s(word,frequency,isBad,match_str) VALUES('%s',1,%s,'%s');",
 				tables[table], entry, String.valueOf(Dictionary.isBad(entry)), StringTools.getMatchingString(entry));
 		update(sql);
@@ -138,7 +146,7 @@ public class Database {
 	public String get(String query, String user) {
 		query = query.toLowerCase();
 		String[] retVal = getQuery(query, getIndex(query));
-		System.out.println("RETVAL: " + retVal);
+	//	System.out.println("RETVAL: " + retVal);
 		if (retVal == null) {
 			newEntry(query);
 			return "nada";
@@ -207,7 +215,7 @@ public class Database {
 	}
 
 	public String[] getQuery(String query, int table) {
-		System.out.printf("Searching table:%s for query:%s\n", tables[table], query);
+	//	System.out.printf("Searching table:%s for query:%s\n", tables[table], query);
 		String sql = String.format("SELECT * FROM %s WHERE word='%s';", tables[table], query);
 		String result = null;
 		String[] temp = null;
@@ -218,13 +226,10 @@ public class Database {
 				newEntry(query);
 			} else {
 				while (rs.next()) {
-					int count = rs.getInt("frequency");
+				//	int count = rs.getInt("frequency");
 					result = rs.getString("resstr");
 					if (result != null) {
 						temp = (String[]) respParse(result);
-						for (String s : temp) {
-						//	System.out.println(s);
-						}
 					}
 
 				}
@@ -253,23 +258,20 @@ public class Database {
 
 	public void updateUserData(String myLast, String username) {
 		String sql = String.format("UPDATE %s SET mylast = '%s' WHERE username='%s';", tables[27], myLast, username);
-		System.out.printf("Updating mylast for user %s to %s\n", username, myLast);
+	//	System.out.printf("Updating mylast for user %s to %s\n", username, myLast);
 		update(sql);
 	}
 
 	public void dbScan(String msg, String username, String myResponse) {
 		// username prevMsg myLast
-		String sql = String.format("SELECT * FROM %s WHERE username='%s';", tables[27], username);
+	//	String sql = String.format("SELECT * FROM %s WHERE username='%s';", tables[27], username);
 		try {
 			Statement stmt = conn.createStatement();
 			String myLast = getMyLast(username);
 			if (myLast.equals("<none>")) {
 				stmt.close();
 				System.out.printf("User %s not found. Inserting into table.\n", username);
-				String sql2 = String.format("INSERT INTO %s(username,mylast) VALUES('%s','%s');", tables[27], username,
-						myResponse);
-				stmt = conn.createStatement();
-				stmt.executeUpdate(sql2);
+				addUser(username,myResponse);
 			} else {
 				System.out.printf("User %s found. Updating responses.\n", username);
 				stmt.close();
@@ -357,7 +359,7 @@ public class Database {
 		try {
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			int count = 1;
+		//	int count = 1;
 			while (rs.next()) {
 				String name = rs.getString("name");
 				double score = rs.getDouble("score");
@@ -367,7 +369,7 @@ public class Database {
 				obj.put("score", score);
 				obj.put("level", level);
 				retVal.add(obj);
-				count++;
+			//	count++;
 			}
 		} catch (SQLException e) {
 			close();
@@ -396,7 +398,7 @@ public class Database {
 			Statement stmt = conn.createStatement();
 			ResultSet res = stmt.executeQuery(sql);
 			while (res.next()) {
-				String word = res.getString("word");
+			//	String word = res.getString("word");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

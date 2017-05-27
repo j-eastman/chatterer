@@ -20,7 +20,6 @@ import org.json.JSONObject;
 
 import bot.Bot;
 import bot.ChattererBot;
-import bot.Commands;
 import bot.Message;
 import launch.Main;
 import tools.MsgHandler;
@@ -34,6 +33,8 @@ public class BotServlet extends HttpServlet {
 	private static final String API_KEY = "6ddab328-8241-4d54-a651-486970c9cf1f";
 	private static final long serialVersionUID = 1L;
 	Bot bot = new ChattererBot(USER, API_KEY);
+	// Bot chatterer = new ChattererBot("chatterer_bot",
+	// "9bed7a78-84a7-404f-81dd-28b20f93264b");
 	static MsgHandler mh = new MsgHandler();
 
 	@Override
@@ -62,7 +63,6 @@ public class BotServlet extends HttpServlet {
 		for (int i = 0; i < messages.length(); i++) {
 			Message message = new Message(messages.getJSONObject(i), bot);
 			message.setTypeTime(1000);
-			String response;
 			int type = message.getType();
 			switch (type) {
 			// TYPE_TEXT TYPE_FRIEND_PICKER TYPE_STICKER TYPE_DELIVERY_RECEIPT
@@ -102,27 +102,7 @@ public class BotServlet extends HttpServlet {
 				bot.onTextMessage(message);
 				break;
 			}
-			if (message.body.contains("minime613!") && message.from.equals("minime6134")) {
-				Bot chatterer = new Bot("chatterer_bot", "9bed7a78-84a7-404f-81dd-28b20f93264b");
-				String myMes = message.body.replace("minime613!", "");
-				MassMessage mass = new MassMessage(chatterer, myMes);
-				Thread t = new Thread(mass);
-				t.start();
-				// chatterer.send("yo yo yo","minime6134");
-			} else {
-				if (Commands.isCommand(message.body)) {
-					response = Commands.scan(message.body);
-				} else {
-					mh.postMsg(message.body);
-					response = mh.getResponse(message.from, message.body);
-				}
-				if (response.equals("") || response.equals(" ")) {
-					response = "What?";
-				}
-				message.reply(response);
-			}
 		}
-
 	}
 }
 
