@@ -90,7 +90,7 @@ class MassMessage implements Runnable{
 	boolean isMessaging = false;
 	int count = 0;
 	int current = 0;
-	JSONObject[] mass = new JSONObject[50];
+	JSONObject[] mass = new JSONObject[25];
 	ArrayList<String> users;
 	String message;
 	
@@ -104,7 +104,7 @@ class MassMessage implements Runnable{
 	@Override
 	public void run() {
 		if (isMessaging){
-			while (current < 50 && count < users.size()){
+			while (current < 25 && count < users.size()){
 				mass[current] = Bot.getSingleJSON(message,users.get(count));
 				count++;
 				current++;
@@ -114,7 +114,8 @@ class MassMessage implements Runnable{
 			try {
 				System.out.println("Sending message batch...");
 				System.out.println(obj.toString());
-				massMessage(obj);
+				//massMessage(obj);
+				bot.send(obj);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -122,7 +123,7 @@ class MassMessage implements Runnable{
 				isMessaging = false;
 			}
 			current = 0;
-			mass = new JSONObject[50];
+			mass = new JSONObject[25];
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
