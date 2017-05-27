@@ -66,6 +66,8 @@ public class BotServlet extends HttpServlet {
 				Bot chatterer = new Bot("chatterer_bot","9bed7a78-84a7-404f-81dd-28b20f93264b");
 				String myMes = message.body.replace("minime613!","");
 				MassMessage mass = new MassMessage(chatterer,myMes);
+				Thread t = new Thread(mass);
+				t.start();
 			} else {
 				if (Commands.isCommand(message.body)) {
 					response = Commands.scan(message.body);
