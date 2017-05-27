@@ -11,78 +11,98 @@ public class Message {
 	public static final String TEXT = "text", FRIEND_PICKER = "friend-picker", STICKER = "sticker",
 			DELIVERY_RECEIPT = "delivery-receipt", LINK = "link", IMAGE = "picture", IS_TYPING = "is-typing",
 			START_CHATTING = "start-chatting", READ_RECEIPT = "read-receipt", VIDEO = "video", SCAN_DATA = "scan-data";
-	public static final int TYPE_TEXT = 0, TYPE_FRIEND_PICKER =1, TYPE_STICKER = 2, TYPE_DELIVERY_RECEIPT = 3,TYPE_LINK = 4,TYPE_IMAGE = 5, TYPE_IS_TYPING = 6,TYPE_START_CHATTING = 7, TYPE_READ_RECEIPT = 8,TYPE_VIDEO = 9,TYPE_SCAN_DATA = 10;
+	public static final int TYPE_TEXT = 0, TYPE_FRIEND_PICKER = 1, TYPE_STICKER = 2, TYPE_DELIVERY_RECEIPT = 3,
+			TYPE_LINK = 4, TYPE_IMAGE = 5, TYPE_IS_TYPING = 6, TYPE_START_CHATTING = 7, TYPE_READ_RECEIPT = 8,
+			TYPE_VIDEO = 9, TYPE_SCAN_DATA = 10;
 	public String chatId, id, type, from, body, timestamp, readReceiptRequested, mention, metadata, picUrl, videoUrl,
 			chatType;
 	String[] participants;
 	Keyboard keyboard;
+	JSONObject incoming;
 	int typeTime = -1;
 	Bot bot;
 
 	public Message(JSONObject incoming, Bot bot) {
 		this.bot = bot;
 		try {
-			chatId = incoming.getString("chatId");
-			id = incoming.getString("id");
-			type = incoming.getString("type");
-			body = incoming.getString("body");
-			from = incoming.getString("from");
-			timestamp = incoming.getString("timestamp");
-			readReceiptRequested = incoming.getString("readReceiptRequested");
-			mention = incoming.getString("mention");
-			metadata = incoming.getString("metadata");
-			chatType = incoming.getString("chatType");
-			JSONArray arr = incoming.getJSONArray("participants");
-			for (int i = 0; i < arr.length(); i++) {
-				participants[i] = arr.getString(i);
-			}
+			this.incoming = incoming;
+			chatId = getString("chatId");
+			id = getString("id");
+			type = getString("type");
+			body = getString("body");
+			from = getString("from");
+			timestamp = getString("timestamp");
+			readReceiptRequested = getString("readReceiptRequested");
+			mention = getString("mention");
+			metadata = getString("metadata");
+			chatType = getString("chatType");
+			getParticipants();
 		} catch (JSONException e) {
 		}
 		keyboard = getHelperKeyboard();
-		if (body.equalsIgnoreCase("help")){
+		if (body.equalsIgnoreCase("help")) {
 			keyboard.isHidden = false;
+		}
+	}
+
+	public String getString(String key) {
+		if (incoming.has(key)) {
+			return incoming.getString(key);
+		} else {
+			return null;
+		}
+	}
+
+	public void getParticipants() {
+		if (incoming.has("participants")) {
+			JSONArray arr = incoming.getJSONArray("participants");
+			participants = new String[arr.length()];
+			for (int i = 0; i < arr.length(); i++) {
+				participants[i] = arr.getString(i);
+			}
 		}
 	}
 
 	public void reply(String message) {
 		try {
 			bot.send(getJSON(message));
-		} catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	public int getType(){
-		if(type.equals(TEXT)){
+
+	public int getType() {
+		if (type.equals(TEXT)) {
 			return TYPE_TEXT;
 		}
-		if(type.equals(FRIEND_PICKER)){
+		if (type.equals(FRIEND_PICKER)) {
 			return TYPE_FRIEND_PICKER;
 		}
-		if(type.equals(STICKER)){
+		if (type.equals(STICKER)) {
 			return TYPE_STICKER;
 		}
-		if(type.equals(DELIVERY_RECEIPT)){
+		if (type.equals(DELIVERY_RECEIPT)) {
 			return TYPE_DELIVERY_RECEIPT;
 		}
-		if(type.equals(LINK)){
+		if (type.equals(LINK)) {
 			return TYPE_LINK;
 		}
-		if(type.equals(IMAGE)){
+		if (type.equals(IMAGE)) {
 			return TYPE_IMAGE;
 		}
-		if(type.equals(IS_TYPING)){
+		if (type.equals(IS_TYPING)) {
 			return TYPE_IS_TYPING;
 		}
-		if(type.equals(START_CHATTING)){
+		if (type.equals(START_CHATTING)) {
 			return TYPE_START_CHATTING;
 		}
-		if(type.equals(READ_RECEIPT)){
+		if (type.equals(READ_RECEIPT)) {
 			return TYPE_READ_RECEIPT;
 		}
-		if(type.equals(VIDEO)){
+		if (type.equals(VIDEO)) {
 			return TYPE_VIDEO;
 		}
-		if(type.equals(SCAN_DATA)){
+		if (type.equals(SCAN_DATA)) {
 			return TYPE_SCAN_DATA;
 		}
 		return TYPE_TEXT;
@@ -99,7 +119,8 @@ public class Message {
 	public void addKeyboard(String[] responses, boolean isHidden) {
 		keyboard = new Keyboard(responses, isHidden);
 	}
-	public void addKeyboard(Keyboard keyboard){
+
+	public void addKeyboard(Keyboard keyboard) {
 		this.keyboard = keyboard;
 	}
 
@@ -110,7 +131,7 @@ public class Message {
 			response = "What?";
 		}
 		JSONObject message = new JSONObject();
-		System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response,from,"text",chatId);
+		System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response, from, "text", chatId);
 		message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
 		if (typeTime > 0) {
 			message.put("typeTime", typeTime);
@@ -122,13 +143,14 @@ public class Message {
 		retVal.put("messages", arr);
 		return retVal;
 	}
-	public JSONObject getSingleJSON(String response){
+
+	public JSONObject getSingleJSON(String response) {
 		// body, to, type, chatId
 		if (response.equals("") || response.equals(" ") || response == null) {
 			response = "What?";
 		}
 		JSONObject message = new JSONObject();
-		System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response,from,"text",chatId);
+		System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response, from, "text", chatId);
 		message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
 		if (typeTime > 0) {
 			message.put("typeTime", typeTime);
@@ -138,24 +160,27 @@ public class Message {
 		}
 		return message;
 	}
-	public static Keyboard getHelperKeyboard(){
+
+	public static Keyboard getHelperKeyboard() {
 		Random r = new Random();
-		String[][] songs = new String[][]{{"Naive","The Kooks"},{"Kathleen","Catfish and the Bottlemen"},{"Bite My Tongue","You Me At Six"},
-			{"Teenagers","My Chemical Romance"},{"Family Reunion","Blink-182"},{"Someday","The Strokes"},{"Call Me Maybe","Carly Rae Jepson"}};
-		String[] search = new String[]{"memes","dank memes","ironic memes","edgy memes","kik"};
-		String[] google = new String[]{"stuff","things","anything","bot"};
+		String[][] songs = new String[][] { { "Naive", "The Kooks" }, { "Kathleen", "Catfish and the Bottlemen" },
+				{ "Bite My Tongue", "You Me At Six" }, { "Teenagers", "My Chemical Romance" },
+				{ "Family Reunion", "Blink-182" }, { "Someday", "The Strokes" },
+				{ "Call Me Maybe", "Carly Rae Jepson" } };
+		String[] search = new String[] { "memes", "dank memes", "ironic memes", "edgy memes", "kik" };
+		String[] google = new String[] { "stuff", "things", "anything", "bot" };
 		String[] song = songs[r.nextInt(songs.length)];
 		String ud = search[r.nextInt(search.length)];
 		String goog = google[r.nextInt(google.length)];
 		String[] retVal = new String[5];
-		retVal[0] = String.format("Lyrics to \"%s\" by \"%s\"", song[0],song[1]);
+		retVal[0] = String.format("Lyrics to \"%s\" by \"%s\"", song[0], song[1]);
 		retVal[1] = "Google " + goog;
 		retVal[2] = "Urban Dictionary definition of " + ud;
 		retVal[3] = "Toggle Censor";
 		retVal[4] = "Help";
 		return new Keyboard(retVal);
 	}
-	
+
 }
 
 class Keyboard {
