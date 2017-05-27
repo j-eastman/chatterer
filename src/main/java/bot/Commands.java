@@ -66,7 +66,7 @@ public class Commands {
 	}
 
 	public static String getGoogle(String input) {
-		String search = input.split("google")[1].trim();
+		String search = input.toLowerCase().split("google")[1].trim();
 		return "https://www.google.com/search?q=" + (search.toLowerCase().replaceAll(" ", "+"));
 	}
 
@@ -74,8 +74,8 @@ public class Commands {
 		if (input.split("definition of").length != 2) {
 			return "Formatting error. Please try again.";
 		}
-		String term = input.split("defintion of")[1];
-		input = input.split("defintion of")[1].toLowerCase().replaceAll(" ", "+");
+		String term = input.split("defintion of")[1].trim();
+		input = input.toLowerCase().split("defintion of")[1].trim().replaceAll(" ", "+");
 		String uri = "http://api.urbandictionary.com/v0/define?term=" + input;
 		String json = "";
 		URL url = null;
