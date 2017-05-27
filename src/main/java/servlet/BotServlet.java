@@ -94,6 +94,7 @@ class MassMessage implements Runnable{
 	public MassMessage(Bot bot,String message){
 		this.bot = bot;
 		users = Main.db.getAllUsers();
+		System.out.println("Got all users: " + users.size());
 		this.message = message;
 		isMessaging = true;
 	}
