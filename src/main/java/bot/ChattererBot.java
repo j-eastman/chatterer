@@ -32,7 +32,7 @@ public class ChattererBot extends Bot{
 	public void onStartChattingMessage(Message message){
 		System.out.println("New Chatter: " + message.from);
 		Main.db.addUser(message.from);
-		send("New Chatter: "+ message.from+ " | ID: " + Main.db.allUsers.size()+1,"minime6134");
+		send("New Chatter: "+ message.from+ " | ID - " + (Main.db.allUsers.size()+1),"minime6134");
 		message.reply("Hi, I'm Chatterer, if you have any questions, complaints, or feedback about me, feel free to message my creator @minime6134 \n\nI would also like to apologize in advance for how mean I can be, but you can turn my profanity filter on and off by sending me the message 'Toggle Censor'" );
 	}
 	public void onPictureMessage(Message message){

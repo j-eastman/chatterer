@@ -41,7 +41,6 @@ public class Database {
 			close();
 			System.out.println(e.getErrorCode());
 		}
-		System.out.println("SIZE: " + retVal.size());
 		return retVal;
 	}
 
