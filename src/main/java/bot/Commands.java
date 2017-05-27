@@ -45,7 +45,7 @@ public class Commands {
 			
 			String available;
 			while ((available = br.readLine()) != null) {
-				retVal += available;
+				retVal += available+"\n";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
