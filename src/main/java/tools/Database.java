@@ -17,6 +17,7 @@ public class Database {
 	Connection conn;
 	public String[] tables = new String[28];
 	public ArrayList<String> all;
+	public ArrayList<String> allUsers;
 	public final int QUERY_ALL = 0, QUERY_KEY = 1, UPDATE = 2, INSERT = 3, CUS_INSERT = 4;
 
 	public void updateTables() {
@@ -43,6 +44,11 @@ public class Database {
 	
 	return retVal;
 	}
+	public void addUser(String username){
+		allUsers.add(username);
+		String sql = String.format("INSERT into userdata (username) SELECT '%s' WHERE NOT EXISTS ( SELECT username FROM userdata WHERE username='%s');", username,username);
+		update(sql);
+	}
 	public Database() {
 		try {
 			conn = getConnection();
@@ -60,6 +66,7 @@ public class Database {
 		tables[26] = "other_table";
 		tables[27] = "userdata";
 		all = getAll();
+		allUsers = getAllUsers();
 		System.out.println("Number of database entries: " + all.size());
 	}
 

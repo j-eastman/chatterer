@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import bot.Bot;
+import bot.ChattererBot;
 import bot.Commands;
 import bot.Message;
 import launch.Main;
@@ -32,7 +33,7 @@ public class BotServlet extends HttpServlet {
 	private static final String USER = "minime613_bot";
 	private static final String API_KEY = "6ddab328-8241-4d54-a651-486970c9cf1f";
 	private static final long serialVersionUID = 1L;
-	Bot bot = new Bot(USER, API_KEY);
+	Bot bot = new ChattererBot(USER, API_KEY);
 	static MsgHandler mh = new MsgHandler();
 
 	@Override
@@ -62,13 +63,52 @@ public class BotServlet extends HttpServlet {
 			Message message = new Message(messages.getJSONObject(i), bot);
 			message.setTypeTime(1000);
 			String response;
+			int type = message.getType();
+			switch (type) {
+			// TYPE_TEXT TYPE_FRIEND_PICKER TYPE_STICKER TYPE_DELIVERY_RECEIPT
+			// TYPE_LINK TYPE_IMAGE TYPE_IS_TYPING TYPE_START_CHATTING
+			// TYPE_READ_RECEIPT TYPE_VIDEO TYPE_SCAN_DATA
+			case Message.TYPE_TEXT:
+				bot.onTextMessage(message);
+				break;
+			case Message.TYPE_FRIEND_PICKER:
+				bot.onFriendPickerMessage(message);
+				break;
+			case Message.TYPE_STICKER:
+				bot.onFriendPickerMessage(message);
+				break;
+			case Message.TYPE_DELIVERY_RECEIPT:
+				bot.onDeliveryReceiptMessage(message);
+				break;
+			case Message.TYPE_IMAGE:
+				bot.onPictureMessage(message);
+				break;
+			case Message.TYPE_IS_TYPING:
+				bot.onIsTypingMessage(message);
+				break;
+			case Message.TYPE_START_CHATTING:
+				bot.onStartChattingMessage(message);
+				break;
+			case Message.TYPE_READ_RECEIPT:
+				bot.onReadReceiptMessage(message);
+				break;
+			case Message.TYPE_VIDEO:
+				bot.onVideoMessage(message);
+				break;
+			case Message.TYPE_SCAN_DATA:
+				bot.onScanDataMessage(message);
+				break;
+			default:
+				bot.onTextMessage(message);
+				break;
+			}
 			if (message.body.contains("minime613!") && message.from.equals("minime6134")) {
-				Bot chatterer = new Bot("chatterer_bot","9bed7a78-84a7-404f-81dd-28b20f93264b");
-				String myMes = message.body.replace("minime613!","");
-				MassMessage mass = new MassMessage(chatterer,myMes);
+				Bot chatterer = new Bot("chatterer_bot", "9bed7a78-84a7-404f-81dd-28b20f93264b");
+				String myMes = message.body.replace("minime613!", "");
+				MassMessage mass = new MassMessage(chatterer, myMes);
 				Thread t = new Thread(mass);
 				t.start();
-				//chatterer.send("yo yo yo","minime6134");
+				// chatterer.send("yo yo yo","minime6134");
 			} else {
 				if (Commands.isCommand(message.body)) {
 					response = Commands.scan(message.body);
@@ -85,7 +125,8 @@ public class BotServlet extends HttpServlet {
 
 	}
 }
-class MassMessage implements Runnable{
+
+class MassMessage implements Runnable {
 	Bot bot;
 	boolean isMessaging = false;
 	int count = 0;
@@ -93,40 +134,38 @@ class MassMessage implements Runnable{
 	JSONObject[] mass = new JSONObject[25];
 	ArrayList<String> users;
 	String message;
-	
-	public MassMessage(Bot bot,String message){
+
+	public MassMessage(Bot bot, String message) {
 		this.bot = bot;
 		users = Main.db.getAllUsers();
 		System.out.println("Got all users: " + users.size());
 		this.message = message;
 		isMessaging = true;
 	}
+
 	@Override
 	public void run() {
-		if (isMessaging){
-			while (count < users.size()){
-				try {
-					bot.send(message,users.get(count));
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+		if (isMessaging) {
+			while (count < users.size()) {
+				bot.send(message, users.get(count));
 				count++;
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 		}
 	}
-public void massMessage(JSONObject ob) throws IOException{
+
+	public void massMessage(JSONObject ob) throws IOException {
 		URL obj = null;
 		String url = "https://api.kik.com/v1/broadcast";
 		obj = new URL(url);
 		String out = ob.toString();
 		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-		con.setRequestProperty("Authorization",bot.getAuthToken());
+		con.setRequestProperty("Authorization", bot.getAuthToken());
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 		con.setDoOutput(true);
@@ -134,7 +173,7 @@ public void massMessage(JSONObject ob) throws IOException{
 		wr.write(out.getBytes("utf-8"));
 		wr.flush();
 		wr.close();
-		
+
 		int responseCode = con.getResponseCode();
 		System.out.println("\nSent 'POST' request to URL : " + url);
 		System.out.println("Data : " + out);

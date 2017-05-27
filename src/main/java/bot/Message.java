@@ -9,8 +9,9 @@ import org.json.JSONObject;
 
 public class Message {
 	public static final String TEXT = "text", FRIEND_PICKER = "friend-picker", STICKER = "sticker",
-			DELIVERY_RECEIPT = "delivery-receipt", URL = "link", IMAGE = "picture", IS_TYPING = "is-typing",
-			START_CHATTING = "start-chatting", READ_RECEPT = "read-receipt", VIDEO = "video", SCAN_DATA = "scan-data";
+			DELIVERY_RECEIPT = "delivery-receipt", LINK = "link", IMAGE = "picture", IS_TYPING = "is-typing",
+			START_CHATTING = "start-chatting", READ_RECEIPT = "read-receipt", VIDEO = "video", SCAN_DATA = "scan-data";
+	public static final int TYPE_TEXT = 0, TYPE_FRIEND_PICKER =1, TYPE_STICKER = 2, TYPE_DELIVERY_RECEIPT = 3,TYPE_LINK = 4,TYPE_IMAGE = 5, TYPE_IS_TYPING = 6,TYPE_START_CHATTING = 7, TYPE_READ_RECEIPT = 8,TYPE_VIDEO = 9,TYPE_SCAN_DATA = 10;
 	public String chatId, id, type, from, body, timestamp, readReceiptRequested, mention, metadata, picUrl, videoUrl,
 			chatType;
 	String[] participants;
@@ -49,7 +50,42 @@ public class Message {
 		} catch (IOException e){
 			e.printStackTrace();
 		}
-
+	}
+	public int getType(){
+		if(type.equals(TEXT)){
+			return TYPE_TEXT;
+		}
+		if(type.equals(FRIEND_PICKER)){
+			return TYPE_FRIEND_PICKER;
+		}
+		if(type.equals(STICKER)){
+			return TYPE_STICKER;
+		}
+		if(type.equals(DELIVERY_RECEIPT)){
+			return TYPE_DELIVERY_RECEIPT;
+		}
+		if(type.equals(LINK)){
+			return TYPE_LINK;
+		}
+		if(type.equals(IMAGE)){
+			return TYPE_IMAGE;
+		}
+		if(type.equals(IS_TYPING)){
+			return TYPE_IS_TYPING;
+		}
+		if(type.equals(START_CHATTING)){
+			return TYPE_START_CHATTING;
+		}
+		if(type.equals(READ_RECEIPT)){
+			return TYPE_READ_RECEIPT;
+		}
+		if(type.equals(VIDEO)){
+			return TYPE_VIDEO;
+		}
+		if(type.equals(SCAN_DATA)){
+			return TYPE_SCAN_DATA;
+		}
+		return TYPE_TEXT;
 	}
 
 	public void setTypeTime(int typeTime) {
@@ -88,7 +124,6 @@ public class Message {
 	}
 	public JSONObject getSingleJSON(String response){
 		// body, to, type, chatId
-		JSONObject retVal = new JSONObject();
 		if (response.equals("") || response.equals(" ") || response == null) {
 			response = "What?";
 		}
