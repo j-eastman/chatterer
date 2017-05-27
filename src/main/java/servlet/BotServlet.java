@@ -104,34 +104,21 @@ class MassMessage implements Runnable{
 	@Override
 	public void run() {
 		if (isMessaging){
-			while (current < 25 && count < users.size()){
-				mass[current] = Bot.getSingleJSON(message,users.get(count));
+			while (count < users.size()){
+				try {
+					bot.send(message,users.get(count));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				count++;
-				current++;
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
 			}
-			JSONObject obj = new JSONObject();
-			obj.put("messages", mass);
-			try {
-				System.out.println("Sending message batch...");
-				System.out.println(obj.toString());
-				//massMessage(obj);
-				bot.send(obj);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			if (!(count<users.size())){
-				isMessaging = false;
-			}
-			current = 0;
-			mass = new JSONObject[25];
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
 		}
-		
 	}
 public void massMessage(JSONObject ob) throws IOException{
 		URL obj = null;
