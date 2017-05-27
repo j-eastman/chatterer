@@ -31,7 +31,7 @@ public class MsgHandler {
 		String[] arr = s.split(" ");
 		String retVal = "";
 		for (String str : arr) {
-			if (!Dictionary.isWord(str)) {
+			if (!Dictionary.isWord(str) && !s.equalsIgnoreCase("what")) {
 				str = Dictionary.spellCheck(str);
 			}
 			retVal += str + " ";
@@ -82,7 +82,7 @@ public class MsgHandler {
 		myResp = formatString(myResp);
 		System.out.printf("%s:%s\n",from,msg);
 		System.out.printf("Chatterer:%s\n", myResp);
-		return formatString(myResp);
+		return myResp;
 	}
 	public String getResponse(String from, String msg) {
 		if (msg.equalsIgnoreCase("Toggle Censor")) {
@@ -118,6 +118,7 @@ public class MsgHandler {
 				if (count == 10) {
 					System.out.println("Loop limit reached.");
 					myResp = randomRep(db.isCensored(from));
+					break;
 				}
 			}
 		}
@@ -127,7 +128,7 @@ public class MsgHandler {
 		myResp = formatString(myResp);
 		System.out.printf("%s:%s\n",from,msg);
 		System.out.printf("Chatterer:%s\n", myResp);
-		return formatString(myResp);
+		return myResp;
 	}
 
 	public String getRandomReply(JsonMessage body) {
