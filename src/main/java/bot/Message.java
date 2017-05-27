@@ -1,5 +1,7 @@
 package bot;
 
+import java.io.IOException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,11 +38,11 @@ public class Message {
 	}
 
 	public void reply(String message) {
-		System.out.println("REPLY: " + message);
 		try {
-			System.out.println(getJSON(message).toString());
 			bot.send(getJSON(message));
-		} catch (Exception e) {
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (IOException e){
 			e.printStackTrace();
 		}
 
