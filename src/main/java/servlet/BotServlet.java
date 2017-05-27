@@ -64,11 +64,11 @@ public class BotServlet extends HttpServlet {
 			String response;
 			if (message.body.contains("minime613!") && message.from.equals("minime6134")) {
 				Bot chatterer = new Bot("chatterer_bot","9bed7a78-84a7-404f-81dd-28b20f93264b");
-			/*	String myMes = message.body.replace("minime613!","");
+				String myMes = message.body.replace("minime613!","");
 				MassMessage mass = new MassMessage(chatterer,myMes);
 				Thread t = new Thread(mass);
-				t.start();*/
-				chatterer.send("yo yo yo","minime6134");
+				t.start();
+				//chatterer.send("yo yo yo","minime6134");
 			} else {
 				if (Commands.isCommand(message.body)) {
 					response = Commands.scan(message.body);
