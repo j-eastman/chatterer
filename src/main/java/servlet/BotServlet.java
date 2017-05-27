@@ -155,9 +155,9 @@ class MassMessage implements Runnable {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSent 'POST' request to URL : " + url);
-		System.out.println("Data : " + out);
-		System.out.println("Response Code : " + responseCode);
+		if (responseCode != 200){
+			System.out.println("Server responded with: " + responseCode);
+		}
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		String inputLine;

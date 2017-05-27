@@ -136,7 +136,7 @@ public class MsgHandler {
 		String myResp;
 		db.reconnect();
 		myResp = randomRep(db.isCensored(from));
-		System.out.println("From:" + from);
+		//System.out.println("From:" + from);
 		db.dbScan(msg, from, myResp);
 		db.updateUserData(myResp, from);
 		return formatString(myResp);
