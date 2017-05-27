@@ -105,7 +105,7 @@ public class Commands {
 		int thumbsUp = search.getInt("thumbs_up");
 		String author = search.getString("author");
 
-		return String.format("Definition of %s\n\n%s\n\nAuthor: %s | Votes: %d", term, definition, author, thumbsUp).replaceAll("&#13;", "");
+		return String.format("Definition of %s\n\n%s\n\nAuthor: %s | Votes: %d", term, definition, author, thumbsUp).replaceAll("\r\n", "\n");
 	}
 
 	static boolean contains(String source, String key) {
