@@ -104,7 +104,7 @@ class MassMessage implements Runnable{
 	public void run() {
 		if (isMessaging){
 			while (current < 100 && count < users.size()){
-				mass[current] = Bot.getJSON(message,users.get(count));
+				mass[current] = Bot.getSingleJSON(message,users.get(count));
 				count++;
 				current++;
 			}
