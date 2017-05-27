@@ -112,6 +112,7 @@ class MassMessage implements Runnable{
 			obj.put("messages", "mass");
 			try {
 				System.out.println("Sending message batch...");
+				System.out.println(obj.toString());
 				massMessage(obj);
 			} catch (IOException e1) {
 				e1.printStackTrace();
