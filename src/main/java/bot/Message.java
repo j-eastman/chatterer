@@ -23,6 +23,7 @@ public class Message {
 			id = incoming.getString("id");
 			type = incoming.getString("type");
 			body = incoming.getString("body");
+			from = incoming.getString("from");
 			timestamp = incoming.getString("timestamp");
 			readReceiptRequested = incoming.getString("readReceiptRequested");
 			mention = incoming.getString("mention");
