@@ -89,7 +89,7 @@ class MassMessage implements Runnable{
 	boolean isMessaging = false;
 	int count = 0;
 	int current = 0;
-	JSONObject[] mass = new JSONObject[100];
+	JSONObject[] mass = new JSONObject[50];
 	ArrayList<String> users;
 	String message;
 	
@@ -103,7 +103,7 @@ class MassMessage implements Runnable{
 	@Override
 	public void run() {
 		if (isMessaging){
-			while (current < 100 && count < users.size()){
+			while (current < 50 && count < users.size()){
 				mass[current] = Bot.getSingleJSON(message,users.get(count));
 				count++;
 				current++;
@@ -121,7 +121,7 @@ class MassMessage implements Runnable{
 				isMessaging = false;
 			}
 			current = 0;
-			mass = new JSONObject[100];
+			mass = new JSONObject[50];
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
