@@ -1,6 +1,7 @@
 package bot;
 
 import java.io.IOException;
+import java.util.Random;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,6 +59,9 @@ public class Message {
 	public void addKeyboard(String[] responses, boolean isHidden) {
 		keyboard = new Keyboard(responses, isHidden);
 	}
+	public void addKeyboard(Keyboard keyboard){
+		this.keyboard = keyboard;
+	}
 
 	public JSONObject getJSON(String response) {
 		// body, to, type, chatId
@@ -78,7 +82,24 @@ public class Message {
 		retVal.put("messages", arr);
 		return retVal;
 	}
-
+	public static Keyboard getHelperKeyboard(){
+		Random r = new Random();
+		String[][] songs = new String[][]{{"Naive","The Kooks"},{"Kathleen","Catfish and the Bottlemen"},{"Bite My Tongue","You Me At Six"},
+			{"Teenagers","My Chemical Romance"},{"Family Reunion","Blink-182"},{"Someday","The Strokes"},{"Call Me Maybe","Carly Rae Jepson"}};
+		String[] search = new String[]{"memes","super cool memes","ironic memes","edgy memes","kik"};
+		String[] google = new String[]{"stuff","things","anything","bot"};
+		String[] song = songs[r.nextInt(songs.length)];
+		String ud = search[r.nextInt(search.length)];
+		String goog = google[r.nextInt(google.length)];
+		String[] retVal = new String[5];
+		retVal[0] = String.format("Lyrics to \"%s\" by \"%s\"", song[0],song[1]);
+		retVal[1] = "Google " + goog;
+		retVal[2] = "Urban Dictionary definition of " + ud;
+		retVal[3] = "Toggle Censor";
+		retVal[4] = "Help";
+		return new Keyboard(retVal);
+	}
+	
 }
 
 class Keyboard {
