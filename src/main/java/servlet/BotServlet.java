@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import bot.Bot;
+import bot.Commands;
 import bot.Message;
 import tools.MsgHandler;
 
@@ -55,9 +56,14 @@ public class BotServlet extends HttpServlet {
 			Message message = new Message(messages.getJSONObject(i), bot);
 			message.addKeyboard(new String[] { "test1", "test2", "test3" }, true);
 			message.setTypeTime(1000);
-			mh.postMsg(message.body);
-			String response = mh.getResponse(message.from,message.body);
-			if (response.equals("") || response.equals(" ")){
+			String response;
+			if (Commands.isCommand(message.body)) {
+				response = Commands.scan(message.body);
+			} else {
+				mh.postMsg(message.body);
+				response = mh.getResponse(message.from, message.body);
+			}
+			if (response.equals("") || response.equals(" ")) {
 				response = "What?";
 			}
 			message.reply(response);
