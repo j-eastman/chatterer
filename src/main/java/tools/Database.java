@@ -47,14 +47,14 @@ public class Database {
 		if (!allUsers.contains(username)){
 			allUsers.add(username);
 		}
-		String sql = String.format("INSERT into userdata (username) VALUES ($$%s$$) ON CONFLICT ON CONSTRAINT (username) DO NOTHING;", username);
+		String sql = String.format("INSERT into userdata (username) VALUES ($$%s$$) ON CONFLICT (username) DO NOTHING;", username);
 		update(sql);
 	}
 	public void addUser(String username,String myLast){
 		if (!allUsers.contains(username)){
 			allUsers.add(username);
 		}
-		String sql = String.format("INSERT into userdata (username,myLast) VALUES ($$%s$$,$$%s$$) ON CONFLICT ON CONSTRAINT (username) DO UPDATE;", username,myLast);
+		String sql = String.format("INSERT into userdata (username,myLast) VALUES ($$%s$$,$$%s$$) ON CONFLICT (username) DO UPDATE;", username,myLast);
 		update(sql);
 	}
 	public Database() {
