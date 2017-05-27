@@ -1,14 +1,8 @@
 package servlet;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-
-import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -62,7 +56,7 @@ public class BotServlet extends HttpServlet {
 			message.addKeyboard(new String[] { "test1", "test2", "test3" }, true);
 			message.setTypeTime(1000);
 			mh.postMsg(message.body);
-			String response = mh.getResponse(message.body,message.from);
+			String response = mh.getResponse(message.from,message.body);
 			if (response.equals("") || response.equals(" ")){
 				response = "What?";
 			}
