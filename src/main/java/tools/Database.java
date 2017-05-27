@@ -33,7 +33,9 @@ public class Database {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				retVal.add(rs.getString("username"));
+				String temp = rs.getString("username");
+				retVal.add(temp);
+				System.out.println(temp);
 			}
 			stmt.close();
 		} catch (SQLException e) {
