@@ -2,8 +2,10 @@ package bot;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 public class Commands {
 	public static final String[] ERRORCODE = {"Formatting error, please check that both the song and band name are surrounded by quotation marks."};
@@ -31,7 +33,13 @@ public class Commands {
 		String artist = temp[3];
 		URL url = null;
 		System.out.printf("Fetching lyrics to %s by %s.\n", song,artist);
-		String uri = String.format("https://makeitpersonal.co/lyrics?artist=%s&title=%s",artist,song);
+		String uri = String.format("https://makeitpersonal.co/lyrics?",artist,song);
+		String query = String.format("artist=%s&title=%s", artist,song);
+		try {
+			uri+=URLEncoder.encode(query,"UTF-8");
+		} catch (UnsupportedEncodingException e2) {
+			e2.printStackTrace();
+		}
 		String retVal = String.format("%s by %s\n", song,artist);
 		try {
 			url = new URL(uri);
