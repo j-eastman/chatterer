@@ -39,9 +39,7 @@ public class Message {
 			picUrl = getString("picUrl");
 			videoUrl = getString("videoUrl");
 			getParticipants();
-			if (getType() == TYPE_IMAGE){
-				System.out.println("JSON: " + incoming.toString());
-			}
+			System.out.println("JSON: " + incoming.toString());
 		} catch (JSONException e) {
 		}
 		keyboard = getHelperKeyboard();
