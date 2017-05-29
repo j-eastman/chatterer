@@ -181,8 +181,8 @@ public class Message {
 			System.out.println("HERE: " + s);
 			System.out.println("LENGTH: " + in.length);
 		}
-		System.out.println("Problem:" + Integer.getInteger(in[1]));
-		if (Integer.getInteger(in[1]) == Message.TYPE_IMAGE) {
+		System.out.println("Problem:" + Integer.parseInt(in[1]));
+		if (Integer.parseInt(in[1]) == Message.TYPE_IMAGE) {
 			message.put("type", Message.IMAGE).put("picUrl", in[0]);
 		} else {
 			message.put("type", Message.VIDEO).put("videoUrl", in[0]);
