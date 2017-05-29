@@ -181,7 +181,7 @@ public class Message {
 			System.out.println("HERE: " + s);
 			System.out.println("LENGTH: " + in.length);
 		}
-		System.out.println("Problem:" + in[1]);
+		System.out.println("Problem:" + Integer.getInteger(in[1]));
 		if (Integer.getInteger(in[1]) == Message.TYPE_IMAGE) {
 			message.put("type", Message.IMAGE).put("picUrl", in[0]);
 		} else {
