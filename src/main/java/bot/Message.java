@@ -169,7 +169,7 @@ public class Message {
 			message.put("url", response);
 			message.put("title", "Your Results");
 			message.put("text", "Google Search Results");
-			message.put("attribution", attribution);
+			message.put("attribution", attribution).put("to", from).put("chatId", chatId);		
 		} else {
 			message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
 			if (typeTime > 0) {
