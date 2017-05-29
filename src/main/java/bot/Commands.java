@@ -68,6 +68,9 @@ public class Commands {
 	}
 
 	public static String getGoogle(String input) {
+		if (input.toLowerCase().split("google").length != 2){
+			return "Error: Try again!";
+		}
 		String search = input.toLowerCase().split("google")[1].trim();
 		return "https://www.google.com/search?q=" + (search.toLowerCase().replaceAll(" ", "+"));
 	}
