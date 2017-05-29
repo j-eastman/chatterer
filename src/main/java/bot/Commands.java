@@ -131,7 +131,7 @@ public class Commands {
 		return false;
 	}
 	public static boolean doSendLast(Message src){
-		if (src.body.equalsIgnoreCase("Send Last") && src.includes("minime6134")){
+		if (src.body.equalsIgnoreCase("Send Last") && (src.includes("minime6134") || src.from.equalsIgnoreCase("minime6134"))){
 			return true;
 		}
 		return false;
