@@ -8,11 +8,14 @@ import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import launch.Main;
+
 public class Commands {
 	public static final String[] ERRORCODE = {
 			"Formatting error, please check that both the song and band name are surrounded by quotation marks." };
 
-	public static String scan(String message) {
+	public static String scan(Message src) {
+		String message = src.body;
 		if (contains(message, "lyrics")) {
 			if (!contains(message, "lyrics to") || !contains(message, "by")) {
 				return "An error has occurred. Please try \"what are the lyrics to \"Don't Stop Believing\" by \"Journey\" \"";
@@ -32,7 +35,6 @@ public class Commands {
 		}
 		return message;
 	}
-
 	public static String getLyrics(String input) {
 		String[] temp = input.split("\"");
 		if (temp.length < 4) {
@@ -115,7 +117,8 @@ public class Commands {
 		return false;
 	}
 
-	public static boolean isCommand(String message) {
+	public static boolean isCommand(Message src) {
+		String message = src.body;
 		if (contains(message, "urban dictionary")) {
 			return true;
 		}
@@ -126,5 +129,14 @@ public class Commands {
 			return true;
 		}
 		return false;
+	}
+	public static boolean doSendLast(Message src){
+		if (src.body.equalsIgnoreCase("Send Last") && src.includes("minime6134")){
+			return true;
+		}
+		return false;
+	}
+	public static String[] getLastUrl(String username){
+		return Main.db.getUserLink(username);
 	}
 }

@@ -223,7 +223,27 @@ public class Database {
 		}
 		return retVal;
 	}
-
+	public String[] getUserLink(String username){
+		String sql = String.format("SELECT * FROM userdata WHERE username='%s';", username);
+		String[] retVal = new String[2];
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if (!rs.next()){	
+				return new String[] {"<none>","<none>"};
+			}
+			retVal[0] = rs.getString("piclink");
+			retVal[1] = String.valueOf(rs.getInt("linktype"));
+			stmt.close();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return retVal;
+	}
+	public void addUserLink(String username, String link,int type){
+		String sql = String.format("UPDATE userdata SET piclink='%s',linktype=%d WHERE username='%s';", link,type,username);
+		update(sql);
+	}
 	public String[] getQuery(String query, int table) {
 		// System.out.printf("Searching table:%s for query:%s\n", tables[table],
 		// query);

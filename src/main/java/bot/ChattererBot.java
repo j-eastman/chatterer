@@ -17,17 +17,29 @@ public class ChattererBot extends Bot{
 	//TYPE_TEXT TYPE_FRIEND_PICKER TYPE_STICKER TYPE_DELIVERY_RECEIPT TYPE_LINK TYPE_IMAGE TYPE_IS_TYPING TYPE_START_CHATTING TYPE_READ_RECEIPT TYPE_VIDEO TYPE_SCAN_DATA
 	public void onTextMessage(Message message){
 		System.out.println("Text message from: " + message.from);
-		String response;
-		if (Commands.isCommand(message.body)) {
-			response = Commands.scan(message.body);
-		} else {
+		boolean doSend = true;
+		String response = "";
+		if (Commands.isCommand(message)) {
+			response = Commands.scan(message);
+		}
+		else if(Commands.doSendLast(message)){
+			String[] temp = Commands.getLastUrl(message.from);
+			if (temp.length != 2 || temp[0].equals("<none>") || temp[1].equals("<none>")){
+				response = mh.getResponse(message.from, message.body);
+			}else {
+				message.reply(temp);
+				doSend = false;
+			}		
+		}else{
 			mh.postMsg(message.body);
 			response = mh.getResponse(message.from, message.body);
 		}
 		if (response.equals("") || response.equals(" ")) {
 			response = "What?";
 		}
-		message.reply(response);
+		if(doSend){
+			message.reply(response);
+		}
 	}
 	public void onStartChattingMessage(Message message){
 		System.out.println("New Chatter: " + message.from);
@@ -38,11 +50,13 @@ public class ChattererBot extends Bot{
 	public void onPictureMessage(Message message){
 		System.out.println("Picture message from: " + message.from);
 		String response = String.format(responses[rand.nextInt(responses.length)],"picture");
+		Main.db.addUserLink(message.from, message.picUrl, message.getType());
 		message.reply(response);
 	}
 	public void onVideoMessage(Message message){
 		System.out.println("Video message from: " + message.from);
 		String response = String.format(responses[rand.nextInt(responses.length)],"video");
+		Main.db.addUserLink(message.from, message.videoUrl, message.getType());
 		message.reply(response);
 	}
 	public void onLinkMessage(Message message){

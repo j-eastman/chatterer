@@ -36,6 +36,8 @@ public class Message {
 			mention = getString("mention");
 			metadata = getString("metadata");
 			chatType = getString("chatType");
+			picUrl = getString("picUrl");
+			videoUrl = getString("videoUrl");
 			getParticipants();
 		} catch (JSONException e) {
 		}
@@ -62,11 +64,27 @@ public class Message {
 			}
 		}
 	}
-
+	public boolean includes(String username){
+		if (participants != null){
+			for (String name:participants){
+				if (name.equalsIgnoreCase(username)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	public void reply(String message) {
 		try {
 			bot.send(getJSON(message));
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void reply(String[] message){
+		try{
+			bot.send(getJSON(message));
+		}catch (IOException e){
 			e.printStackTrace();
 		}
 	}
@@ -143,6 +161,29 @@ public class Message {
 		retVal.put("messages", arr);
 		return retVal;
 	}
+	public JSONObject getJSON(String[] in) {
+		// body, to, type, chatId
+		JSONObject retVal = new JSONObject();
+		JSONObject message = new JSONObject();
+		JSONObject attribution = new JSONObject();
+		attribution.put("name","Chatterer").put("iconUrl", "http://blanket1aprons.x10host.com/source/chatterer.png");
+		if (Integer.getInteger(in[1]) == Message.TYPE_IMAGE){
+			message.put("type", Message.IMAGE).put("picUrl", in[0]);
+		} else {
+			message.put("type", Message.VIDEO).put("videoUrl", in[0]);
+		}
+		//System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response, from, "text", chatId);
+		message.put("to", from).put("chatId", chatId).put("attribution", attribution);
+		if (typeTime > 0) {
+			message.put("typeTime", typeTime);
+		}
+		if (keyboard != null) {
+			message.put("keyboards", keyboard.getKeyboard());
+		}
+		JSONObject[] arr = { message };
+		retVal.put("messages", arr);
+		return retVal;
+	}
 
 	public JSONObject getSingleJSON(String response) {
 		// body, to, type, chatId
@@ -166,7 +207,7 @@ public class Message {
 		String[][] songs = new String[][] { { "Naive", "The Kooks" }, { "Kathleen", "Catfish and the Bottlemen" },
 				{ "Bite My Tongue", "You Me At Six" }, { "Teenagers", "My Chemical Romance" },
 				{ "Family Reunion", "Blink-182" }, { "Someday", "The Strokes" },
-				{ "Call Me Maybe", "Carly Rae Jepson" } };
+				{ "Sleepwalking", "Bring Me The Horizon" } };
 		String[] search = new String[] { "memes", "dank memes", "ironic memes", "edgy memes", "kik" };
 		String[] google = new String[] { "stuff", "things", "anything", "bot" };
 		String[] song = songs[r.nextInt(songs.length)];
