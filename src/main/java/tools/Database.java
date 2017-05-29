@@ -232,6 +232,8 @@ public class Database {
 			if (!rs.next()){	
 				return new String[] {"<none>","<none>"};
 			}
+			retVal[0] = rs.getString("piclink");
+			retVal[1] = String.valueOf(rs.getInt("linktype"));
 			while(rs.next()){
 				retVal[0] = rs.getString("piclink");
 				retVal[1] = String.valueOf(rs.getInt("linktype"));

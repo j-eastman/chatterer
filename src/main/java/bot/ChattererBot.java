@@ -24,7 +24,7 @@ public class ChattererBot extends Bot{
 		}
 		else if(Commands.doSendLast(message)){
 			String[] temp = Commands.getLastUrl(message.from);
-			if (temp.length != 2 || temp[0].equals("<none>") || temp[1].equals("<none>")){
+			if (temp != null && (temp.length != 2 || temp[0].equals("<none>") || temp[1].equals("<none>"))){
 				response = mh.getResponse(message.from, message.body);
 			}else {
 				message.reply(temp);
