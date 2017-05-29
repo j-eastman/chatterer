@@ -179,6 +179,7 @@ public class Message {
 		attribution.put("name", "Chatterer").put("iconUrl", "http://blanket1aprons.x10host.com/source/chatterer.png");
 		for (String s : in){
 			System.out.println("HERE: " + s);
+			System.out.println("LENGTH: " + in.length);
 		}
 		if (Integer.getInteger(in[1]) == Message.TYPE_IMAGE) {
 			message.put("type", Message.IMAGE).put("picUrl", in[0]);

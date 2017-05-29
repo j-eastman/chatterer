@@ -247,7 +247,7 @@ public class Database {
 	public void addUserLink(String username, String link,int type){
 	//	UPDATE userdata SET piclink='https://platform.kik.com/content/files/f33163d1-31ae-48e0-aa19-38aaf1ab4bd0?t=aab4syWguEwbmYqtmDphcsTgX5bVzTBOkxDJwNZOmLTN7LfLkLFdBNLMAqO3x30yHWRjYXGqiXOybDZESIhC-m51YdeJ9vhyhMdiXk84Z1XTpbEiMkVXJ1l4Gy3c4Yu6',linktype=5 WHERE username='minime6134';
 		System.out.println("USER LINK: " + link);
-		String sql = String.format("UPDATE userdata SET piclink='%s',linktype=%d WHERE username='%s';", link,type,username);
+		String sql = String.format("UPDATE userdata SET piclink=$$%s$$,linktype=%d WHERE username=$$%s$$;", link,type,username);
 		update(sql);
 	}
 	public String[] getQuery(String query, int table) {
