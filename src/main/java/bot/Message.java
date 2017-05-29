@@ -24,24 +24,21 @@ public class Message {
 
 	public Message(JSONObject incoming, Bot bot) {
 		this.bot = bot;
-		try {
-			this.incoming = incoming;
-			chatId = getString("chatId");
-			id = getString("id");
-			type = getString("type");
-			body = getString("body");
-			from = getString("from");
-			timestamp = getString("timestamp");
-			readReceiptRequested = getString("readReceiptRequested");
-			mention = getString("mention");
-			metadata = getString("metadata");
-			chatType = getString("chatType");
-			picUrl = getString("picUrl");
-			videoUrl = getString("videoUrl");
-			getParticipants();
-			System.out.println("JSON: " + incoming.toString());
-		} catch (JSONException e) {
-		}
+		this.incoming = incoming;
+		chatId = getString("chatId");
+		id = getString("id");
+		type = getString("type");
+		body = getString("body");
+		from = getString("from");
+		timestamp = getString("timestamp");
+		readReceiptRequested = getString("readReceiptRequested");
+		mention = getString("mention");
+		metadata = getString("metadata");
+		chatType = getString("chatType");
+		picUrl = getString("picUrl");
+		videoUrl = getString("videoUrl");
+		getParticipants();
+		System.out.println("JSON: " + incoming.toString());
 		keyboard = getHelperKeyboard();
 		if (body != null && body.equalsIgnoreCase("help")) {
 			keyboard.isHidden = false;
@@ -65,16 +62,18 @@ public class Message {
 			}
 		}
 	}
-	public boolean includes(String username){
-		if (participants != null){
-			for (String name:participants){
-				if (name.equalsIgnoreCase(username)){
+
+	public boolean includes(String username) {
+		if (participants != null) {
+			for (String name : participants) {
+				if (name.equalsIgnoreCase(username)) {
 					return true;
 				}
 			}
 		}
 		return false;
 	}
+
 	public void reply(String message) {
 		try {
 			bot.send(getJSON(message));
@@ -82,10 +81,11 @@ public class Message {
 			e.printStackTrace();
 		}
 	}
-	public void reply(String[] message){
-		try{
+
+	public void reply(String[] message) {
+		try {
 			bot.send(getJSON(message));
-		}catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -150,7 +150,8 @@ public class Message {
 			response = "What?";
 		}
 		JSONObject message = new JSONObject();
-		//System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response, from, "text", chatId);
+		// System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response,
+		// from, "text", chatId);
 		message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
 		if (typeTime > 0) {
 			message.put("typeTime", typeTime);
@@ -162,18 +163,20 @@ public class Message {
 		retVal.put("messages", arr);
 		return retVal;
 	}
+
 	public JSONObject getJSON(String[] in) {
 		// body, to, type, chatId
 		JSONObject retVal = new JSONObject();
 		JSONObject message = new JSONObject();
 		JSONObject attribution = new JSONObject();
-		attribution.put("name","Chatterer").put("iconUrl", "http://blanket1aprons.x10host.com/source/chatterer.png");
-		if (Integer.getInteger(in[1]) == Message.TYPE_IMAGE){
+		attribution.put("name", "Chatterer").put("iconUrl", "http://blanket1aprons.x10host.com/source/chatterer.png");
+		if (Integer.getInteger(in[1]) == Message.TYPE_IMAGE) {
 			message.put("type", Message.IMAGE).put("picUrl", in[0]);
 		} else {
 			message.put("type", Message.VIDEO).put("videoUrl", in[0]);
 		}
-		//System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response, from, "text", chatId);
+		// System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response,
+		// from, "text", chatId);
 		message.put("to", from).put("chatId", chatId).put("attribution", attribution);
 		if (typeTime > 0) {
 			message.put("typeTime", typeTime);
@@ -192,7 +195,8 @@ public class Message {
 			response = "What?";
 		}
 		JSONObject message = new JSONObject();
-		//System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response, from, "text", chatId);
+		// System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response,
+		// from, "text", chatId);
 		message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
 		if (typeTime > 0) {
 			message.put("typeTime", typeTime);
