@@ -161,7 +161,7 @@ public class Message {
 		// System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response,
 		// from, "text", chatId);
 		response = response.substring(0, Math.min(2000, response.length()));
-		if (response.contains("https://google.com")) {
+		if (response.contains("https://www.google.com")) {
 			JSONObject attribution = new JSONObject();
 			attribution.put("name", "Google.com");
 			attribution.put("iconUrl", ICON_URL);
