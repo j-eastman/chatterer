@@ -38,7 +38,6 @@ public class Message {
 		picUrl = getString("picUrl");
 		videoUrl = getString("videoUrl");
 		getParticipants();
-		System.out.println("JSON: " + incoming.toString());
 		keyboard = getHelperKeyboard();
 		if (body != null && body.equalsIgnoreCase("help")) {
 			keyboard.isHidden = false;

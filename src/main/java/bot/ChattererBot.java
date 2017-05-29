@@ -50,8 +50,9 @@ public class ChattererBot extends Bot{
 	public void onPictureMessage(Message message){
 		System.out.println("Picture message from: " + message.from);
 		System.out.println("Link: " + message.picUrl);
-		String response = String.format(responses[rand.nextInt(responses.length)],"picture");
 		Main.db.addUserLink(message.from, message.picUrl, message.getType());
+		String response = String.format(responses[rand.nextInt(responses.length)],"picture");
+
 		message.reply(response);
 	}
 	public void onVideoMessage(Message message){
