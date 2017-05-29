@@ -176,12 +176,13 @@ public class Message {
 		JSONObject retVal = new JSONObject();
 		JSONObject message = new JSONObject();
 		JSONObject attribution = new JSONObject();
-		attribution.put("name", "Chatterer").put("iconUrl", "http://blanket1aprons.x10host.com/source/chatterer.png");
-		for (String s : in){
-			System.out.println("HERE: " + s);
-			System.out.println("LENGTH: " + in.length);
+		if (in[0].contains("ohhaimark.mp4")) {
+			attribution.put("name", "Oh Hi, Johnny. What's Up?").put("iconUrl",
+					"http://blanket1aprons.x10host.com/source/chatterer.png");
+		} else {
+			attribution.put("name", "Chatterer").put("iconUrl",
+					"http://blanket1aprons.x10host.com/source/chatterer.png");
 		}
-		System.out.println("Problem:" + Integer.parseInt(in[1]));
 		if (Integer.parseInt(in[1]) == Message.TYPE_IMAGE) {
 			message.put("type", Message.IMAGE).put("picUrl", in[0]);
 		} else {

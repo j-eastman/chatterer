@@ -19,6 +19,11 @@ public class ChattererBot extends Bot{
 		System.out.println("Text message from: " + message.from);
 		boolean doSend = true;
 		String response = "";
+		if (message.body.toLowerCase().contains("oh hai mark") || message.body.toLowerCase().contains("oh hi mark")){
+			message.reply(new String[]{"http://blanket1aprons.x10host.com/source/ohhaimark.mp4",String.valueOf(Message.TYPE_VIDEO)});
+			message.reply("Oh hi Johnny. What's up?");
+			doSend = false;
+		}
 		if (Commands.isCommand(message)) {
 			response = Commands.scan(message);
 		}
