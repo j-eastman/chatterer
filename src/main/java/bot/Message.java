@@ -16,6 +16,7 @@ public class Message {
 			TYPE_VIDEO = 9, TYPE_SCAN_DATA = 10;
 	public String chatId, id, type, from, body, timestamp, readReceiptRequested, mention, metadata, picUrl, videoUrl,
 			chatType;
+	public static final String ICON_URL = "http://blanket1aprons.x10host.com/source/chatterer.png";
 	String[] participants;
 	Keyboard keyboard;
 	JSONObject incoming;
@@ -160,9 +161,20 @@ public class Message {
 		// System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response,
 		// from, "text", chatId);
 		response = response.substring(0, Math.min(2000, response.length()));
-		message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
-		if (typeTime > 0) {
-			message.put("typeTime", typeTime);
+		if (response.contains("https://google.com")) {
+			JSONObject attribution = new JSONObject();
+			attribution.put("name", "Google.com");
+			attribution.put("iconUrl", ICON_URL);
+			message.put("type", "link");
+			message.put("url", response);
+			message.put("title", "Your Results");
+			message.put("text", "Google Search Results");
+			message.put("attribution", attribution);
+		} else {
+			message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
+			if (typeTime > 0) {
+				message.put("typeTime", typeTime);
+			}
 		}
 		if (keyboard != null) {
 			message.put("keyboards", keyboard.getKeyboard());
@@ -178,11 +190,9 @@ public class Message {
 		JSONObject message = new JSONObject();
 		JSONObject attribution = new JSONObject();
 		if (in[0].contains("ohhimark.mp4") || in[0].contains("tearingmeapart.mp4")) {
-			attribution.put("name", "Tommy Wiseau").put("iconUrl",
-					"http://blanket1aprons.x10host.com/source/chatterer.png");
+			attribution.put("name", "Tommy Wiseau").put("iconUrl", ICON_URL);
 		} else {
-			attribution.put("name", "Chatterer").put("iconUrl",
-					"http://blanket1aprons.x10host.com/source/chatterer.png");
+			attribution.put("name", "Chatterer").put("iconUrl", ICON_URL);
 		}
 		if (Integer.parseInt(in[1]) == Message.TYPE_IMAGE) {
 			message.put("type", Message.IMAGE).put("picUrl", in[0]);
