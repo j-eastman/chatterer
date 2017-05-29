@@ -159,6 +159,7 @@ public class Message {
 		JSONObject message = new JSONObject();
 		// System.out.printf("body:%s\nto:%s\ntype:%s\nchatID:%s\n", response,
 		// from, "text", chatId);
+		response = response.substring(0, Math.min(2000, response.length()));
 		message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
 		if (typeTime > 0) {
 			message.put("typeTime", typeTime);
