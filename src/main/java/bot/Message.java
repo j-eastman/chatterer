@@ -177,7 +177,7 @@ public class Message {
 		JSONObject message = new JSONObject();
 		JSONObject attribution = new JSONObject();
 		if (in[0].contains("ohhaimark.mp4")) {
-			attribution.put("name", "Oh Hi, Johnny. What's Up?").put("iconUrl",
+			attribution.put("name", "Tommy Wiseau").put("iconUrl",
 					"http://blanket1aprons.x10host.com/source/chatterer.png");
 		} else {
 			attribution.put("name", "Chatterer").put("iconUrl",
