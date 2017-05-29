@@ -46,20 +46,28 @@ public class Message {
 	}
 
 	public String getString(String key) {
-		if (incoming.has(key)) {
-			return incoming.getString(key);
-		} else {
-			return null;
+		try {
+			if (incoming.has(key)) {
+				return incoming.getString(key);
+			} else {
+				return null;
+			}
+		} catch (JSONException e) {
+
 		}
+		return null;
 	}
 
 	public void getParticipants() {
-		if (incoming.has("participants")) {
-			JSONArray arr = incoming.getJSONArray("participants");
-			participants = new String[arr.length()];
-			for (int i = 0; i < arr.length(); i++) {
-				participants[i] = arr.getString(i);
+		try {
+			if (incoming.has("participants")) {
+				JSONArray arr = incoming.getJSONArray("participants");
+				participants = new String[arr.length()];
+				for (int i = 0; i < arr.length(); i++) {
+					participants[i] = arr.getString(i);
+				}
 			}
+		} catch (JSONException e) {
 		}
 	}
 
