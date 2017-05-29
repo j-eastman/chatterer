@@ -48,6 +48,7 @@ public class Message {
 	public String getString(String key) {
 		try {
 			if (incoming.has(key)) {
+				System.out.println(key + " : " + incoming.getString(key));
 				return incoming.getString(key);
 			} else {
 				return null;
