@@ -168,7 +168,7 @@ public class Message {
 			message.put("type", "link");
 			message.put("url", response);
 			message.put("title", "Your Results");
-			message.put("text", "Google Search Results");
+			message.put("text", "Google Search Results").put("picUrl", "https://www.wired.com/wp-content/uploads/2015/09/google-logo.jpg");
 			message.put("attribution", attribution).put("to", from).put("chatId", chatId);		
 		} else {
 			message.put("body", response).put("to", from).put("type", "text").put("chatId", chatId);
