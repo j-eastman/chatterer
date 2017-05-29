@@ -47,7 +47,6 @@ public class Message {
 	public String getString(String key) {
 		try {
 			if (incoming.has(key)) {
-				System.out.println(key + " : " + incoming.getString(key));
 				return incoming.getString(key);
 			} else {
 				return null;
@@ -178,6 +177,9 @@ public class Message {
 		JSONObject message = new JSONObject();
 		JSONObject attribution = new JSONObject();
 		attribution.put("name", "Chatterer").put("iconUrl", "http://blanket1aprons.x10host.com/source/chatterer.png");
+		for (String s : in){
+			System.out.println("HERE: " + s);
+		}
 		if (Integer.getInteger(in[1]) == Message.TYPE_IMAGE) {
 			message.put("type", Message.IMAGE).put("picUrl", in[0]);
 		} else {
